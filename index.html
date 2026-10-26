@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="author" content="esalas@eduardosalas.com">
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Fondeo de las cinco operaciones de arrendamiento CIMA Siemens con emisiones Serie III-P de MAES: concentrado anual de dividendos preferentes a 15%, 17.5% y 19%, recompra e impacto en el flujo de SOFIMAS.">
+<meta name="description" content="Fondeo de las cinco máquinas CIMA Siemens con tres emisiones Serie III-P de MAES: dividendo fijo de 15%, plazo de 5 años por emisión, decisión en el año 4 entre pagar a MAES o recolocar, y recolocación del capital en nuevos proyectos CIMA.">
 <title>Dividendos III-P CIMA</title>
 <style>
 :root{
@@ -116,28 +116,42 @@ footer{border-top:1px solid var(--line);margin-top:30px;padding-top:10px;color:v
   th,td{font-size:9px;padding:2px 3px}
   tr{break-inside:avoid} h2{break-after:avoid}
 }
+footer{overflow-wrap:anywhere}.seg{flex-wrap:wrap}
+.decBadge{margin:4px 0 10px;padding:6px 10px;border-radius:6px;border-left:4px solid var(--line);font-size:13px;max-width:1100px}
+.decBadge.bpag{border-color:#2980B9;background:#D6EAF8;color:#1B2631}
+.decBadge.brec{border-color:#8E44AD;background:#E8DAEF;color:#1B2631}
+.decBadge.bneu{background:var(--soft)}
+table.grp2 thead th{position:static}
+table.grp2 thead tr.grp th{text-align:center}
+table.grp2 thead tr.grp th:first-child{text-align:left}
+th.gpag{background:#2471A3!important}th.grec{background:#7D3C98!important}
+th.gpag2{border-top:3px solid #2980B9}th.grec2{border-top:3px solid #8E44AD}
+th.grpsel::after{content:" · seleccionado";font-weight:normal;opacity:.9}
+.aviso-imp{margin:14px 0 6px;padding:10px 14px;border:2px solid #C0392B;border-left-width:6px;border-radius:8px;background:#F2D7D5;color:#1B2631;font-size:13.5px;line-height:1.5;max-width:1200px}.aviso-imp b{color:#C0392B}
+@media print{.aviso-imp{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style>
 </head>
 <body>
 <header class="top">
-  <h1>Fondeo CIMA Siemens con Serie III-P (MAES): dividendos preferentes</h1>
-  <p class="sub">Cinco arrendamientos financieros de CIMA fondeados con tres emisiones de acciones Serie III-P de MAES, una por mes de compra · flujo mensual, concentrado anual de dividendos e impacto en el flujo de SOFIMAS</p>
+  <h1>Fondeo CIMA Siemens con Serie III-P (MAES): dividendo 15%, plazo de 5 años y decisión en el año 4</h1>
+  <p class="sub">Las máquinas de CIMA se pagan con tres emisiones Serie III-P suscritas 100% por MAES; la primera, en noviembre. El dividendo es fijo de 15%. El capital que CIMA devuelve se recoloca en nuevos proyectos CIMA. En el año 4 de cada emisión se decide entre pagarle a MAES (recompra en el año 5) o recolocar otros 5 años.</p>
   <div class="bar noprint">
-    <button id="btnFile" class="primary" hidden>Actualizar desde el Excel del modelo</button>
-    <input type="file" id="fileIn" accept=".xlsx,.xlsm" hidden>
     <button id="btnCSV">Descargar concentrado (CSV)</button>
     <button id="btnPrint">Imprimir o guardar PDF</button>
   </div>
-  <div id="estado" class="status" hidden></div>
   <p class="note">Fuente de los datos: <span id="fuente"></span></p>
 </header>
 <main>
+  <div class="aviso-imp" role="note"><b>Importante: todas las cifras de esta página son ANTES DE IMPUESTOS.</b> No incluyen tres ISR: el de SOFIMAS sobre lo que generan CIMA y la recolocación (30%), el de los dividendos que excedan la CUFIN (art. 10 LISR; se acredita en los años siguientes) y el de la recompra de acciones a MAES (art. 78 LISR). Tampoco incluyen la retención del 10% a accionistas personas físicas (art. 140 LISR), que no aplica a MAES por ser persona moral, ni descuentan cartera vencida ni gastos. El resultado después de impuestos será menor.</div>
   <div class="filters noprint">
     <div class="frow">
-      <div class="fgrp"><span class="lbl">Tasa de dividendo preferente</span>
-        <div class="seg" id="segTasa"><button data-t="0.14">14%</button><button data-t="0.15">15%</button><button data-t="0.175">17.5%</button><button data-t="0.19">19%</button></div>
-        <span class="lbl">u otra</span><input type="text" id="inTasa" placeholder="ej. 18" inputmode="decimal"> %
+      <div class="fgrp"><span class="lbl">Decisión al cierre del año 4</span>
+        <div class="seg" id="segDec"><button data-d="pagar">Pagar a MAES (recompra en el año 5)</button><button data-d="recolocar">Recolocar otros 5 años</button></div>
       </div>
+    </div>
+    <div class="frow">
+      <div class="fgrp"><span class="lbl">Dividendo Serie III-P</span><b>15% fijo</b></div>
+      <div class="fgrp"><span class="lbl">Tasa de la recolocación en nuevos proyectos CIMA</span><input type="text" id="inRec" value="27" inputmode="decimal"> % nominal anual</div>
     </div>
   </div>
 
@@ -145,91 +159,100 @@ footer{border-top:1px solid var(--line);margin-top:30px;padding-top:10px;color:v
     <h2>Resumen ejecutivo</h2>
     <div id="resTxt"></div>
   </section>
-  <nav class="menu noprint"><span class="lbl">Ver detalle</span><a href="#s3" data-open="s3">Emisión Serie III-P</a><a href="#s1" data-open="s1">CIMA genera vs. dividendo</a><a href="#s2" data-open="s2">Cartera colocada</a><a href="#s4" data-open="s4">Flujo mensual oct-26 a oct-27</a><a href="#s5" data-open="s5">Concentrado anual</a><a href="#s6" data-open="s6">Por emisión</a><a href="#s7" data-open="s7">Flujo anual</a><a href="#s8" data-open="s8">Horizonte a 2032</a><a href="#s9" data-open="s9">Fuentes</a><button id="btnAll" type="button">Abrir todo</button><button id="btnNone" type="button">Cerrar todo</button></nav>
-  <details class="sec" id="s3">
-    <summary><h2>1 · Emisión Serie III-P de MAES: cuánto dinero se necesita y cuándo</h2></summary>
-    <div class="secbody">
-  <div class="wrap" id="tblEmis"></div>
-  <p class="note"><b>La necesidad:</b> para pagar a Siemens las 5 máquinas de CIMA, SOFIMAS necesita el dinero de la tabla en tres momentos, entre nov-26 y ago-27. Se cubre con acciones Serie III-P de MAES. Cada emisión es por el total de las máquinas que se pagan ese mes, a precio del equipo sin IVA (fondeo completo). La primera (nov-26) se emite el mismo mes de la compra. Las demás se emiten un mes antes, para tener el dinero antes de pagar a Siemens. El dividendo corre desde el mes de la emisión hasta la última renta que paga CIMA por esas máquinas.</p>
+  <nav class="menu noprint"><span class="lbl">Ver detalle</span><a href="#s1" data-open="s1">Emisión Serie III-P</a><a href="#s2" data-open="s2">CIMA genera vs. dividendo</a><a href="#s3" data-open="s3">Recolocación</a><a href="#s4" data-open="s4">Flujo mensual oct-26 a oct-27</a><a href="#s5" data-open="s5">Dividendos y recompra por año</a><a href="#s6" data-open="s6">Por emisión</a><a href="#s7" data-open="s7">Flujo anual</a><a href="#s8" data-open="s8">Regla de los 5 años</a><a href="#s9" data-open="s9">Fuentes</a><button id="btnAll" type="button">Abrir todo</button><button id="btnNone" type="button">Cerrar todo</button></nav>
 
+  <details class="sec" id="s1">
+    <summary><h2>1 · Emisión Serie III-P de MAES: cuánto dinero se necesita, cuándo y cuándo se evalúa</h2></summary>
+    <div class="secbody">
+  <p class="decBadge"></p>
+  <div class="wrap" id="tblEmis"></div>
+  <p class="note"><b>La necesidad:</b> para pagar a Siemens las 5 máquinas de CIMA, SOFIMAS necesita el dinero en tres momentos, entre nov-26 y ago-27. Todo se cubre con acciones Serie III-P suscritas por MAES. El monto suscrito es el precio de las máquinas sin IVA. La primera emisión (nov-26) ocurre el mismo mes de la compra; las otras dos, un mes antes de pagar a Siemens. Cada emisión tiene un plazo de 5 años contado desde su mes de emisión, sin importar el plazo del arrendamiento. La última columna muestra la recompra con la decisión seleccionada arriba.</p>
     </div>
   </details>
-  <details class="sec" id="s1">
+
+  <details class="sec" id="s2">
     <summary><h2>2 · Lo que genera el proyecto CIMA contra lo que se paga de dividendo</h2></summary>
     <div class="secbody">
-  <p class="note">Resultado neto del proyecto = intereses que paga CIMA (27%) + comisiones de apertura − dividendos preferentes a MAES. Las dos partes se miden en devengado: cada mes se cuenta lo que se gana y lo que se debe a MAES, aunque el dividendo se pague el trimestre siguiente. Antes de impuestos y sin contar lo que rinda volver a colocar el dinero. Con este esquema, el dividendo que iguala lo que genera CIMA es <b id="tasaEq"></b>. <span class="tag">Inferencia</span></p>
+  <p class="decBadge bneu">Esta sección compara los dos escenarios lado a lado: <b style="color:#2980B9">Pagar a MAES · recompra en el año 5</b> y <b style="color:#8E44AD">Recolocar otros 5 años · recompra en el año 10</b>.</p>
+  <p class="note">Resultado = intereses y comisiones que paga CIMA + ingresos de la recolocación − dividendos de 15% a MAES. Las cifras están en devengado y antes de impuestos. La decisión seleccionada aparece resaltada. <span class="tag">Inferencia</span></p>
   <div class="cards" id="kpiGen"></div>
-  <div class="chartbox"><div id="curva" class="curva"></div><p class="note">Acumulado mensual. Pasa el cursor sobre la gráfica para ver los montos de cada mes. La tasa seleccionada se dibuja más gruesa. Los dividendos aparecen como pagos trimestrales. La línea punteada suma los ingresos de la cartera colocada con la recuperación (sección 3).</p></div>
+  <div class="chartbox"><div id="curva" class="curva"></div><p class="note">Acumulado mensual. Pasa el cursor sobre la gráfica para ver los montos de cada mes. Las líneas punteadas suman los ingresos de la recolocación a lo que genera CIMA. La decisión seleccionada se dibuja más fuerte.</p></div>
   <div class="wrap" id="tblGenera"></div>
-
     </div>
   </details>
-  <details class="sec" id="s2">
-    <summary><h2>3 · Con la recuperación de CIMA colocada como cartera</h2></summary>
+
+  <details class="sec" id="s3">
+    <summary><h2>3 · Recolocación del capital que devuelve CIMA en nuevos proyectos CIMA</h2></summary>
     <div class="secbody">
-  <p class="note">El capital que CIMA va devolviendo (anticipo y parte de capital de cada renta) se coloca de inmediato y se queda colocado como cartera permanente de SOFIMAS, generando ingresos todos los meses hasta el fin del horizonte (<span id="recFin"></span>). Rinde a una tasa efectiva de <b id="recAn"></b> anual: los intereses que termina pagando un crédito simple a 12 meses con tasa nominal de 27% y pagos fijos (<span id="recEf"></span> del capital prestado). Como solo depende del calendario contractual de CIMA, el ingreso es el mismo con cualquier tasa de dividendo. No se reinvierten los ingresos generados ni se descuentan cartera vencida, gastos ni impuestos. <span class="tag">Supuesto</span> <span class="tag">Inferencia</span></p>
-  <div class="cards" id="kpiRec"></div>
+  <p class="decBadge"></p>
+  <p class="note">El capital que CIMA va devolviendo (anticipo, parte de capital de cada renta y opción de compra) se coloca en nuevos proyectos CIMA mientras el dinero de MAES siga en SOFIMAS. La tasa es la nominal capturada arriba (27%, la del arrendamiento actual). Cuando toca la recompra, se le paga a MAES con ese capital y lo recolocado baja. No se reinvierten los ingresos ni se descuentan cartera vencida, gastos ni impuestos. <span class="tag">Supuesto</span></p>
   <div class="wrap" id="tblRecol"></div>
-
     </div>
   </details>
+
   <details class="sec" id="s4">
-    <summary><h2>4 · Flujo ejecutivo mensual, octubre 2026 a octubre 2027, a <span id="lblTasa"></span></h2></summary>
+    <summary><h2>4 · Flujo ejecutivo mensual, octubre 2026 a octubre 2027</h2></summary>
     <div class="secbody">
-  <p class="note">En qué mes entra el dinero de MAES, cuándo se paga a Siemens, cuánto cobra SOFIMAS a CIMA y cuánto se paga de dividendos. El último renglón es el dinero del proyecto que queda en SOFIMAS para colocar.</p>
+  <p class="decBadge bneu">Esta sección es igual en los dos escenarios porque la evaluación del año 4 ocurre después de oct-27.</p>
+  <p class="note">La tabla muestra en qué mes entra el dinero de MAES, cuándo se paga a Siemens, cuánto cobra SOFIMAS a CIMA y cuánto se paga de dividendos.</p>
   <div class="wrap" id="tblMes"></div>
-
     </div>
   </details>
+
   <details class="sec" id="s5">
-    <summary><h2>5 · Concentrado anual de dividendos preferentes: 14%, 15%, 17.5% y 19%</h2></summary>
+    <summary><h2>5 · Concentrado anual: dividendos y recompra a MAES con cada decisión</h2></summary>
     <div class="secbody">
-  <p class="note">Dividendos <b>pagados en caja</b> por año calendario (enero, abril, julio y octubre). Está resaltada la tasa seleccionada.</p>
+  <p class="decBadge bneu">Esta sección compara los dos escenarios lado a lado.</p>
+  <p class="note">La tabla muestra los dividendos <b>pagados en caja</b> por año calendario (enero, abril, julio y octubre) y la recompra de acciones a MAES (4 pagos trimestrales del 25%). La decisión seleccionada aparece resaltada.</p>
   <div class="wrap" id="tblAnual"></div>
-
     </div>
   </details>
+
   <details class="sec" id="s6">
-    <summary><h2>6 · Dividendos por emisión a <span id="lblTasa2"></span></h2></summary>
+    <summary><h2>6 · Dividendos por emisión (<span class="lblDec"></span>)</h2></summary>
     <div class="secbody">
-  <div class="wrap" id="tblDesglose"></div>
-
-    </div>
+  <p class="decBadge"></p><div class="wrap" id="tblDesglose"></div></div>
   </details>
+
   <details class="sec" id="s7">
-    <summary><h2>7 · Flujo anual del proyecto CIMA para SOFIMAS a <span id="lblTasa3"></span></h2></summary>
+    <summary><h2>7 · Flujo anual del proyecto CIMA para SOFIMAS (<span class="lblDec"></span>)</h2></summary>
     <div class="secbody">
+  <p class="decBadge"></p>
   <div class="wrap" id="tblFlujo"></div>
-  <p class="note">No incluye recompra de acciones: dentro de este horizonte el capital de MAES sigue en SOFIMAS. Cifras sin IVA.</p>
-
+  <p class="note">El flujo incluye la recompra de acciones a MAES según la decisión seleccionada. El acumulado es el dinero del proyecto que queda en SOFIMAS, en caja o recolocado en nuevos proyectos CIMA. Las cifras no incluyen IVA.</p>
     </div>
   </details>
+
   <details class="sec" id="s8">
-    <summary><h2>8 · Por qué los dividendos llegan a 2032 (revisión del horizonte)</h2></summary>
+    <summary><h2>8 · La regla de los 5 años y la decisión del año 4</h2></summary>
     <div class="secbody">
   <ol class="trz">
-    <li><b>El horizonte de cada emisión es el de su arrendamiento.</b> Cada máquina tiene 3 meses de gracia y 57 rentas, que terminan 60 meses después del mes de compra. Así, las máquinas 1 y 2 (compradas en nov-26) pagan su última renta en nov-31, la 3 y la 4 (mar-27) en mar-32, y la 5 (ago-27) en ago-32. <span class="tag">Verificable</span> <code>AFinanciero</code>, renglones «renta ordinaria» de cada máquina.</li>
-    <li><b>El último pago cae un trimestre después.</b> El dividendo de cada mes se paga en el siguiente enero, abril, julio u octubre. El dividendo de jul-32 y ago-32 de la emisión E3 (máquina 5) se paga en oct-32, y por eso el concentrado llega a 2032. <span class="tag">Verificable</span></li>
-    <li><b>No hay dividendos después de la última renta</b>, ni recompra dentro del horizonte. Qué pasa con las acciones después de 2032 es una decisión pendiente. <span class="tag">Por confirmar</span></li>
+    <li><b>Plazo de 5 años por emisión,</b> contado desde su mes de emisión e independiente del arrendamiento de las máquinas (las rentas de CIMA terminan en nov-31, mar-32 y ago-32). <span class="tag">Indicación de la Dirección, 26-oct-2026</span></li>
+    <li><b>Evaluación al cierre del año 4</b> (mes 48 de cada emisión): se decide pagarle a MAES o recolocar. <span class="tag">Indicación de la Dirección</span></li>
+    <li><b>Si se paga a MAES:</b> recompra en 4 pagos trimestrales del 25% durante el año 5 (meses 51, 54, 57 y 60 de la emisión). El dividendo de 15% corre sobre lo que falta por recomprar. <span class="tag">Indicación de la Dirección</span></li>
+    <li><b>Si se recoloca:</b> MAES sigue otros 5 años; nueva evaluación en el año 9 y recompra en el año 10 (meses 111, 114, 117 y 120). Esta página supone que en esa segunda evaluación sí se le paga. <span class="tag">Supuesto</span></li>
+    <li><b>Lo legal:</b> la recompra debe ser una decisión potestativa de SOFIMAS, no una obligación con fecha cierta al valor de suscripción, para que no se trate como deuda. Por eso la detona la evaluación del año 4. La recompra de acciones propias se hace con acuerdo del Consejo (art. 17 LMV) y, fiscalmente, es reducción de capital (art. 78 LISR). <span class="tag">Interpretación · validar con la abogada y el fiscalista</span></li>
+    <li><b>Pago del dividendo:</b> a cuenta, cada trimestre, con cargo a utilidades de ejercicios anteriores aprobadas (art. 19 LGSM y art. 39 de los estatutos). <span class="tag">Decisión de la Dirección, 26-oct-2026</span></li>
   </ol>
-
     </div>
   </details>
+
   <details class="sec" id="s9">
     <summary><h2>9 · De dónde sale cada dato</h2></summary>
     <div class="secbody">
   <ol class="trz">
-    <li><b>Mecánica del dividendo:</b> la de la hoja <code>SAPI III-P</code>, filas 27 a 29: tasa anual ÷ 12 × capital, incluido el mes de la emisión, pagado en ene, abr, jul y oct. Con los datos del libro, esta mecánica reproduce al centavo los dividendos de las emisiones E1 a E5 de esa hoja (copia del 13-oct-2026). <span class="tag">Verificable</span></li>
-    <li><b>Máquinas, mes de compra y precio sin IVA:</b> <code>Colocación Real</code> columna H de las filas «CIMA Siemens 1» a «5», y <code>AFinanciero</code>, tabla de supuestos por operación. <span class="tag">Verificable</span></li>
-    <li><b>Cobranza a CIMA:</b> <code>AFinanciero</code>, renglones de cada máquina: renta ordinaria, anticipo, comisión de apertura, opción de compra, depósito y disposición. Todo sin IVA. <span class="tag">Verificable</span></li>
-    <li><b>Lo que esta página no cambia:</b> el Excel. Para llevarlo al modelo hace falta una ronda sobre la tabla maestra III-P y la hoja <code>SAPI III-P</code>: tres emisiones, fechas un mes antes, horizonte igual al arrendamiento y sin recompra. <span class="tag">Pendiente</span></li>
+    <li><b>Mecánica del dividendo</b> (la misma de la hoja <code>SAPI III-P</code>): tasa anual ÷ 12 × saldo vivo, incluido el mes de la emisión, pagado en ene, abr, jul y oct; el saldo baja con cada pago de recompra. <span class="tag">Verificable</span></li>
+    <li><b>Máquinas, mes de compra, precio sin IVA y cobranza a CIMA:</b> <code>AFinanciero</code> y <code>Colocación Real</code> del libro <code>2026_10_05_V22_F8+4_PILOTO2031_Modelo.xlsx</code> (copia indicada arriba). <span class="tag">Verificable</span></li>
+    <li><b>Recolocación:</b> 27% nominal = tasa del arrendamiento CIMA actual (<code>AFinanciero</code>, tasa nominal anual). Se aplica al capital recolocado sin descontar anticipo, comisiones, cartera vencida ni gastos. <span class="tag">Supuesto</span></li>
+    <li><b>Lo que esta página no cambia:</b> el Excel. El modelo hoy recompra a MAES el mes siguiente a la última renta (Ronda III-P-2, 26-oct-2026). Para llevar la regla de los 5 años al modelo hace falta otra ronda. <span class="tag">Pendiente</span></li>
+    <li><b>Antes de impuestos:</b> el ISR de los dividendos que excedan la CUFIN y el de la recompra no están aquí; el modelo calcula el primero con la Ronda III-P-3. <span class="tag">Pendiente</span></li>
   </ol>
-
     </div>
   </details>
+
   <footer>
-    Autor: esalas@eduardosalas.com · Versión V8 · Emitido el 13 de octubre de 2026, 14:30 h, Hermosillo, Sonora (MST, UTC−7) · Proyecto 261009 - Cowork Proyecciones SOFIMAS ·
-    Antecedentes: V1 (recompra a 7 años, con IVA), V2 (una emisión por máquina, con recompra), V3 (sin comparación de lo generado contra lo pagado), V4 (sin recolocación), V5 (recolocación con tasa y plazo editables), V6 (sin resumen ejecutivo ni secciones plegables) y V7 (otro orden de secciones) de esta página, 13-oct-2026 · Visor Flujo Ejecutivo y Serie III-P V2 (12-oct-2026); Ronda IVA-1 y Dictamen fiscal CIMA Siemens (13-oct-2026) ·
+    Autor: esalas@eduardosalas.com · Versión V10 · Emitido el 26 de octubre de 2026, 13:21 h, Hermosillo, Sonora (MST, UTC−7) · Proyecto 261009 - Cowork Proyecciones SOFIMAS ·
+    Antecedentes: 2026_10_26_V9_Dividendos_IIIP_MAES_CIMA_Siemens_SOFIMAS.html (mismo contenido y cifras; V10 = revisión de redacción, 15 cambios de forma); 2026_10_13_V8_Dividendos_IIIP_MAES_CIMA_Siemens_SOFIMAS.html (tasas 14% a 19%, horizonte al fin del arrendamiento, recolocación en crédito simple al 15.22% efectivo) y V1 a V7 de esta página; 2026_10_13_V3_Entrada_Pitic_IIIP_CIMA_Siemens_SOFIMAS.html; Rondas III-P-1 a III-P-3 (26-oct-2026) ·
     Conversación: https://claude.ai/code/session_01DWh164ff1ZpC6MJMCf8mNr
   </footer>
 </main>
@@ -261,9 +284,6 @@ function dividendos(P, startIdx, endIdx, rate){
 }
 
 let DATA = SNAP;
-const st = { tasa: 0.15, custom: null, recTasa: 0.27, recPlazo: 12 };
-const TASAS = [0.14, 0.15, 0.175, 0.19];
-const COLORES = {0.14:'#27AE60', 0.15:'#2980B9', 0.175:'#E67E22', 0.19:'#8E44AD'};
 const $ = id => document.getElementById(id);
 const fmt = v => { const r = Math.abs(v) < 0.005 ? 0 : v; return r.toLocaleString('es-MX',{maximumFractionDigits:0}); };
 const pct = v => (v*100).toLocaleString('es-MX',{maximumFractionDigits:2}) + '%';
@@ -291,105 +311,6 @@ function calc(rate){
 function sumSeries(G, key){ const out = new Array(N).fill(0); G.forEach(g => g[key].forEach((v,i)=> out[i]+=v)); return out; }
 function rango(series, desde){ let last = desde; series.forEach(s => s.forEach((v,i)=>{ if (Math.abs(v) > 0.5) last = Math.max(last, ymOf(i)[0]); })); const o=[]; for (let y=desde; y<=last; y++) o.push(y); return o; }
 
-function render(){
-  const r = rateSel();
-  const G = calc(r);
-  const paid = sumSeries(G,'paid');
-  const cap = sum(G.map(g=>g.P));
-  const tot = sum(paid), tot15 = sum(sumSeries(calc(0.15),'paid'));
-  let fp = -1, lp = -1; paid.forEach((v,i)=>{ if (v>0.5){ if (fp<0) fp=i; lp=i; } });
-  const intCIMA = sum(serieMaq('s_int'));
-
-  if ($('kpis')) $('kpis').innerHTML = `
-    <div class="card"><b>Capital MAES (${G.length} emisiones Serie III-P)</b><span class="v">${fmt(cap)}</span><small>precio de las ${DATA.maq.length} máquinas, fondeo completo</small></div>
-    <div class="card"><b>Dividendos preferentes a ${pct(r)}</b><span class="v">${fmt(tot)}</span><small>pagados de ${lbl(fp)} a ${lbl(lp)}</small></div>
-    <div class="card"><b>Efecto en caja contra 15%</b><span class="v ${tot-tot15>0.5?'negt':''}">${fmt(-(tot-tot15))}</span><small>${Math.abs(r-0.15)<1e-9?'escenario base':(tot>tot15?'menos caja para SOFIMAS':'más caja para SOFIMAS')}</small></div>
-    <div class="card"><b>Intereses que CIMA paga a SOFIMAS</b><span class="v">${fmt(intCIMA)}</span><small>devengados, tasa 27%</small></div>
-    <div class="card"><b>Capital MAES que sigue en SOFIMAS</b><span class="v">${fmt(cap)}</span><small>no hay recompra dentro del horizonte</small></div>`;
-
-  // 1. Emisiones
-  let h = '<table><thead><tr><th>Emisión</th><th>Máquinas que fondea</th><th>Mes de emisión (entra el dinero)</th><th>Mes de pago a Siemens</th><th class="tot">Monto MAES</th><th>Última renta de CIMA (fin del horizonte)</th><th>Meses con dividendo</th><th>Primer pago de dividendo</th><th>Último pago de dividendo</th></tr></thead><tbody>';
-  G.forEach(g => {
-    let a=-1,b=-1; g.paid.forEach((v,i)=>{ if (v>0.5){ if(a<0)a=i; b=i; } });
-    h += `<tr><td>E${g.n}</td><td>${g.maqs.map(m=>m.nombre.replace(/^CIMA Siemens /,'S')).join('<br>')}</td><td>${lbl(g.emis)}</td><td>${lbl(g.disp)}</td>${cell(g.P,'tot')}<td>${lbl(g.fin)}</td><td class="n">${g.fin-g.emis+1}</td><td>${lbl(a)}</td><td>${lbl(b)}</td></tr>`;
-  });
-  h += `<tr class="sum"><td>Total</td><td></td><td></td><td></td>${cell(cap,'tot')}<td colspan="4"></td></tr></tbody></table>`;
-  $('tblEmis').innerHTML = h;
-
-  // 2. Flujo ejecutivo mensual oct-26 a oct-27
-  const i0 = idxOf(2026,10), i1 = idxOf(2027,10);
-  const capS = new Array(N).fill(0); G.forEach(g => capS[g.emis] += g.P);
-  const ser = k => serieMaq(k);
-  const cob = ser('s_renta').map((v,i)=> v + ser('s_ant')[i] + ser('s_com')[i] + ser('s_opc')[i]);
-  const dep = ser('s_depc').map((v,i)=> v + ser('s_depd')[i]);
-  const disp = ser('s_disp');
-  const neto = capS.map((v,i)=> v - disp[i] + cob[i] + dep[i] - paid[i]);
-  const filas = [
-    ['(+) Emisión Serie III-P MAES (entra el dinero)', capS, ''],
-    ['(−) Pago a Siemens por las máquinas', disp.map(v=>-v), ''],
-    ['(+) Cobranza a CIMA: anticipo, comisión, rentas y opción de compra', cob, ''],
-    ['(±) Depósitos en garantía de CIMA (cobro y devolución)', dep, ''],
-    ['(−) Dividendos preferentes pagados a MAES', paid.map(v=>-v), ''],
-  ];
-  const mcols = []; for (let i=i0;i<=i1;i++) mcols.push(i);
-  let acc0 = sum(neto.slice(0, i0));
-  h = '<table><thead><tr><th>Concepto</th>' + mcols.map(i=>`<th>${lbl(i)}</th>`).join('') + '<th class="tot">Total oct-26 a oct-27</th></tr></thead><tbody>';
-  const lineM = (name, s, cls='') => `<tr class="${cls}"><td>${name}</td>${mcols.map(i=>cell(s[i])).join('')}${cell(sum(mcols.map(i=>s[i])),'tot')}</tr>`;
-  filas.forEach(f => h += lineM(f[0], f[1]));
-  h += lineM('(=) Flujo neto del mes', neto, 'sum');
-  let acc = acc0; const accM = mcols.map(i => acc += neto[i]);
-  h += `<tr class="hl"><td>Dinero del proyecto disponible en SOFIMAS al cierre del mes (acumulado)</td>${accM.map(v=>cell(v)).join('')}<td></td></tr>`;
-  h += '</tbody></table>';
-  $('tblMes').innerHTML = h;
-
-  // 3. Concentrado anual por tasa
-  const scen = TASAS.slice(); if (st.custom !== null && !TASAS.some(t=>Math.abs(t-st.custom)<1e-9)) scen.push(st.custom);
-  const S = scen.map(t => ({t, y: porAnio(sumSeries(calc(t),'paid'))}));
-  const years = rango([paid], 2026);
-  const isSel = t => Math.abs(t-r) < 1e-9;
-  const B15 = S.find(s=>Math.abs(s.t-0.15)<1e-9);
-  h = '<table><thead><tr><th>Año</th>' + S.map(s=>`<th class="${isSel(s.t)?'selh':''}">Dividendos a ${pct(s.t)}</th>`).join('') + S.filter(s=>s!==B15).map(s=>`<th>Efecto en caja a ${pct(s.t)} contra 15%</th>`).join('') + '</tr></thead><tbody>';
-  years.forEach(y => { h += `<tr><td>${y}</td>` + S.map(s=>cell(s.y[y]||0, isSel(s.t)?'sel':'')).join('') + S.filter(s=>s!==B15).map(s=>cell(-((s.y[y]||0)-(B15.y[y]||0)))).join('') + '</tr>'; });
-  const sy = o => years.reduce((a,y)=>a+(o[y]||0),0);
-  h += `<tr class="sum"><td>Total</td>` + S.map(s=>cell(sy(s.y), isSel(s.t)?'sel':'')).join('') + S.filter(s=>s!==B15).map(s=>cell(-(sy(s.y)-sy(B15.y)))).join('') + '</tr></tbody></table>';
-  $('tblAnual').innerHTML = h;
-
-  // 4. Por emisión
-  h = '<table><thead><tr><th>Año</th>' + G.map(g=>`<th>E${g.n} · ${lbl(g.emis)} · ${fmt(g.P)}</th>`).join('') + '<th class="tot">Total</th></tr></thead><tbody>';
-  years.forEach(y => { const v = G.map(g => porAnio(g.paid)[y]||0); h += `<tr><td>${y}</td>${v.map(x=>cell(x)).join('')}${cell(sum(v),'tot')}</tr>`; });
-  h += `<tr class="sum"><td>Total</td>${G.map(g=>cell(sum(g.paid))).join('')}${cell(tot,'tot')}</tr></tbody></table>`;
-  $('tblDesglose').innerHTML = h;
-
-  // 5. Flujo anual del proyecto
-  const yrs = rango([capS, cob, paid, disp, dep], 2026);
-  const Y = s => { const o = porAnio(s); return yrs.map(y => o[y]||0); };
-  h = '<table><thead><tr><th>Concepto</th>' + yrs.map(y=>`<th>${y}</th>`).join('') + '<th class="tot">Total</th></tr></thead><tbody>';
-  const line = (name, s, cls='') => { const v = Y(s); return `<tr class="${cls}"><td>${name}</td>${v.map(x=>cell(x)).join('')}${cell(sum(v),'tot')}</tr>`; };
-  filas.forEach(f => h += line(f[0], f[1]));
-  h += line('(=) Flujo neto del proyecto', neto, 'sum');
-  let a2 = 0; const accY = Y(neto).map(v => a2 += v);
-  h += `<tr class="hl"><td>Dinero del proyecto disponible en SOFIMAS al cierre del año (acumulado)</td>${accY.map(v=>cell(v)).join('')}<td></td></tr>`;
-  h += '</tbody></table>';
-  $('tblFlujo').innerHTML = h;
-
-  renderGenera(G);
-  renderResumen();
-  ['lblTasa','lblTasa2','lblTasa3','lblTasa4'].forEach(id => { const e = $(id); if (e) e.textContent = pct(r); });
-  document.querySelectorAll('#segTasa button').forEach(b => b.classList.toggle('on', st.custom===null && Math.abs(+b.dataset.t - st.tasa) < 1e-9));
-  $('fuente').textContent = `${DATA.fuente.archivo} · copia ${DATA.fuente.copia}`;
-  window.__last = {G, paid, years, S, neto, capS, cob, dep, disp};
-}
-
-document.querySelectorAll('#segTasa button').forEach(b => b.onclick = () => { st.tasa = +b.dataset.t; st.custom = null; $('inTasa').value=''; render(); });
-$('inTasa').oninput = e => { const v = parseFloat(String(e.target.value).replace(',','.')); st.custom = (isFinite(v) && v>0 && v<100) ? Math.round(v*1000)/100000 : null; render(); };
-$('btnPrint').onclick = () => window.print();
-$('btnCSV').onclick = () => {
-  const L = window.__last; const rows = [['Año'].concat(L.S.map(s=>'Dividendos '+pct(s.t)))];
-  L.years.forEach(y => rows.push([y].concat(L.S.map(s=>(s.y[y]||0).toFixed(2)))));
-  const csv = '﻿' + rows.map(r=>r.map(x=>`"${x}"`).join(',')).join('\r\n');
-  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download = 'Concentrado_dividendos_CIMA_MAES.csv'; a.click();
-};
-
 // ===== Recolocación del capital que se recupera de CIMA =====
 // Rendimiento efectivo de un crédito simple con pagos fijos: intereses totales / capital = n × pago − 1.
 function rendEfectivo(){ const i = st.recTasa/12, n = st.recPlazo; if (!(i>0) || !(n>0)) return 0; const pmt = i/(1-Math.pow(1+i,-n)); return pmt*n - 1; }
@@ -404,83 +325,230 @@ function recolocacion(){
   return {e, anual, cap, K, y, fin};
 }
 
-// ===== Lo que genera el proyecto CIMA contra lo que se paga de dividendo =====
-function renderGenera(){
+
+// ===== V9: dividendo fijo 15%, plazo de 5 años por emisión, evaluación en el año 4 =====
+// Cada emisión Serie III-P (100% MAES) tiene un plazo de 5 años contado desde el mes de emisión.
+// Al cierre del año 4 se decide: «Pagar a MAES» (recompra 25% trimestral en el año 5: meses 51, 54, 57 y 60)
+// o «Recolocar» (otro plazo de 5 años: recompra 25% trimestral en el año 10: meses 111, 114, 117 y 120).
+// El capital que CIMA devuelve se recoloca en nuevos proyectos CIMA a la tasa del arrendamiento (27% nominal),
+// mientras el dinero de MAES siga en SOFIMAS. La recompra a MAES se paga con ese capital recolocado.
+const TASA = 0.15;
+const st = { dec: 'pagar', recTasa: 0.27 };
+const DEC = { pagar: 'Pagar a MAES en el año 5', recolocar: 'Recolocar otros 5 años' };
+const COLD = { pagar: '#2980B9', recolocar: '#8E44AD' };
+const ORD = ['1.ª','2.ª','3.ª','4.ª','5.ª'];
+
+function mesesRecompra(dec){ return dec === 'pagar' ? [51,54,57,60] : [111,114,117,120]; }
+
+function divSaldo(bal, rate){
+  const dev = new Array(N).fill(0), paid = new Array(N).fill(0); let acc = 0, started = false;
+  for (let i=0;i<N;i++){
+    if (!started && bal[i] > 0.005) started = true;
+    if (!started) continue;
+    dev[i] = rate/12 * bal[i];
+    const m = (i % 12) + 1;
+    paid[i] = (m % 3 === 1) ? acc : 0;
+    acc = acc + dev[i] - paid[i];
+  }
+  return {dev, paid};
+}
+
+function escenario(dec){
+  const G = grupos();
+  const rec = new Array(N).fill(0), capS = new Array(N).fill(0);
+  const E = G.map(g => {
+    const bal = new Array(N).fill(0), r = new Array(N).fill(0);
+    const ks = mesesRecompra(dec);
+    ks.forEach(k => { const i = g.emis + k - 1; if (i < N) r[i] += g.P/4; });
+    let acum = 0;
+    for (let i=g.emis;i<N;i++){ acum += r[i]; bal[i] = Math.max(0, g.P - acum); }
+    const D = divSaldo(bal, TASA);
+    r.forEach((v,i)=> rec[i] += v); capS[g.emis] += g.P;
+    return Object.assign({}, g, {bal, rec:r, dev:D.dev, paid:D.paid, eval: g.emis + 47, recMeses: ks.map(k=>g.emis+k-1)});
+  });
+  const paid = new Array(N).fill(0), dev = new Array(N).fill(0), bal = new Array(N).fill(0);
+  E.forEach(e => e.paid.forEach((v,i)=>{ paid[i]+=v; dev[i]+=e.dev[i]; bal[i]+=e.bal[i]; }));
+  // Lo que genera CIMA (máquinas actuales)
   const intr = serieMaq('s_int'), com = serieMaq('s_com');
   const gen = intr.map((v,i)=> v + com[i]);
-  const D = TASAS.map(t => { const g = calc(t); return {t, dev: sumSeries(g,'dev'), paid: sumSeries(g,'paid')}; });
-  const genY = porAnio(gen);
-  const years = rango([gen].concat(D.map(d=>d.dev)), 2026);
-  const r = rateSel();
-  // tarjetas
-  const totGen = sum(gen);
-  $('kpiGen').innerHTML = `<div class="card"><b>Lo que genera el proyecto CIMA</b><span class="v">${fmt(totGen)}</span><small>intereses ${fmt(sum(intr))} + comisiones ${fmt(sum(com))}</small></div>` +
-    D.map(d => { const net = totGen - sum(d.dev); return `<div class="card ${Math.abs(d.t-r)<1e-9?'cardsel':''}"><b><span class="key" style="background:${COLORES[d.t]}"></span>Dividendo a ${pct(d.t)}: ${fmt(sum(d.dev))}</b><span class="v ${net<-0.5?'negt':''}">${fmt(net)}</span><small>${net<-0.5?'pérdida neta':'ganancia neta'} del proyecto</small></div>`; }).join('');
-  // tabla anual
-  let h = '<table><thead><tr><th>Año</th><th class="tot">Genera CIMA (intereses + comisiones)</th>' + D.map(d=>`<th>Dividendo ${pct(d.t)}</th><th class="tot">Neto a ${pct(d.t)}</th>`).join('') + '</tr></thead><tbody>';
-  years.forEach(y => { h += `<tr><td>${y}</td>${cell(genY[y]||0,'tot')}` + D.map(d=>{ const dv = porAnio(d.dev)[y]||0; return cell(-dv) + cell((genY[y]||0)-dv,'tot'); }).join('') + '</tr>'; });
-  h += `<tr class="sum"><td>Total</td>${cell(totGen,'tot')}` + D.map(d=>cell(-sum(d.dev)) + cell(totGen-sum(d.dev),'tot')).join('') + '</tr>';
-  // tasa de equilibrio
-  const tEq = 0.15 * totGen / sum(calc(0.15).length ? sumSeries(calc(0.15),'dev') : [1]);
-  h += '</tbody></table>';
+  // Capital que CIMA devuelve (contractual): rentas + anticipo + opción − intereses
+  const cob0 = serieMaq('s_renta').map((v,i)=> v + serieMaq('s_ant')[i] + serieMaq('s_opc')[i]);
+  const capRec = cob0.map((v,i)=> v - intr[i]);
+  // Recolocación en nuevos proyectos CIMA: saldo = capital recuperado acumulado − recompra pagada a MAES
+  const pool = new Array(N).fill(0), ingRec = new Array(N).fill(0);
+  let kc = 0, kr = 0, finRec = -1; rec.forEach((v,i)=>{ if (v>0.5) finRec = i; });
+  for (let i=0;i<N;i++){ const p = i <= finRec ? Math.max(0, kc - kr) : 0; ingRec[i] = p * st.recTasa / 12; kc += capRec[i]; kr += rec[i]; pool[i] = i < finRec ? Math.max(0, kc - kr) : 0; }
+  // Flujo del proyecto
+  const cob = serieMaq('s_renta').map((v,i)=> v + serieMaq('s_ant')[i] + serieMaq('s_com')[i] + serieMaq('s_opc')[i]);
+  const dep = serieMaq('s_depc').map((v,i)=> v + serieMaq('s_depd')[i]);
+  const disp = serieMaq('s_disp');
+  const neto = new Array(N).fill(0).map((_,i)=> capS[i] - disp[i] + cob[i] + dep[i] - paid[i] + ingRec[i] - rec[i]);
+  const totGen = sum(gen), totRec = sum(ingRec), totDiv = sum(dev);
+  let last = -1; paid.forEach((v,i)=>{ if (v>0.5) last = i; });
+  let lastRec = -1; rec.forEach((v,i)=>{ if (v>0.5) lastRec = i; });
+  return {dec, G:E, paid, dev, bal, rec, capS, gen, capRec, pool, ingRec, cob, dep, disp, neto, totGen, totRec, totDiv,
+          sinC: totGen - totDiv, conC: totGen + totRec - totDiv, cap: sum(E.map(e=>e.P)), last, lastRec};
+}
+
+const Mm = v => (v/1e6).toLocaleString('es-MX',{minimumFractionDigits:2, maximumFractionDigits:2}) + ' M';
+const sgm = v => (v >= 0 ? '+' : '−') + Mm(Math.abs(v));
+const maqTxt = g => { const ns = g.maqs.map(m => (m.nombre.match(/Siemens\s*(\d+)/)||[])[1]).filter(Boolean); return 'Siemens ' + (ns.length > 1 ? ns.slice(0,-1).join(', ') + ' y ' + ns[ns.length-1] : ns.join('')); };
+const fechasTxt = a => a.map(lbl).join(', ');
+
+function render(){
+  const S = escenario(st.dec), P = escenario('pagar'), R = escenario('recolocar');
+  document.querySelectorAll('#segDec button').forEach(b => b.classList.toggle('on', b.dataset.d === st.dec));
+  renderResumen(S, P, R);
+  renderEmis(S);
+  renderGenera(S, P, R);
+  renderRecol(S);
+  renderMes(S);
+  renderAnual(P, R);
+  renderDesglose(S);
+  renderFlujo(S);
+  document.querySelectorAll('.lblDec').forEach(e => e.textContent = (DEC[st.dec].charAt(0).toLowerCase()+DEC[st.dec].slice(1)));
+  document.querySelectorAll('.decBadge:not(.bneu)').forEach(e => { e.className = 'decBadge ' + (st.dec==='pagar'?'bpag':'brec'); e.innerHTML = `Escenario que muestra esta sección: <b>${st.dec==='pagar'?'Pagar a MAES · recompra en el año 5':'Recolocar otros 5 años · recompra en el año 10'}</b> <span class="noprint">(cámbialo en «Decisión al cierre del año 4», arriba)</span>`; });
+  $('fuente').textContent = `${DATA.fuente.archivo} · copia ${DATA.fuente.copia}`;
+  window.__last = {S, P, R};
+}
+
+function renderResumen(S, P, R){
+  const g1 = S.G[0];
+  $('resTxt').innerHTML = `
+    <div class="big">
+      <div><b>MAES aporta (Serie III-P, 100%)</b><span>${Mm(S.cap)}</span><small>3 emisiones; la 1.ª, en ${lbl(g1.emis)}, paga las máquinas de noviembre</small></div>
+      <div><b>Dividendo fijo 15% anual</b><span>${Mm(S.totDiv)}</span><small>${(DEC[S.dec].charAt(0).toLowerCase()+DEC[S.dec].slice(1))}; último pago ${lbl(S.last)}</small></div>
+      <div><b>Lo que genera CIMA</b><span>${Mm(S.totGen)}</span><small>intereses y comisiones de las 5 máquinas</small></div>
+      <div><b>Recolocación en nuevos proyectos CIMA</b><span>${Mm(S.totRec)}</span><small>lo que CIMA devuelve, colocado a ${pct(st.recTasa)} nominal</small></div>
+      <div><b>Resultado para SOFIMAS</b><span class="${S.conC<0?'neg':'pos'}">${sgm(S.conC)}</span><small>CIMA + recolocación − dividendos (solo CIMA: ${sgm(S.sinC)})</small></div>
+    </div>
+    <ul>
+      <li><b>Noviembre, todo MAES:</b> las máquinas Siemens 1 y 2 (${Mm(g1.P)}) se pagan en ${lbl(g1.disp)} con la 1.ª emisión Serie III-P, suscrita 100% por MAES. Las otras dos emisiones (${S.G.slice(1).map(g=>lbl(g.emis)+' · '+Mm(g.P)).join(' y ')}) siguen la misma regla.</li>
+      <li><b>Dividendo:</b> 15% anual sobre el capital de MAES que siga en SOFIMAS, pagado a cuenta en enero, abril, julio y octubre.</li>
+      <li><b>Plazo de 5 años por emisión, sin importar el plazo del arrendamiento.</b> Al cerrar el año 4 de cada emisión (${S.G.map(g=>lbl(g.eval)).join(', ')}) se decide:
+        <br>· <b>Pagar a MAES:</b> recompra en 4 pagos trimestrales del 25% durante el año 5 (de ${lbl(P.G[0].recMeses[0])} a ${lbl(P.lastRec)}). Dividendos: ${Mm(P.totDiv)}. Resultado: <b>${sgm(P.conC)}</b>.
+        <br>· <b>Recolocar:</b> MAES sigue otros 5 años y la recompra pasa al año 10 (de ${lbl(R.G[0].recMeses[0])} a ${lbl(R.lastRec)}). Dividendos: ${Mm(R.totDiv)}. Resultado: <b>${sgm(R.conC)}</b>.</li>
+      <li><b>Recolocación:</b> el capital que CIMA va devolviendo se coloca en nuevos proyectos CIMA a ${pct(st.recTasa)} nominal mientras el dinero de MAES siga en SOFIMAS. Con ese capital se le paga a MAES cuando toca la recompra.</li>
+      <li><b>Ojo con la recolocación:</b> supone que el capital está 100% colocado todo el tiempo a ${pct(st.recTasa)} nominal, sin cartera vencida ni gastos. Este supuesto pesa mucho en el resultado, sobre todo si se recoloca otros 5 años. Cambia la tasa arriba para ver la sensibilidad.</li>
+      <li><b>Lo que falta considerar:</b> el ISR de los dividendos que excedan la CUFIN y el de la recompra (art. 78 LISR), la cartera vencida, los gastos y la evaluación real del año 4. Las cifras son antes de impuestos.</li>
+    </ul>`;
+}
+
+function renderEmis(S){
+  let h = '<table><thead><tr><th>Emisión</th><th>Máquinas</th><th>Mes de emisión (entra el dinero de MAES)</th><th>Pago a Siemens</th><th class="tot">Monto MAES</th><th>Última renta de CIMA</th><th>Evaluación (cierre del año 4)</th><th>Recompra a MAES (25% c/trimestre) · ' + (st.dec==='pagar'?'año 5':'año 10') + '</th></tr></thead><tbody>';
+  S.G.forEach(g => { h += `<tr><td>${ORD[g.n-1]} emisión</td><td>${maqTxt(g)}</td><td>${lbl(g.emis)}</td><td>${lbl(g.disp)}</td>${cell(g.P,'tot')}<td>${lbl(g.fin)}</td><td>${lbl(g.eval)}</td><td>${fechasTxt(g.recMeses)}</td></tr>`; });
+  h += `<tr class="sum"><td>Total</td><td></td><td></td><td></td>${cell(S.cap,'tot')}<td colspan="3"></td></tr></tbody></table>`;
+  $('tblEmis').innerHTML = h;
+}
+
+function renderGenera(S, P, R){
+  const card = (X) => `<div class="card ${X.dec===st.dec?'cardsel':''}"><b><span class="key" style="background:${COLD[X.dec]}"></span>${DEC[X.dec]}</b><span class="v ${X.conC<0?'negt':''}">${fmt(X.conC)}</span><small>dividendos ${fmt(X.totDiv)} · recolocación ${fmt(X.totRec)}</small></div>`;
+  $('kpiGen').innerHTML = `<div class="card"><b>Lo que genera CIMA (5 máquinas)</b><span class="v">${fmt(S.totGen)}</span><small>intereses y comisiones, devengado</small></div>` + card(P) + card(R);
+  const years = rango([S.gen, P.dev, R.dev, P.ingRec, R.ingRec], 2026);
+  const gy = porAnio(S.gen), py = porAnio(P.dev), ry = porAnio(R.dev), pr = porAnio(P.ingRec), rr = porAnio(R.ingRec);
+  const gp = st.dec==='pagar' ? ' grpsel' : '', gr = st.dec==='recolocar' ? ' grpsel' : '';
+  let h = `<table class="grp2"><thead><tr class="grp"><th rowspan="2">Año</th><th rowspan="2" class="tot">Genera CIMA (5 máquinas)</th><th colspan="3" class="gpag${gp}">Pagar a MAES · recompra en el año 5</th><th colspan="3" class="grec${gr}">Recolocar otros 5 años · recompra en el año 10</th></tr><tr><th class="gpag2">Ingresos de la recolocación</th><th class="gpag2">Dividendo 15%</th><th class="gpag2 tot">Neto</th><th class="grec2">Ingresos de la recolocación</th><th class="grec2">Dividendo 15%</th><th class="grec2 tot">Neto</th></tr></thead><tbody>`;
+  years.forEach(y => { const a = (gy[y]||0)+(pr[y]||0)-(py[y]||0), b = (gy[y]||0)+(rr[y]||0)-(ry[y]||0); h += `<tr><td>${y}</td>${cell(gy[y]||0,'tot')}${cell(pr[y]||0)}${cell(-(py[y]||0))}${cell(a,'tot'+(st.dec==='pagar'?' sel':''))}${cell(rr[y]||0)}${cell(-(ry[y]||0))}${cell(b,'tot'+(st.dec==='recolocar'?' sel':''))}</tr>`; });
+  h += `<tr class="sum"><td>Total</td>${cell(S.totGen,'tot')}${cell(P.totRec)}${cell(-P.totDiv)}${cell(P.conC,'tot')}${cell(R.totRec)}${cell(-R.totDiv)}${cell(R.conC,'tot')}</tr></tbody></table>`;
   $('tblGenera').innerHTML = h;
-  $('tasaEq').textContent = pct(Math.round(tEq*10000)/10000);
-  renderRecol(gen, D);
-  drawCurva(gen, D);
+  drawCurva(S, P, R);
 }
 
-function renderRecol(gen, D){
-  const R = recolocacion();
-  $('recEf').textContent = pct(Math.round(R.e*10000)/10000);
-  $('recAn').textContent = pct(Math.round(R.anual*10000)/10000);
-  $('recFin').textContent = lbl(R.fin);
-  const totGen = sum(gen), totRec = sum(R.y);
-  const r = rateSel();
-  $('kpiRec').innerHTML = `<div class="card"><b>Genera CIMA + cartera colocada con la recuperación</b><span class="v">${fmt(totGen + totRec)}</span><small>CIMA ${fmt(totGen)} + cartera ${fmt(totRec)}</small></div>` +
-    D.map(d => { const net = totGen + totRec - sum(d.dev); return `<div class="card ${Math.abs(d.t-r)<1e-9?'cardsel':''}"><b><span class="key" style="background:${COLORES[d.t]}"></span>Dividendo a ${pct(d.t)}: ${fmt(sum(d.dev))}</b><span class="v ${net<-0.5?'negt':''}">${fmt(net)}</span><small>${net<-0.5?'pérdida neta':'ganancia neta'} con la cartera colocada</small></div>`; }).join('');
-  const genY = porAnio(gen), recY = porAnio(R.y), capY = porAnio(R.cap);
-  const years = rango([gen, R.y].concat(D.map(d=>d.dev)), 2026);
-  let h = '<table><thead><tr><th>Año</th><th>Capital que devuelve CIMA</th><th>Cartera colocada al cierre (capital recuperado acumulado)</th><th>Ingresos de la cartera colocada</th><th class="tot">Genera CIMA + cartera</th>' + D.map(d=>`<th class="tot">Neto a ${pct(d.t)}</th>`).join('') + '</tr></thead><tbody>';
-  years.forEach(y => {
-    const iDic = Math.min(idxOf(y,12), N-1); const g = (genY[y]||0) + (recY[y]||0);
-    h += `<tr><td>${y}</td>${cell(capY[y]||0)}${cell(R.K[iDic])}${cell(recY[y]||0)}${cell(g,'tot')}` + D.map(d=>cell(g - (porAnio(d.dev)[y]||0),'tot')).join('') + '</tr>';
-  });
-  h += `<tr class="sum"><td>Total</td>${cell(sum(R.cap))}<td></td>${cell(totRec)}${cell(totGen+totRec,'tot')}` + D.map(d=>cell(totGen+totRec-sum(d.dev),'tot')).join('') + '</tr></tbody></table>';
+function renderRecol(S){
+  const years = rango([S.capRec, S.ingRec, S.rec], 2026);
+  const cy = porAnio(S.capRec), iy = porAnio(S.ingRec), ry = porAnio(S.rec);
+  let h = '<table><thead><tr><th>Año</th><th>Capital que devuelve CIMA (se recoloca)</th><th>Recompra pagada a MAES (sale de lo recolocado)</th><th>Recolocado en nuevos proyectos CIMA al cierre</th><th class="tot">Ingresos de la recolocación</th></tr></thead><tbody>';
+  years.forEach(y => { const iDic = Math.min(idxOf(y,12), N-1); h += `<tr><td>${y}</td>${cell(cy[y]||0)}${cell(-(ry[y]||0))}${cell(S.pool[iDic])}${cell(iy[y]||0,'tot')}</tr>`; });
+  h += `<tr class="sum"><td>Total</td>${cell(sum(S.capRec))}${cell(-sum(S.rec))}<td></td>${cell(S.totRec,'tot')}</tr></tbody></table>`;
   $('tblRecol').innerHTML = h;
-  window.__rec = R;
 }
 
-function drawCurva(gen, D){
+function renderMes(S){
+  const i0 = idxOf(2026,10), i1 = idxOf(2027,10); const cols = []; for (let i=i0;i<=i1;i++) cols.push(i);
+  const filas = [
+    ['(+) Emisión Serie III-P MAES (entra el dinero)', S.capS],
+    ['(−) Pago a Siemens por las máquinas', S.disp.map(v=>-v)],
+    ['(+) Cobranza a CIMA: anticipo, comisión, rentas y opción de compra', S.cob],
+    ['(±) Depósitos en garantía de CIMA', S.dep],
+    ['(−) Dividendos pagados a MAES (15%)', S.paid.map(v=>-v)],
+    ['(+) Ingresos de la recolocación en nuevos proyectos CIMA', S.ingRec],
+  ];
+  const line = (n, s, cls='') => `<tr class="${cls}"><td>${n}</td>${cols.map(i=>cell(s[i])).join('')}${cell(sum(cols.map(i=>s[i])),'tot')}</tr>`;
+  let h = '<table><thead><tr><th>Concepto</th>' + cols.map(i=>`<th>${lbl(i)}</th>`).join('') + '<th class="tot">Total</th></tr></thead><tbody>';
+  filas.forEach(f => h += line(f[0], f[1]));
+  h += line('(=) Flujo neto del mes', S.neto, 'sum');
+  let acc = sum(S.neto.slice(0,i0)); h += `<tr class="hl"><td>Dinero del proyecto en SOFIMAS (acumulado, en caja o recolocado)</td>${cols.map(i=>cell(acc += S.neto[i])).join('')}<td></td></tr>`;
+  $('tblMes').innerHTML = h + '</tbody></table>';
+}
+
+function renderAnual(P, R){
+  const years = rango([P.paid, R.paid, P.rec, R.rec], 2026);
+  const pp = porAnio(P.paid), rp = porAnio(R.paid), pr = porAnio(P.rec), rr = porAnio(R.rec);
+  const sp = st.dec==='pagar' ? ' sel' : '', sr = st.dec==='recolocar' ? ' sel' : '';
+  let h = `<table class="grp2"><thead><tr class="grp"><th rowspan="2">Año</th><th colspan="2" class="gpag${sp?' grpsel':''}">Pagar a MAES · recompra en el año 5</th><th colspan="2" class="grec${sr?' grpsel':''}">Recolocar otros 5 años · recompra en el año 10</th></tr><tr><th class="gpag2">Dividendos pagados</th><th class="gpag2">Recompra a MAES</th><th class="grec2">Dividendos pagados</th><th class="grec2">Recompra a MAES</th></tr></thead><tbody>`;
+  years.forEach(y => { h += `<tr><td>${y}</td>${cell(pp[y]||0,sp.trim())}${cell(pr[y]||0,sp.trim())}${cell(rp[y]||0,sr.trim())}${cell(rr[y]||0,sr.trim())}</tr>`; });
+  h += `<tr class="sum"><td>Total</td>${cell(sum(P.paid))}${cell(sum(P.rec))}${cell(sum(R.paid))}${cell(sum(R.rec))}</tr></tbody></table>`;
+  $('tblAnual').innerHTML = h;
+}
+
+function renderDesglose(S){
+  const years = rango([S.paid], 2026);
+  let h = '<table><thead><tr><th>Año</th>' + S.G.map(g=>`<th>${ORD[g.n-1]} emisión · ${lbl(g.emis)} · ${fmt(g.P)}</th>`).join('') + '<th class="tot">Total</th></tr></thead><tbody>';
+  years.forEach(y => { const v = S.G.map(g => porAnio(g.paid)[y]||0); h += `<tr><td>${y}</td>${v.map(x=>cell(x)).join('')}${cell(sum(v),'tot')}</tr>`; });
+  h += `<tr class="sum"><td>Total</td>${S.G.map(g=>cell(sum(g.paid))).join('')}${cell(sum(S.paid),'tot')}</tr></tbody></table>`;
+  $('tblDesglose').innerHTML = h;
+}
+
+function renderFlujo(S){
+  const yrs = rango([S.capS, S.cob, S.paid, S.disp, S.dep, S.rec, S.ingRec], 2026);
+  const Y = s => { const o = porAnio(s); return yrs.map(y => o[y]||0); };
+  const line = (n, s, cls='') => { const v = Y(s); return `<tr class="${cls}"><td>${n}</td>${v.map(x=>cell(x)).join('')}${cell(sum(v),'tot')}</tr>`; };
+  let h = '<table><thead><tr><th>Concepto</th>' + yrs.map(y=>`<th>${y}</th>`).join('') + '<th class="tot">Total</th></tr></thead><tbody>';
+  h += line('(+) Emisión Serie III-P MAES', S.capS);
+  h += line('(−) Pago a Siemens', S.disp.map(v=>-v));
+  h += line('(+) Cobranza a CIMA', S.cob);
+  h += line('(±) Depósitos en garantía', S.dep);
+  h += line('(−) Dividendos a MAES (15%)', S.paid.map(v=>-v));
+  h += line('(+) Ingresos de la recolocación', S.ingRec);
+  h += line('(−) Recompra de acciones a MAES', S.rec.map(v=>-v));
+  h += line('(=) Flujo neto del proyecto', S.neto, 'sum');
+  let a = 0; const acc = Y(S.neto).map(v => a += v);
+  h += `<tr class="hl"><td>Dinero del proyecto en SOFIMAS al cierre del año (en caja o recolocado)</td>${acc.map(v=>cell(v)).join('')}<td></td></tr>`;
+  $('tblFlujo').innerHTML = h + '</tbody></table>';
+}
+
+function drawCurva(S, P, R){
   const host = $('curva'); host.innerHTML = '';
-  let i0 = 0; for (let i=0;i<N;i++){ if (gen[i] > 0.5 || D.some(d=>d.dev[i]>0.5)){ i0 = i; break; } }
-  let i1 = i0; D.forEach(d => d.paid.forEach((v,i)=>{ if (v>0.5) i1 = Math.max(i1,i); }));
+  let i0 = idxOf(2026,11), i1 = Math.max(P.last, R.last, P.lastRec, R.lastRec);
   const idx = []; for (let i=i0;i<=i1;i++) idx.push(i);
   const cum = a => { let c = 0; return idx.map(i => c += a[i]); };
-  const R = recolocacion();
-  const series = [{name:'Genera CIMA (intereses + comisiones)', color:'var(--ink)', w:3, vals:cum(gen)}, {name:'Genera CIMA + cartera colocada', color:'var(--ink)', w:2, dash:'6 4', vals:cum(gen.map((v,i)=>v+R.y[i]))}]
-    .concat(D.map(d => ({name:'Dividendos pagados a '+pct(d.t), color:COLORES[d.t], w:2, vals:cum(d.paid), t:d.t})));
-  const W = host.clientWidth || 900, H = 340, m = {l:56, r:150, t:12, b:30};
+  const series = [
+    {name:'Genera CIMA', color:'var(--ink)', w:3, vals:cum(S.gen)},
+    {name:'CIMA + recolocación (pagar)', color:COLD.pagar, w:2, dash:'6 4', vals:cum(P.gen.map((v,i)=>v+P.ingRec[i])), d:'pagar'},
+    {name:'CIMA + recolocación (recolocar)', color:COLD.recolocar, w:2, dash:'6 4', vals:cum(R.gen.map((v,i)=>v+R.ingRec[i])), d:'recolocar'},
+    {name:'Dividendos (pagar)', color:COLD.pagar, w:2, vals:cum(P.paid), d:'pagar'},
+    {name:'Dividendos (recolocar)', color:COLD.recolocar, w:2, vals:cum(R.paid), d:'recolocar'},
+  ];
+  const W = host.clientWidth || 900, H = 340, m = {l:56, r:190, t:12, b:30};
   const max = Math.max(...series.map(s=>Math.max(...s.vals))) * 1.05;
   const x = j => m.l + (W-m.l-m.r) * j / (idx.length-1);
   const y = v => m.t + (H-m.t-m.b) * (1 - v/max);
   const NS = 'http://www.w3.org/2000/svg';
   const svg = document.createElementNS(NS,'svg'); svg.setAttribute('viewBox',`0 0 ${W} ${H}`); svg.setAttribute('width','100%'); svg.setAttribute('role','img');
-  svg.setAttribute('aria-label','Acumulado mensual: lo que genera el proyecto CIMA contra los dividendos pagados a MAES a cada tasa');
+  svg.setAttribute('aria-label','Acumulado mensual: lo que genera CIMA y la recolocación contra los dividendos a MAES, con pago en el año 5 o recolocación');
   const el = (n, a) => { const e = document.createElementNS(NS,n); for (const k in a) e.setAttribute(k,a[k]); svg.appendChild(e); return e; };
-  const step = max > 50e6 ? 10e6 : 5e6;
+  const step = max > 100e6 ? 20e6 : max > 50e6 ? 10e6 : 5e6;
   for (let v = 0; v <= max; v += step){ el('line',{x1:m.l,x2:W-m.r,y1:y(v),y2:y(v),stroke:'var(--line)','stroke-width':1}); const t = el('text',{x:m.l-6,y:y(v)+4,'text-anchor':'end','font-size':11,fill:'var(--muted)'}); t.textContent = (v/1e6).toFixed(0)+' M'; }
   idx.forEach((i,j) => { const [yy,mm] = ymOf(i); if (mm===1){ el('line',{x1:x(j),x2:x(j),y1:H-m.b,y2:H-m.b+4,stroke:'var(--muted)'}); const t = el('text',{x:x(j),y:H-m.b+16,'text-anchor':'middle','font-size':11,fill:'var(--muted)'}); t.textContent = yy; } });
-  const r = rateSel();
   const ends = [];
   series.forEach(s => {
     const d = s.vals.map((v,j)=>`${j?'L':'M'}${x(j).toFixed(1)},${y(v).toFixed(1)}`).join('');
-    const sel = s.t === undefined || Math.abs(s.t - r) < 1e-9;
-    const pa = {d, fill:'none', stroke:s.color, 'stroke-width': sel ? s.w+1 : s.w, 'stroke-linejoin':'round', 'stroke-linecap':'round', opacity: sel ? 1 : 0.75}; if (s.dash) pa['stroke-dasharray'] = s.dash;
-    el('path', pa);
-    ends.push({s, yv: y(s.vals[s.vals.length-1])});
+    const sel = !s.d || s.d === st.dec;
+    const pa = {d, fill:'none', stroke:s.color, 'stroke-width': sel ? s.w+1 : s.w, 'stroke-linejoin':'round', 'stroke-linecap':'round', opacity: sel ? 1 : 0.45}; if (s.dash) pa['stroke-dasharray'] = s.dash;
+    el('path', pa); ends.push({s, yv: y(s.vals[s.vals.length-1])});
   });
   ends.sort((a,b)=>a.yv-b.yv); for (let k=1;k<ends.length;k++) if (ends[k].yv - ends[k-1].yv < 14) ends[k].yv = ends[k-1].yv + 14;
-  ends.forEach(e => { const t = el('text',{x:W-m.r+8,y:e.yv+4,'font-size':11.5,fill:'var(--ink)'}); t.textContent = e.s.name.replace('Dividendos pagados a ','Dividendos ').replace(' (intereses + comisiones)','').replace('Genera CIMA + cartera colocada','CIMA + cartera') + ' · ' + (e.s.vals[e.s.vals.length-1]/1e6).toFixed(1) + ' M'; el('line',{x1:W-m.r+1,x2:W-m.r+6,y1:e.yv,y2:e.yv,stroke:e.s.color,'stroke-width':3}); });
+  ends.forEach(e => { const t = el('text',{x:W-m.r+8,y:e.yv+4,'font-size':11.5,fill:'var(--ink)'}); t.textContent = e.s.name + ' · ' + (e.s.vals[e.s.vals.length-1]/1e6).toFixed(1) + ' M'; el('line',{x1:W-m.r+1,x2:W-m.r+6,y1:e.yv,y2:e.yv,stroke:e.s.color,'stroke-width':3}); });
   const hair = el('line',{x1:0,x2:0,y1:m.t,y2:H-m.b,stroke:'var(--muted)','stroke-width':1,visibility:'hidden'});
   const hit = el('rect',{x:m.l,y:m.t,width:W-m.l-m.r,height:H-m.t-m.b,fill:'transparent'});
   host.appendChild(svg);
@@ -496,101 +564,25 @@ function drawCurva(gen, D){
   };
   hit.addEventListener('pointermove', move); hit.addEventListener('pointerleave', () => { tip.hidden = true; hair.setAttribute('visibility','hidden'); });
 }
-window.addEventListener('resize', () => { clearTimeout(window.__rz); window.__rz = setTimeout(render, 150); });
 
-
-// ===== Resumen ejecutivo y navegación por secciones =====
-function renderResumen(){
-  const r = rateSel();
-  const G = calc(r);
-  const cap = sum(G.map(g=>g.P));
-  const intr = serieMaq('s_int'), com = serieMaq('s_com');
-  const totGen = sum(intr) + sum(com);
-  const dev = sumSeries(G,'dev'); const totDiv = sum(dev);
-  const anual = cap * r;
-  const R = recolocacion(); const totRec = sum(R.y);
-  const sinC = totGen - totDiv, conC = totGen + totRec - totDiv;
-  const tEq = 0.15 * totGen / sum(sumSeries(calc(0.15),'dev'));
-  const M = v => (v/1e6).toLocaleString('es-MX',{minimumFractionDigits:1, maximumFractionDigits:1}) + ' M';
-  const sg = v => (v >= 0 ? '+' : '−') + M(Math.abs(v));
-  const fl = G.map(g => `${lbl(g.emis)} (${M(g.P)})`); const fechas = fl.length > 1 ? fl.slice(0,-1).join(', ') + ' y ' + fl[fl.length-1] : fl.join('');
-  let last = -1; sumSeries(G,'paid').forEach((v,i)=>{ if (v>0.5) last = i; });
-  $('resTxt').innerHTML = `
-    <div class="big">
-      <div><b>MAES aporta</b><span>${M(cap)}</span><small>3 emisiones para pagar las 5 máquinas de CIMA</small></div>
-      <div><b>Dividendo a ${pct(r)}</b><span>${M(anual)} al año</span><small>${M(totDiv)} en todo el proyecto</small></div>
-      <div><b>CIMA le genera a SOFIMAS</b><span>${M(totGen)}</span><small>intereses y comisiones del arrendamiento</small></div>
-      <div><b>Resultado solo con CIMA</b><span class="${sinC<0?'neg':'pos'}">${sg(sinC)}</span><small>${sinC<0?'pérdida':'ganancia'}: CIMA ${sinC<0?'no alcanza a':'sí alcanza a'} pagar el dividendo</small></div>
-      <div><b>Resultado con la cartera colocada</b><span class="${conC<0?'neg':'pos'}">${sg(conC)}</span><small>colocando lo que CIMA devuelve a ${pct(Math.round(R.anual*10000)/10000)} efectivo</small></div>
-    </div>
-    <ul>
-      <li><b>Cómo funciona:</b> MAES compra acciones Serie III-P y con ese dinero SOFIMAS paga las máquinas. Las emisiones son en ${fechas}. Salvo la primera, entran un mes antes de pagar a Siemens.</li>
-      <li><b>Qué se le paga a MAES:</b> ${pct(r)} anual sobre su aportación, cada trimestre (enero, abril, julio y octubre), mientras duren los arrendamientos; el último pago es en ${lbl(last)}. Las acciones no se recompran en este horizonte; el dinero se queda en SOFIMAS.</li>
-      <li><b>Por qué CIMA sola no alcanza:</b> MAES pone el 100% de las máquinas y su capital no baja. CIMA solo financia el 85% (paga 15% de anticipo) y su deuda baja con cada renta. El dividendo que iguala lo que genera CIMA es <b>${pct(Math.round(tEq*10000)/10000)}</b>.</li>
-      <li><b>Dónde está la ganancia:</b> lo que CIMA devuelve (${M(sum(R.cap))}) se vuelve a colocar como cartera. Eso agrega ${M(totRec)} de ingresos y el proyecto deja ${sg(conC)} a ${pct(r)}.</li>
-      <li><b>Lo que falta considerar:</b> impuestos (el dividendo no es deducible; los intereses sí pagan ISR), cartera vencida y gastos de operación. Ver «Fuentes» y la lista de pendientes.</li>
-    </ul>
-    <p class="note">Usa la tasa de arriba para cambiar el escenario. Abre las secciones del menú para ver el detalle.</p>`;
-}
-document.querySelectorAll('.menu a[data-open]').forEach(a => a.addEventListener('click', ev => { const d = document.getElementById(a.dataset.open); if (d){ d.open = true; } }));
-document.getElementById('btnAll').onclick = () => { document.querySelectorAll('details.sec').forEach(d => d.open = true); render(); };
-document.getElementById('btnNone').onclick = () => document.querySelectorAll('details.sec').forEach(d => d.open = false);
+// ===== Controles =====
+document.querySelectorAll('#segDec button').forEach(b => b.onclick = () => { st.dec = b.dataset.d; render(); });
+$('inRec').oninput = e => { const v = parseFloat(String(e.target.value).replace(',','.')); st.recTasa = (isFinite(v) && v>=0 && v<100) ? v/100 : 0.27; render(); };
+$('btnPrint').onclick = () => window.print();
+$('btnCSV').onclick = () => {
+  const L = window.__last; const yrs = rango([L.P.paid, L.R.paid, L.P.rec, L.R.rec], 2026);
+  const a = porAnio(L.P.paid), b = porAnio(L.P.rec), c = porAnio(L.R.paid), d = porAnio(L.R.rec);
+  const rows = [['Año','Dividendos pagar a MAES','Recompra pagar a MAES','Dividendos recolocar','Recompra recolocar']];
+  yrs.forEach(y => rows.push([y,(a[y]||0).toFixed(2),(b[y]||0).toFixed(2),(c[y]||0).toFixed(2),(d[y]||0).toFixed(2)]));
+  const csv = '﻿' + rows.map(r=>r.map(x=>`"${x}"`).join(',')).join('\r\n');
+  const el = document.createElement('a'); el.href = URL.createObjectURL(new Blob([csv],{type:'text/csv'})); el.download = 'Concentrado_dividendos_recompra_CIMA_MAES.csv'; el.click();
+};
+document.querySelectorAll('.menu a[data-open]').forEach(a => a.addEventListener('click', () => { const d = document.getElementById(a.dataset.open); if (d){ d.open = true; } }));
+$('btnAll').onclick = () => { document.querySelectorAll('details.sec').forEach(d => d.open = true); render(); };
+$('btnNone').onclick = () => document.querySelectorAll('details.sec').forEach(d => d.open = false);
 document.querySelectorAll('details.sec').forEach(d => d.addEventListener('toggle', () => { if (d.open && d.querySelector('#curva')) render(); }));
 window.addEventListener('beforeprint', () => document.querySelectorAll('details.sec').forEach(d => d.open = true));
-
-// ===== Actualizar desde el Excel (lee 'Colocación Real' y 'AFinanciero' por etiquetas) =====
-function readWorkbook(wb){
-  const norm = s => String(s||'').normalize('NFC').trim().toLowerCase();
-  const sh = name => { const n = wb.SheetNames.find(x => norm(x) === norm(name)); if (!n) throw new Error('no encontré la hoja «'+name+'»'); return wb.Sheets[n]; };
-  const CR = sh('Colocación Real'), AF = sh('AFinanciero');
-  const v = (ws, a) => { const c = ws[a]; return c ? c.v : undefined; };
-  const rng = ws => XLSX.utils.decode_range(ws['!ref']);
-  // AFinanciero: fila de fechas = etiqueta "Fecha del mes" en B; columnas D..DS
-  const rAF = rng(AF); let rowFecha = -1; const labelRow = {};
-  for (let r = rAF.s.r; r <= rAF.e.r; r++){ const t = v(AF, 'B'+(r+1)); if (t === undefined) continue; const s = String(t); if (rowFecha < 0 && s.trim() === 'Fecha del mes') rowFecha = r+1; labelRow[s] = labelRow[s] || (r+1); }
-  if (rowFecha < 0) throw new Error('no encontré «Fecha del mes» en AFinanciero');
-  const c0 = XLSX.utils.decode_col('D');
-  const meses = []; for (let j = 0; j < 120; j++) meses.push(v(AF, XLSX.utils.encode_col(c0+j) + rowFecha));
-  if (meses[0] !== 46023) throw new Error('el eje de AFinanciero no empieza en ene-2026');
-  const serie = row => { const o = []; for (let j = 0; j < 120; j++){ const x = v(AF, XLSX.utils.encode_col(c0+j)+row); o.push(typeof x === 'number' ? x : 0); } return o; };
-  // Supuestos por operación: fila "Concepto" con nombres en C..O
-  let rc = -1; for (let r = rAF.s.r; r <= rAF.e.r; r++){ if (String(v(AF,'B'+(r+1))||'').trim()==='Concepto' && String(v(AF,'C'+(r+1))||'').startsWith('CIMA Siemens')) { rc = r+1; break; } }
-  if (rc < 0) throw new Error('no encontré la tabla de supuestos por operación en AFinanciero');
-  const maq = [];
-  for (let k = 1; k <= 5; k++){
-    const pref = 'CIMA Siemens '+k+' — ';
-    const find = frag => { const key = Object.keys(labelRow).find(s => s.startsWith(pref + frag)); if (!key) throw new Error('falta «'+pref+frag+'» en AFinanciero'); return labelRow[key]; };
-    let col = null; for (let j = 2; j <= 20; j++){ const nm = v(AF, XLSX.utils.encode_col(j)+rc); if (nm && String(nm).startsWith('CIMA Siemens '+k)) { col = XLSX.utils.encode_col(j); break; } }
-    if (!col) throw new Error('no encontré la columna de supuestos de CIMA Siemens '+k);
-    const sup = off => v(AF, col + (rc+off));
-    // Colocación Real: fila cuyo B empieza con "CIMA Siemens k"
-    const rCR = rng(CR); let fr = -1; for (let r = rCR.s.r; r <= rCR.e.r; r++){ const t = v(CR,'B'+(r+1)); if (t && String(t).startsWith('CIMA Siemens '+k)) { fr = r+1; break; } }
-    if (fr < 0) throw new Error('no encontré «CIMA Siemens '+k+'» en Colocación Real');
-    maq.push({k, nombre: String(v(CR,'B'+fr)), filaCR: fr, conIVA: v(CR,'G'+fr), fecha: v(CR,'H'+fr),
-      sinIVA: sup(1), fechaExacta: sup(19), tasa: sup(5), plazo: sup(3), anticipo: sup(7), comision: sup(13), deposito: sup(16), renta: sup(11), colAF: col, filaAF: find('renta ordinaria')-2,
-      s_renta: serie(find('renta ordinaria')), s_int: serie(find('interés devengado')), s_iva: serie(find('IVA causado')), s_ant: serie(find('anticipo')), s_com: serie(find('comisión de apertura')),
-      s_depc: serie(find('depósito en garantía (cobro)')), s_opc: serie(find('opción de compra')), s_depd: serie(find('depósito en garantía (devolución)')), s_disp: serie(find('disposición / desembolso'))});
-  }
-  return {meses, maq};
-}
-$('btnFile').onclick = () => $('fileIn').click();
-$('fileIn').onchange = ev => {
-  const f = ev.target.files[0]; if (!f) return;
-  if (typeof XLSX === 'undefined'){ $('estado').className='status err'; $('estado').textContent='No se pudo cargar el lector de Excel (requiere internet la primera vez).'; return; }
-  $('estado').className='status'; $('estado').textContent='Leyendo '+f.name+'…';
-  const rd = new FileReader();
-  rd.onload = e => {
-    try {
-      const wb = XLSX.read(new Uint8Array(e.target.result), {type:'array', sheets:['Colocación Real','AFinanciero'], cellFormula:false, cellHTML:false, cellText:false});
-      const d = readWorkbook(wb);
-      const ts = new Intl.DateTimeFormat('es-MX',{timeZone:'America/Hermosillo',dateStyle:'medium',timeStyle:'short'}).format(f.lastModified ? new Date(f.lastModified) : new Date());
-      DATA = {meses:d.meses, maq:d.maq, fuente:{archivo:f.name, copia: ts + ' h (fecha del archivo, Hermosillo)'}};
-      $('estado').className='status ok'; $('estado').textContent='Datos actualizados desde '+f.name+'.';
-      render();
-    } catch(err){ $('estado').className='status err'; $('estado').textContent='No se pudo leer: '+err.message+'. Se conservan los datos anteriores.'; }
-  };
-  rd.readAsArrayBuffer(f);
-};
+window.addEventListener('resize', () => { clearTimeout(window.__rz); window.__rz = setTimeout(render, 150); });
 render();
 
 </script>
