@@ -127,6 +127,8 @@ table.grp2 thead tr.grp th:first-child{text-align:left}
 th.gpag{background:#2471A3!important}th.grec{background:#7D3C98!important}
 th.gpag2{border-top:3px solid #2980B9}th.grec2{border-top:3px solid #8E44AD}
 th.grpsel::after{content:" · seleccionado";font-weight:normal;opacity:.9}
+.trz code{overflow-wrap:anywhere;word-break:break-word}
+.benef{margin:16px 0 4px;padding:12px 16px;border:1px solid var(--line);border-left:6px solid var(--blue);border-radius:8px;background:var(--sum);color:var(--ink);font-size:14px;line-height:1.55}.benef h3{margin:0 0 6px;font-size:15.5px}.benef ul{margin:6px 0 8px;padding-left:1.2em}.benef li{margin:3px 0}.benef .cierre{font-weight:700;margin:8px 0 4px}.benef .note{margin:4px 0 0}
 .aviso-imp{margin:14px 0 6px;padding:10px 14px;border:1px solid var(--line);border-left:6px solid var(--muted);border-radius:8px;background:var(--soft);color:var(--ink);font-size:13.5px;line-height:1.5;max-width:1200px}.aviso-imp b{color:var(--ink)}
 @media print{.aviso-imp{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style>
@@ -158,6 +160,18 @@ th.grpsel::after{content:" · seleccionado";font-weight:normal;opacity:.9}
   <section class="resumen" id="resumen">
     <h2>Resumen ejecutivo</h2>
     <div id="resTxt"></div>
+    <div class="benef" id="benef">
+      <h3>Beneficio para los socios de SOFIMAS: más capital, más fondeo institucional</h3>
+      <p>Además de lo que genera CIMA, la Serie III-P aumenta el capital de SOFIMAS. El capital es lo primero que revisan NAFIN y FIFOMI para prestarle a una SOFOM:</p>
+      <ul>
+        <li><b>NAFIN, fondeo directo para crédito PYME:</b> pide un capital contable mínimo de 9 millones de UDIs, unos 79.8 M. Hoy SOFIMAS tiene 50.3 M (5.7 millones de UDIs) y no llega. Con la Serie III-P, el modelo proyecta 126.3 M a dic-27 (14.2 millones de UDIs).</li>
+        <li><b>FIFOMI:</b> pide un capital social pagado mínimo de 5 millones de UDIs, unos 44.3 M. Hoy es de 33 M. Con los 62.07 M de la Serie III-P llegaría a 95.1 M.</li>
+        <li><b>Monto máximo por cliente persona moral</b> (30% del capital contable, regla de NAFIN): sube de 15.1 M a 37.9 M.</li>
+        <li><b>Capacidad de crecer la cartera:</b> con el índice de capitalización mínimo de 12%, cada peso de capital respalda hasta unos 8 pesos de cartera. Los 62.07 M permitirían, en teoría, cerca de 500 M más de cartera.</li>
+      </ul>
+      <p class="cierre">Con esta capitalización, SOFIMAS puede pedir más fondeo institucional, crecer con una cartera de mejor calidad y dar mejores resultados a sus socios.</p>
+      <p class="note">Fuentes: criterios de elegibilidad de NAFIN (2023) y disposiciones y Manual de Crédito de FIFOMI (2024); UDI de 8.863616 al 26-oct-2026; capital contable de la balanza de ago-26 y del modelo V22. Las cifras son una estimación sobre el modelo. Hay que confirmar con NAFIN, FIFOMI y la calificadora que la Serie III-P cuenta como capital, porque SOFIMAS puede recomprarla. El beneficio dura mientras la Serie III-P siga en SOFIMAS: cada recompra lo reduce. <span class="tag">Inferencia</span></p>
+    </div>
   </section>
   <nav class="menu noprint"><span class="lbl">Ver detalle</span><a href="#s1" data-open="s1">Emisión Serie III-P</a><a href="#s2" data-open="s2">CIMA genera vs. dividendo</a><a href="#s3" data-open="s3">Recolocación</a><a href="#s4" data-open="s4">Flujo mensual oct-26 a oct-27</a><a href="#s5" data-open="s5">Dividendos y recompra por año</a><a href="#s6" data-open="s6">Por emisión</a><a href="#s7" data-open="s7">Flujo anual</a><a href="#s8" data-open="s8">Regla de los 5 años</a><a href="#s9" data-open="s9">Fuentes</a><button id="btnAll" type="button">Abrir todo</button><button id="btnNone" type="button">Cerrar todo</button></nav>
 
@@ -245,14 +259,15 @@ th.grpsel::after{content:" · seleccionado";font-weight:normal;opacity:.9}
     <li><b>Máquinas, mes de compra, precio sin IVA y cobranza a CIMA:</b> <code>AFinanciero</code> y <code>Colocación Real</code> del libro <code>2026_10_05_V22_F8+4_PILOTO2031_Modelo.xlsx</code> (copia indicada arriba). <span class="tag">Verificable</span></li>
     <li><b>Recolocación:</b> 27% nominal = tasa del arrendamiento CIMA actual (<code>AFinanciero</code>, tasa nominal anual). Se aplica al capital recolocado sin descontar anticipo, comisiones, cartera vencida ni gastos. <span class="tag">Supuesto</span></li>
     <li><b>Lo que esta página no cambia:</b> el Excel. El modelo hoy recompra a MAES el mes siguiente a la última renta (Ronda III-P-2, 26-oct-2026). Para llevar la regla de los 5 años al modelo hace falta otra ronda. <span class="tag">Pendiente</span></li>
+    <li><b>Beneficio para el fondeo institucional:</b> requisitos de NAFIN (capital contable mínimo de 9 millones de UDIs; índice de capitalización de 12% o más; máximo 30% del capital por cliente) y de FIFOMI (capital social pagado mínimo de 5 millones de UDIs), tomados de <code>2026_09_11_V1_Extraccion_Requisitos_Fondeo_IFNB_2doPiso.md</code>. Capital actual: balanza de ago-26 (33,000,000 + 16,956,271 + 386,787 = 50.3 M), igual al de dic-25 del modelo. Capital con la Serie III-P: <code>BG+ER</code> fila 77 del modelo V22 (126.3 M a dic-27). UDI: 8.863616 al 26-oct-2026, según una fuente secundaria que cita a Banxico. <span class="tag">Verificable · la estimación es Inferencia</span></li>
     <li><b>Antes de impuestos:</b> el ISR de los dividendos que excedan la CUFIN y el de la recompra no están aquí; el modelo calcula el primero con la Ronda III-P-3. <span class="tag">Pendiente</span></li>
   </ol>
     </div>
   </details>
 
   <footer>
-    Autor: esalas@eduardosalas.com · Versión V11 · Emitido el 26 de octubre de 2026, 13:38 h, Hermosillo, Sonora (MST, UTC−7) · Proyecto 261009 - Cowork Proyecciones SOFIMAS ·
-    Antecedentes: 2026_10_26_V10_Dividendos_IIIP_MAES_CIMA_Siemens_SOFIMAS.html (V11 = cambia el aviso rojo por «Estrategia de impuestos: pendiente de afinar con JOPI»); 2026_10_26_V9_Dividendos_IIIP_MAES_CIMA_Siemens_SOFIMAS.html (mismo contenido y cifras; V10 = revisión de redacción, 15 cambios de forma); 2026_10_13_V8_Dividendos_IIIP_MAES_CIMA_Siemens_SOFIMAS.html (tasas 14% a 19%, horizonte al fin del arrendamiento, recolocación en crédito simple al 15.22% efectivo) y V1 a V7 de esta página; 2026_10_13_V3_Entrada_Pitic_IIIP_CIMA_Siemens_SOFIMAS.html; Rondas III-P-1 a III-P-3 (26-oct-2026) ·
+    Autor: esalas@eduardosalas.com · Versión V12 · Emitido el 26 de octubre de 2026, 14:47 h, Hermosillo, Sonora (MST, UTC−7) · Proyecto 261009 - Cowork Proyecciones SOFIMAS ·
+    Antecedentes: 2026_10_26_V11_Dividendos_IIIP_MAES_CIMA_Siemens_SOFIMAS.html (V12 = agrega el beneficio para los socios por el fondeo institucional, nota de voz DME 26-oct-2026, 14:41 h); 2026_10_26_V10_Dividendos_IIIP_MAES_CIMA_Siemens_SOFIMAS.html (V11 = cambia el aviso rojo por «Estrategia de impuestos: pendiente de afinar con JOPI»); 2026_10_26_V9_Dividendos_IIIP_MAES_CIMA_Siemens_SOFIMAS.html (mismo contenido y cifras; V10 = revisión de redacción, 15 cambios de forma); 2026_10_13_V8_Dividendos_IIIP_MAES_CIMA_Siemens_SOFIMAS.html (tasas 14% a 19%, horizonte al fin del arrendamiento, recolocación en crédito simple al 15.22% efectivo) y V1 a V7 de esta página; 2026_10_13_V3_Entrada_Pitic_IIIP_CIMA_Siemens_SOFIMAS.html; Rondas III-P-1 a III-P-3 (26-oct-2026) ·
     Conversación: https://claude.ai/code/session_01DWh164ff1ZpC6MJMCf8mNr
   </footer>
 </main>
