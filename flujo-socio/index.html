@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="esalas@eduardosalas.com">
+<meta name="description" content="Serie III-P de SOCIO: qué pasa con el flujo de SOFIMAS, su cartera, su fondeo y su capacidad de crecer si se le paga en el año 5 o si deja su dinero otros 5 años. Proyección 2026-2035.">
+<title>Decisión SOCIO: flujo de SOFIMAS</title>
+<style>
+:root{
+  --ink:#1B2631; --muted:#566573; --line:#D5D8DC; --bg:#FFFFFF; --soft:#F4F6F7;
+  --blue:#2980B9; --navy:#1B2631; --sum:#D6EAF8; --head:#E8DAEF; --ok:#27AE60; --bad:#1B2631;
+  --okbg:#D5F5E3; --badbg:#F4F6F7; --warnbg:#FAE5D3; --sel:#D1F2EB; --card:#FFFFFF;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#E5E8E8; --muted:#AAB7B8; --line:#3D4A57; --bg:#141B22; --soft:#1E2833;
+    --blue:#5DADE2; --navy:#0E1620; --sum:#1F3A4F; --head:#3A2F45; --bad:#E5E8E8;
+    --okbg:#1E4D33; --badbg:#1E2833; --warnbg:#4D3A22; --sel:#1C4A42; --card:#18212A;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#E5E8E8; --muted:#AAB7B8; --line:#3D4A57; --bg:#141B22; --soft:#1E2833;
+  --blue:#5DADE2; --navy:#0E1620; --sum:#1F3A4F; --head:#3A2F45; --bad:#E5E8E8;
+  --okbg:#1E4D33; --badbg:#1E2833; --warnbg:#4D3A22; --sel:#1C4A42; --card:#18212A;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.45}
+header.top{padding:18px 24px 12px;border-bottom:3px solid var(--blue)}
+h1{margin:0 0 4px;font-size:22px}
+h2{font-size:18px;margin:28px 0 6px}
+main{padding:0 24px 40px;max-width:1600px}
+.sub{color:var(--muted);margin:0}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0 4px}
+button,label.btn{font:inherit;border:1px solid var(--blue);background:var(--card);color:var(--blue);padding:6px 11px;border-radius:6px;cursor:pointer}
+button.primary{background:var(--blue);color:#fff}
+input[type=text],input[type=number]{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:5px 8px;border-radius:6px;width:90px}
+.status{padding:8px 12px;border-radius:6px;background:var(--soft);color:var(--muted)}
+.status.ok{background:var(--okbg)} .status.err{background:var(--badbg);color:var(--bad)}
+.filters{position:sticky;top:0;z-index:20;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:12px 0}
+.frow{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center}
+.frow+.frow{margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
+.fgrp{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.lbl{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.03em}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{border:0;border-radius:0;color:var(--ink);padding:5px 11px;background:var(--card)}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button.on{background:var(--blue);color:#fff}
+.chip{display:inline-flex;gap:4px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:3px 10px;font-size:13px;cursor:pointer;margin:2px 0}
+.chip.on{background:var(--sum);border-color:var(--blue)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;margin:12px 0}
+.card{border:1px solid var(--line);border-radius:6px;padding:9px 11px;background:var(--card)}
+.card b{display:block;font-size:12px;color:var(--muted);font-weight:normal}
+.card .v{display:block;font-size:19px;font-weight:bold;font-variant-numeric:tabular-nums}
+.card .v.negt{color:var(--bad)}
+.card small{color:var(--muted)}
+.wrap{overflow:auto;border:1px solid var(--line);border-radius:6px}
+table{border-collapse:separate;border-spacing:0;width:100%}
+th,td{padding:5px 7px;border-bottom:1px solid var(--line);white-space:nowrap;font-size:12.5px}
+thead th{position:sticky;top:0;background:var(--navy);color:#fff;text-align:right;z-index:2;white-space:normal;vertical-align:bottom}
+#tblDesglose thead th,#tblAnual thead th{min-width:110px}
+thead th:first-child{text-align:left}
+td:first-child{text-align:left;white-space:normal;min-width:120px}
+td.n{text-align:right;font-variant-numeric:tabular-nums}
+td.neg{color:var(--bad)}
+td.tot,th.tot{border-left:2px solid var(--line);font-weight:bold}
+td.sel{background:var(--sel);font-weight:bold}
+th.selh{background:#1ABC9C}
+tr.sum td{background:var(--sum);font-weight:bold}
+tr.chk td{color:var(--muted);font-style:italic}
+tr.hl td{background:var(--sel);font-weight:bold}
+.chartbox{border:1px solid var(--line);border-radius:6px;padding:10px 12px;margin:10px 0;background:var(--card)}
+.curva{position:relative}
+.tip{position:absolute;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:6px 9px;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.15);pointer-events:none;min-width:240px}
+.tiph{color:var(--muted);margin-bottom:3px}
+.tipr{display:flex;align-items:center;gap:4px;white-space:nowrap}
+.tipk{display:inline-block;width:12px;height:3px;border-radius:2px;margin-right:4px}
+.key{display:inline-block;width:12px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.card.cardsel{border:2px solid var(--blue)}
+.resumen{border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:8px;padding:12px 16px;margin:14px 0;background:var(--card)}
+.resumen h2{margin:0 0 6px}
+.big{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin:10px 0}
+.big div{background:var(--soft);border-radius:8px;padding:10px 12px}
+.big b{display:block;font-size:12px;color:var(--muted);font-weight:normal}
+.big span{display:block;font-size:22px;font-weight:bold;font-variant-numeric:tabular-nums}
+.big small{color:var(--muted)}
+.big span.neg{color:var(--bad)} .big span.pos{color:#1E8449}
+.resumen ul{margin:6px 0 4px 18px;padding:0;max-width:1100px} .resumen li{margin:5px 0}
+.menu{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0 14px}
+.menu a{border:1px solid var(--line);border-radius:14px;padding:3px 10px;color:var(--ink);text-decoration:none;font-size:13px;background:var(--card)}
+.menu a:hover{border-color:var(--blue);color:var(--blue)}
+.menu button{padding:3px 10px;font-size:13px}
+details.sec{border:1px solid var(--line);border-radius:8px;margin:10px 0;background:var(--bg)}
+details.sec>summary{cursor:pointer;list-style:none;padding:8px 14px;display:flex;align-items:center;gap:10px}
+details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary::before{content:'▸';color:var(--blue);font-size:16px;transition:transform .15s}
+details.sec[open]>summary::before{transform:rotate(90deg)}
+details.sec>summary h2{margin:0;font-size:16px;display:inline}
+details.sec>summary:hover h2{color:var(--blue)}
+.secbody{padding:0 14px 12px}
+@media print{details.sec{border:0}details.sec>summary::before{display:none}.secbody{display:block!important}}
+.note{color:var(--muted);font-size:12.5px;margin:6px 0;max-width:1100px}
+.box{border-left:4px solid var(--blue);background:var(--soft);padding:8px 12px;border-radius:4px;margin:10px 0;max-width:1100px}
+.box.warn{border-left-color:#E67E22}
+.tag{display:inline-block;font-size:11px;padding:0 6px;border-radius:8px;background:var(--soft);border:1px solid var(--line);color:var(--muted)}
+ol.trz li,ul.trz li{margin:3px 0}
+code{font-size:12px;background:var(--soft);padding:0 4px;border-radius:3px}
+footer{border-top:1px solid var(--line);margin-top:30px;padding-top:10px;color:var(--muted);font-size:12px}
+@media (max-width:700px){header.top,main{padding-left:16px;padding-right:16px}.filters{position:static}}
+@media print{
+  @page{size:landscape;margin:10mm}
+  .filters,.noprint{display:none!important}
+  .wrap{overflow:visible;border:0}
+  thead th{position:static}
+  th,td{font-size:9px;padding:2px 3px}
+  tr{break-inside:avoid} h2{break-after:avoid}
+}
+footer{overflow-wrap:anywhere}.seg{flex-wrap:wrap}
+.decBadge{margin:4px 0 10px;padding:6px 10px;border-radius:6px;border-left:4px solid var(--line);font-size:13px;max-width:1100px}
+.decBadge.bpag{border-color:#2980B9;background:#D6EAF8;color:#1B2631}
+.decBadge.brec{border-color:#8E44AD;background:#E8DAEF;color:#1B2631}
+.decBadge.bneu{background:var(--soft)}
+table.grp2 thead th{position:static}
+table.grp2 thead tr.grp th{text-align:center}
+table.grp2 thead tr.grp th:first-child{text-align:left}
+th.gpag{background:#2471A3!important}th.grec{background:#7D3C98!important}
+th.gpag2{border-top:3px solid #2980B9}th.grec2{border-top:3px solid #8E44AD}
+th.grpsel::after{content:" · seleccionado";font-weight:normal;opacity:.9}
+.trz code{overflow-wrap:anywhere;word-break:break-word}
+.tbenef{margin:6px 0 8px;background:var(--card)}.tbenef th,.tbenef td{text-align:left!important}.tbenef td:first-child{width:34%}.tbenef td:nth-child(2){width:26%}.tbenef td:nth-child(n+2),.tbenef th:nth-child(n+2){white-space:normal}
+.benef{margin:16px 0 4px;padding:12px 16px;border:1px solid var(--line);border-left:6px solid var(--blue);border-radius:8px;background:var(--sum);color:var(--ink);font-size:14px;line-height:1.55}.benef h3{margin:0 0 6px;font-size:15.5px}.benef ul{margin:6px 0 8px;padding-left:1.2em}.benef li{margin:3px 0}.benef .cierre{font-weight:700;margin:8px 0 4px}.benef .note{margin:4px 0 0}
+.aviso-imp{margin:14px 0 6px;padding:10px 14px;border:1px solid var(--line);border-left:6px solid var(--muted);border-radius:8px;background:var(--soft);color:var(--ink);font-size:13.5px;line-height:1.5;max-width:1200px}.aviso-imp b{color:var(--ink)}
+@media print{.aviso-imp{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+.chk{display:inline-flex;gap:6px;align-items:center}
+.emrow{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.emrow .seg button{padding:4px 9px;font-size:12.5px}
+tr.grp td{background:var(--soft);font-weight:bold;color:var(--muted);text-transform:uppercase;font-size:11.5px;letter-spacing:.03em}
+.wrap td:first-child{min-width:250px}
+.lead{font-size:14.5px;max-width:1100px;margin:6px 0 10px}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>Serie III-P de SOCIO: pagarle en el año 5 o que deje su dinero otros 5 años</h1>
+  <p class="sub">Qué pasa con el flujo de SOFIMAS, su cartera, su fondeo y su capacidad de crecer con cada decisión. Proyección de 2026 a 2035, en millones de pesos (M).</p>
+  <div class="bar noprint">
+    <button id="btnCSV">Descargar resumen (CSV)</button>
+    <button id="btnPrint">Imprimir o guardar PDF</button>
+  </div>
+  <p class="note">Fuente: <span id="fuente"></span></p>
+</header>
+<main>
+  <div class="aviso-imp" role="note"><b>Estrategia de impuestos: pendiente de afinar con JOPI.</b></div>
+  <div class="filters noprint">
+    <div class="frow">
+      <div class="fgrp"><span class="lbl">Decisión al cierre del año 4</span>
+        <div class="seg" id="segAll"><button data-d="pagar">Pagarle a SOCIO en el año 5</button><button data-d="reinv">SOCIO deja su dinero otros 5 años</button></div>
+      </div>
+    </div>
+    <div class="frow" id="rowEm"></div>
+    <div class="frow" id="rowUso">
+      <div class="fgrp"><span class="lbl">Si SOCIO deja su dinero, SOFIMAS lo usa para</span>
+        <div class="seg" id="segUso"><button data-u="colocar">prestarlo en nuevos proyectos CIMA</button><button data-u="linea">pagar la línea NAFIN/FIFOMI</button></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="resumen" id="resumen">
+    <h2>Resumen ejecutivo</h2>
+    <div id="resTxt"></div>
+  </section>
+  <nav class="menu noprint"><span class="lbl">Ver detalle</span><a href="#s1" data-open="s1">Flujo ejecutivo</a><a href="#s3" data-open="s3">Cartera por producto</a><a href="#s4" data-open="s4">Capacidad para crecer</a><a href="#s5" data-open="s5">Gastos de operación</a><a href="#s6" data-open="s6">Qué se decide y cuándo</a><a href="#s7" data-open="s7">Notas y fuentes</a><button id="btnAll" type="button">Abrir todo</button><button id="btnNone" type="button">Cerrar todo</button></nav>
+
+  <details class="sec" id="s1" open>
+    <summary><h2>1 · Flujo ejecutivo anual</h2></summary>
+    <div class="secbody">
+  <p class="decBadge"></p>
+  <p class="note">El flujo cambia con la decisión de arriba. Ya incluye la Serie III-P: el dinero que entra de SOCIO, los dividendos y, si se le paga, la recompra.</p>
+  <div class="wrap" id="tblFE"></div>
+    </div>
+  </details>
+
+  <details class="sec" id="s3" open>
+    <summary><h2>2 · Cartera por producto al cierre de cada año</h2></summary>
+    <div class="secbody">
+  <p class="decBadge"></p>
+  <div class="chartbox"><div id="barProd"></div><p class="note">Cartera vigente al 31 de diciembre de cada año. Pasa el cursor sobre una barra para ver las cifras.</p></div>
+  <div class="wrap" id="tblProd"></div>
+  <p class="note">«Arrendadora SOFIMAS» incluye los vehículos de CIMA y el programa de arrendamiento de la arrendadora. «Arrendamiento financiero» incluye las máquinas Siemens y los paneles de CIMA, Clínica del Noroeste y los proyectos de paneles solares. «Nuevos proyectos CIMA» es el capital que devuelve CIMA y se vuelve a prestar mientras el dinero de SOCIO siga en SOFIMAS.</p>
+    </div>
+  </details>
+
+  <details class="sec" id="s4" open>
+    <summary><h2>3 · Capacidad para crecer: lo que el capital permitiría y no se usa</h2></summary>
+    <div class="secbody">
+  <p class="note">El capital es la base con la que un fondeador y la calificadora miden cuánta deuda puede tomar SOFIMAS. Cada barra muestra la cartera máxima que el capital podría sostener al cierre del año sin perder una calificación HR A, fondeando lo adicional con deuda y sin pasar el límite de la línea NAFIN de 700 M.</p>
+  <div class="cards" id="kpiCap"></div>
+  <div class="chartbox"><div id="barCap"></div><p class="note">Gris: la cartera proyectada. Lila: la cartera que coloca el dinero de SOCIO, si se queda. Rayado: capacidad que no se usa. La línea punteada marca la capacidad con la otra decisión.</p></div>
+  <div class="wrap" id="tblCap"></div>
+  <p class="note">Para usar esa capacidad hay que proyectar una colocación más agresiva: más clientes, más productos y más fondeo.</p>
+    </div>
+  </details>
+
+  <details class="sec" id="s5">
+    <summary><h2>4 · Gastos de operación</h2></summary>
+    <div class="secbody">
+  <p class="lead">Hasta 2030 se toman los gastos planeados, con una inflación de 4.5% al año. Desde 2031, los gastos crecen al mismo ritmo que los ingresos de la operación, es decir, mantienen la proporción que tienen en 2030. Desde 2020, los gastos reales de SOFIMAS han crecido alrededor de 4.2% al año.</p>
+  <div class="wrap" id="tblG"></div>
+    </div>
+  </details>
+
+  <details class="sec" id="s6">
+    <summary><h2>5 · Qué se decide y cuándo</h2></summary>
+    <div class="secbody">
+  <div class="wrap" id="tblEmis"></div>
+  <p class="note">Cada emisión de la Serie III-P para CIMA dura 5 años. Al cierre del año 4 se decide si se le paga a SOCIO (en cuatro pagos trimestrales durante el año 5) o si deja su dinero otros 5 años; en ese caso, se le paga en 2036-2037 y el dividendo de 15% sigue corriendo. La emisión de septiembre de 2026 (4.2 M) no entra en esta decisión.</p>
+    </div>
+  </details>
+
+  <details class="sec" id="s7">
+    <summary><h2>6 · Notas y fuentes</h2></summary>
+    <div class="secbody">
+  <ul class="trz">
+    <li><b>Base:</b> el modelo de proyecciones de SOFIMAS (<code>2026_10_05_V22_F8+4_PILOTO2031_Modelo.xlsx</code>) con la decisión de pagarle a SOCIO en el año 5, más los gastos de operación de la sección 4. Las demás opciones se calculan a partir de esa base, con las mismas reglas del modelo para el dividendo, la recompra, la recolocación en proyectos CIMA y la línea.</li>
+    <li><b>Supuestos fijos:</b> dividendo de 15% a SOCIO; nuevos proyectos CIMA al 27% anual; línea NAFIN/FIFOMI al 12% anual; ISR de 30% sobre los ingresos y ahorros adicionales. No se incluyen la PTU, la cartera vencida ni los gastos propios de los nuevos proyectos CIMA, ni el ISR de los dividendos que excedan la CUFIN.</li>
+    <li><b>Horizonte:</b> de enero de 2026 a diciembre de 2035. Si SOCIO deja su dinero, al cierre de 2035 la recompra sigue pendiente para 2036-2037.</li>
+    <li><b>Capacidad para crecer:</b> cortes de HR Ratings que ya usa el modelo para una calificación HR A (capital ÷ activos productivos mayor a 27.5%; pasivo ÷ capital menor a 2.9 veces; cartera vigente ÷ deuda neta mayor a 1.3). Es una estimación al cierre de cada año y no suma la utilidad que generaría la cartera adicional.</li>
+    <li><b>Gastos de operación:</b> hoja de gastos del modelo; la tendencia de 4.2% anual sale de una regresión de los gastos mensuales reales de enero de 2020 a julio de 2026.</li>
+    <li><b>Las cifras de esta página son estimaciones</b> sobre el modelo y no cambian el archivo de Excel.</li>
+  </ul>
+    </div>
+  </details>
+
+  <footer>
+    Autor: esalas@eduardosalas.com · Versión V7 · Emitido el 27 de octubre de 2026, 15:01 h, Hermosillo, Sonora (MST, UTC−7) · Proyecto 261009 - Cowork Proyecciones SOFIMAS ·
+    Antecedentes: 2026_10_27_V6_Flujo_Ejecutivo_Decision_MAES_Pagar_o_Reinvertir_SOFIMAS.html (V7 = el suscriptor de la Serie III-P se identifica como «SOCIO», igual que en la página de dividendos; se quita la sección de la línea NAFIN/FIFOMI, cuyo saldo queda en el flujo ejecutivo y en el resumen; mismas cifras); 2026_10_27_V5_Flujo_Ejecutivo_Decision_MAES_Pagar_o_Reinvertir_SOFIMAS.html (V6 = versión para el Consejo: revisión de redacción, flujo ejecutivo que cambia con la decisión, cartera por producto, gastos de operación con un solo método; se quitan el flujo mensual y el detalle de dividendos); V1 a V4 de esta página (27-oct-2026); 2026_10_26_V13_Dividendos_IIIP_MAES_CIMA_Siemens_SOFIMAS.html ·
+    Conversación: https://claude.ai/code/session_01DWh164ff1ZpC6MJMCf8mNr
+  </footer>
+</main>
+<script>
+const DATA = {"fuente":{"archivo":"2026_10_05_V22_F8+4_PILOTO2031_Modelo.xlsx","guardado":"27-oct-2026, 13:28 h (Hermosillo)","leido":"27-oct-2026, 14:05 h"},"fe":{"19":[1256789.46,7209002.39,1760929.26,939610.68,35700149.4,14136187.86,803976.53,-5918601.89,1408506.08,2090378.59,12722041.75,10419459.42,2970439.89,5761395.05,8003266.01,-230243.16,5691618.81,5197894.87,6157250.56,7276857.97,12336012.96,1819727.1,7307795.49,7522532.95,9041490.21,8076446.43,11470211.38,3058500.34,9251999.51,9618404.42,10617590.52,11229057.41,17647236.43,7493010.06,12680843.34,13341791.64,15309861.01,19512092.74,27393977.79,14128847.55,20259978.48,20901719.36,21208596.31,21380954.91,26221825.92,15712481.55,21787467.33,21200472.2,23873832.29,28351680.21,27302191.48,22665340.16,28777132.95,29618500.66,29829262.75,30141987.92,30166874.7,30381605.63,30769522.82,30866104.86,38286481.51,33232673.45,18495970.35,44940404.32,33916130.38,34408730.08,45735373.62,34727629.34,39459796.47,45642330.08,34722890.54,38673465.6,39633739.28,36744551.32,25216189.82,36586205.72,36730654.62,40684449.3,38005476.46,38591639.46,37693826.68,37689973.77,37996176.94,37939778.17,38726576.92,40587983.76,25362708.05,40545840.48,40708443.56,41506409.54,41671466.95,42008590.2,42280519.28,42082102.95,42428608.97,42374446.93,43209881.62,45170387.84,27761846.1,45110735.68,45264746.36,46065263.08,46228048.9,46574599.36,46835548.96,46627699.26,46984303.05,46925552.63,47861691.32,50105568.6,29922865.95,49997109.2,50163421.37,51011329.86,51193941.2,51573388.49,51795889.33,51846257.18,52238092.72,52187278.81],"32":[-500000.0,-2103275.86,0.0,0.0,-3250410.0,-3000000.0,0.0,-7000000.0,-13574177.35,-8250000.0,-42876064.58,-2250000.0,-7750000.0,-4750000.0,-30872723.75,-7750000.0,-4750000.0,-4750000.0,-9250000.0,-28858500.22,-11367869.0,-9250000.0,-10250000.0,-11250000.0,-12000000.0,-12000000.0,-17000000.0,-12000000.0,-12000000.0,-12000000.0,-14500000.0,-14500000.0,-19623173.0,-14500000.0,-14500000.0,-14500000.0,-19500000.0,-19500000.0,-24500000.0,-19500000.0,-19500000.0,-19500000.0,-19500000.0,-19500000.0,-24628716.0,-19500000.0,-19500000.0,-19500000.0,-28500000.0,-28500000.0,-33500000.0,-28500000.0,-28500000.0,-28500000.0,-28500000.0,-28500000.0,-28634508.0,-28500000.0,-28500000.0,-28500000.0,-31465824.47,-31465824.47,-36986144.55,-31465824.47,-31465824.47,-31465824.47,-31465824.47,-31465824.47,-31465824.47,-31465824.47,-31465824.47,-31465824.47,-34740284.55,-34740284.55,-40835071.31,-34740284.55,-34740284.55,-34740284.55,-34740284.55,-34740284.55,-34740284.55,-34740284.55,-34740284.55,-34740284.55,-38355498.09,-38355498.09,-45084532.84,-38355498.09,-38355498.09,-38355498.09,-38355498.09,-38355498.09,-38355498.09,-38355498.09,-38355498.09,-38355498.09,-42346925.27,-42346925.27,-49776210.41,-42346925.27,-42346925.27,-42346925.27,-42346925.27,-42346925.27,-42346925.27,-42346925.27,-42346925.27,-42346925.27,-46753716.4,-46753716.4,-54956122.79,-46753716.4,-46753716.4,-46753716.4,-46753716.4,-46753716.4,-46753716.4,-46753716.4,-46753716.4,-46753716.4],"37":[-42500.0,0.0,0.0,0.0,-37500.0,-30500.0,0.0,0.0,-5973308.0,0.0,0.0,-25000.0,-218000.0,972500.0,-1792078.0,-35000.0,-35000.0,-1657296.0,-126500.0,-65500.0,-339336.0,-35000.0,-35000.0,-60000.0,0.0,0.0,-1025857.5,0.0,0.0,-1942075.5,0.0,0.0,-209342.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"40":[0.0,1904100.84,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,500000.0,0.0,0.0,0.0,0.0,406556.11,1793040.39,10000000.0,3782133.21,5814441.29,5000000.0,22000000.0,5000000.0,15000000.0,5000000.0,5000000.0,5337736.28,6727718.83,8121269.03,10362261.1,6788607.51,7272394.14,12000000.0,7000000.0,7000000.0,13228573.32,7000000.0,7806947.26,7000000.0,7000000.0,7969849.43,10605291.48,7000000.0,7714927.15,12259107.8,8846332.43,15519146.76,16674613.47,7854768.57,9505900.0,7000000.0,7000000.0,9122683.12,7000000.0,7000000.0,7882063.02,7176388.83,4655594.98,26489971.19,7256083.1,2762645.41,3629967.46,1144577.31,721745.94,2889202.73,75648.46,1976046.65,348542.4,1478993.74,0.0,22635731.01,3739189.64,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,19283950.78,2571907.28,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,21440881.02,2670295.86,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,24290628.42,3120020.94,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"41":[0.0,0.0,-29503.32,-29859.82,-2840220.62,-30585.66,-30955.76,-31329.42,-31707.86,-32091.0,-32478.88,-32871.34,-33268.52,-33670.52,-34077.26,-74762.05,-75421.59,-76089.6,-76765.59,-77449.73,-78142.48,-2278440.07,-357331.04,-358049.41,-1739532.81,-8853108.69,-1388035.45,-1623169.51,-2179206.43,-2457471.37,-2735742.2,-3014018.82,-3292301.82,-3570590.64,-3848887.86,-4127187.19,-7245803.31,-5755656.39,-7858371.43,-5712678.87,-7130857.82,-6491575.32,-8610006.55,-8624806.77,-7104415.66,-7216117.25,-8511620.51,-7439545.59,-7550657.7,-7661769.81,-7724049.52,-7833333.33,-7944444.44,-8055555.56,-8357351.6,-8653626.13,-8166666.67,-9186608.48,-9173842.19,-7888888.89,-7888888.89,-7500000.0,-6638888.89,-6250000.0,-5583333.33,-5194444.44,-4805555.56,-4416666.67,-4027777.78,-3638888.89,-3250000.0,-2861111.11,-2472222.22,-2477170.46,-1555555.56,-1166666.67,-2324672.85,-1620150.51,-3306328.18,-2319390.29,-2747334.19,-2998395.17,-3118835.05,-3148302.01,-394565.89,-2319209.68,0.0,0.0,-2289985.44,-2987493.43,-3357114.05,-3652674.77,-3714213.24,-3779910.8,-2881487.83,-3998647.97,-886474.4,-1860183.04,0.0,0.0,-1803972.82,-3660835.11,-3922268.75,-3177256.75,-4422190.74,-4334079.93,-4490979.95,-4694346.14,-1131492.98,-3438569.02,0.0,0.0,-3344923.26,-4253544.26,-4481369.84,-4819254.75,-4988864.98,-5145846.72,-5333060.47,-5433562.4],"42":[0.0,1904100.84,-29503.32,-29859.82,-2840220.62,-30585.66,-30955.76,-31329.42,-31707.86,-32091.0,-32478.88,-32871.34,-33268.52,-33670.52,465922.74,-74762.05,-75421.59,-76089.6,-76765.59,329106.38,1714897.91,7721559.93,3424802.17,5456391.87,3260467.19,13146891.31,3611964.55,13376830.49,2820793.57,2542528.63,2601994.07,3713700.01,4828967.21,6791670.46,2939719.65,3145206.95,4754196.69,1244343.61,-858371.43,7515894.45,-130857.82,1315371.93,-1610006.55,-1624806.77,865433.77,3389174.24,-1511620.51,275381.56,4708450.1,1184562.62,7795097.24,8841280.14,-89675.88,1450344.44,-1357351.6,-1653626.13,956016.45,-2186608.48,-2173842.19,-6825.86,-712500.06,-2844405.02,19851082.3,1006083.1,-2820687.92,-1564476.99,-3660978.24,-3694920.72,-1138575.04,-3563240.43,-1273953.35,-2512568.71,-993228.48,-2477170.46,21080175.46,2572522.97,-2324672.85,-1620150.51,-3306328.18,-2319390.29,-2747334.19,-2998395.17,-3118835.05,-3148302.01,-394565.89,-2319209.68,19283950.78,2571907.28,-2289985.44,-2987493.43,-3357114.05,-3652674.77,-3714213.24,-3779910.8,-2881487.83,-3998647.97,-886474.4,-1860183.04,21440881.02,2670295.86,-1803972.82,-3660835.11,-3922268.75,-3177256.75,-4422190.74,-4334079.93,-4490979.95,-4694346.14,-1131492.98,-3438569.02,24290628.42,3120020.94,-3344923.26,-4253544.26,-4481369.84,-4819254.75,-4988864.98,-5145846.72,-5333060.47,-5433562.4],"43":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,954034.4,500000.0,2276015.51,0.0,0.0,0.0,1543626.17,500000.0,0.0,0.0,0.0,1531547.28,0.0,500000.0,0.0,0.0,0.0,0.0,0.0,500000.0,0.0,0.0,0.0,0.0,0.0,500000.0,0.0,0.0,0.0,0.0,0.0,500000.0,0.0,0.0,0.0,0.0,0.0,500000.0,0.0,0.0,0.0,0.0,0.0,500000.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,552032.01,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,609478.68,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,672903.48,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,742928.51,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,820240.64,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"44":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-1454034.4,0.0,-2276015.51,0.0,0.0,0.0,-1543626.17,0.0,0.0,0.0,0.0,-1531547.28,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"45":[0.0,1904100.84,-29503.32,-29859.82,-2840220.62,-30585.66,-30955.76,-31329.42,922326.54,467909.0,2243536.63,-32871.34,-33268.52,-33670.52,2009548.91,425237.95,-75421.59,-76089.6,-76765.59,1860653.66,1714897.91,8221559.93,3424802.17,5456391.87,3260467.19,13146891.31,3611964.55,13876830.49,2820793.57,2542528.63,2601994.07,3713700.01,4828967.21,7291670.46,2939719.65,3145206.95,4754196.69,1244343.61,-858371.43,8015894.45,-130857.82,1315371.93,-1610006.55,-1624806.77,865433.77,3889174.24,-1511620.51,275381.56,4708450.1,1184562.62,7795097.24,9341280.14,-89675.88,1450344.44,-1357351.6,-1653626.13,956016.45,-2186608.48,-2173842.19,-6825.86,-712500.06,-2844405.02,20403114.31,1006083.1,-2820687.92,-1564476.99,-3660978.24,-3694920.72,-2592609.44,-3563240.43,-3549968.86,-2512568.71,-993228.48,-2477170.46,20146027.96,2572522.97,-2324672.85,-1620150.51,-3306328.18,-3850937.57,-2747334.19,-2998395.17,-3118835.05,-3148302.01,-394565.89,-2319209.68,19956854.26,2571907.28,-2289985.44,-2987493.43,-3357114.05,-3652674.77,-3714213.24,-3779910.8,-2881487.83,-3998647.97,-886474.4,-1860183.04,22183809.54,2670295.86,-1803972.82,-3660835.11,-3922268.75,-3177256.75,-4422190.74,-4334079.93,-4490979.95,-4694346.14,-1131492.98,-3438569.02,25110869.06,3120020.94,-3344923.26,-4253544.26,-4481369.84,-4819254.75,-4988864.98,-5145846.72,-5333060.47,-5433562.4],"52":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"55":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,4200000.0,0.0,26401779.81,0.0,0.0,17906063.58,0.0,0.0,0.0,0.0,17765948.47,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"56":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"57":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,4200000.0,0.0,26401779.81,0.0,0.0,17906063.58,0.0,0.0,0.0,0.0,17765948.47,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"58":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-611299.63,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-417141.93,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-2294972.96,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-3455760.86,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-4173148.72,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-4845364.59,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-4788165.8,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-5460066.71,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-6389419.81,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"59":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-52500.0,0.0,0.0,-817544.5,0.0,0.0,-1595218.33,0.0,0.0,-1819044.13,0.0,0.0,-2485267.19,0.0,0.0,-2485267.19,0.0,0.0,-2485267.19,0.0,0.0,-2485267.19,0.0,0.0,-2485267.19,0.0,0.0,-2485267.19,0.0,0.0,-2485267.19,0.0,0.0,-2485267.19,0.0,0.0,-2485267.19,0.0,0.0,-2485267.19,0.0,0.0,-2485267.19,0.0,0.0,-2485267.19,0.0,0.0,-2485267.19,0.0,0.0,-2485267.19,0.0,0.0,-2237750.51,0.0,0.0,-1822364.48,0.0,0.0,-1351459.86,0.0,0.0,-769518.06,0.0,0.0,-435092.94,0.0,0.0,-268537.18,0.0,0.0,-157500.0,0.0,0.0,-157500.0,0.0,0.0,-157500.0,0.0,0.0,-157500.0,0.0,0.0,-157500.0,0.0,0.0,-131250.0,0.0,0.0,-91875.0,0.0,0.0,-52500.0,0.0,0.0,-13125.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"60":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-6600444.95,0.0,0.0,-11076960.85,0.0,0.0,-11076960.85,0.0,-4441487.12,-11076960.85,0.0,-4441487.12,-4476515.89,0.0,-4441487.12,0.0,0.0,-4441487.12,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-1050000.0,0.0,0.0,-1050000.0,0.0,0.0,-1050000.0,0.0,0.0,-1050000.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"61":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,4200000.0,-52500.0,26401779.81,0.0,-817544.5,17906063.58,0.0,-1595218.33,-611299.63,0.0,15946904.34,0.0,0.0,-2485267.19,0.0,0.0,-2485267.19,0.0,0.0,-2485267.19,-417141.93,0.0,-2485267.19,0.0,0.0,-2485267.19,0.0,0.0,-2485267.19,0.0,0.0,-2485267.19,-2294972.96,0.0,-2485267.19,0.0,0.0,-2485267.19,0.0,0.0,-2485267.19,0.0,0.0,-2485267.19,-3455760.86,0.0,-2485267.19,0.0,0.0,-2485267.19,0.0,0.0,-9085712.15,0.0,0.0,-13314711.36,-4173148.72,0.0,-12899325.32,0.0,-4441487.12,-12428420.7,0.0,-4441487.12,-5246033.95,0.0,-4441487.12,-435092.94,-4845364.59,-4441487.12,-268537.18,0.0,0.0,-157500.0,0.0,0.0,-157500.0,0.0,0.0,-157500.0,-4788165.8,0.0,-157500.0,0.0,0.0,-157500.0,-1050000.0,0.0,-131250.0,-1050000.0,0.0,-91875.0,-6510066.71,0.0,-52500.0,-1050000.0,0.0,-13125.0,0.0,0.0,0.0,0.0,0.0,0.0,-6389419.81,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"63":[714289.46,7009827.37,1731425.94,909750.86,29572018.78,11075102.2,773020.77,-12949931.31,-13016652.73,-5744212.41,-1508706.39,8111588.08,-5848373.13,19856288.11,-22651986.83,-9185223.54,219897.59,-1285490.73,12650889.32,-19786488.59,2343705.87,-1728980.16,447597.66,1668924.83,-2183309.79,9223337.74,-2943681.57,2450063.64,-344348.85,-1781142.45,-3765682.59,442757.42,2643688.65,-2200586.67,1120562.99,1986998.59,-1921209.5,1256436.35,2035606.36,159474.81,-1665852.3,2717091.3,-2386677.43,256148.15,2458543.69,-2383611.41,775846.82,1975853.76,-2402984.81,1036242.83,1597288.71,1021353.11,-3268303.79,2568845.11,-2513356.05,-11638.22,2488383.15,-2790270.04,95680.63,2359278.99,-2977555.16,-1077556.04,1912940.11,1165951.6,-4543530.74,1378428.63,-2290754.42,-433115.85,959875.44,-1815155.52,-292902.78,253585.31,-1345807.69,-472903.68,85659.36,3983351.21,-5179667.36,-117472.87,-309673.44,417.34,206207.94,-206205.94,137057.35,51191.62,-180987.06,-86724.02,235029.46,4604749.68,-4725205.77,163418.02,-198645.19,417.34,210807.94,-210805.94,141623.05,20300.88,-154768.06,-86720.47,169445.23,5342231.27,-5396218.43,57502.7,-93645.12,417.34,66432.94,-66430.94,146397.83,-115718.79,-23518.06,-86716.83,77612.23,6363413.73,-6324638.1,4069.19,-41145.04,417.34,53307.94,-53305.94,151315.84,0.0],"64":[1604627.46,8614454.83,10345880.76,11255631.62,40827650.41,51902752.61,52675773.37,39725842.06,26709189.33,20964976.92,19456270.53,27567858.61,21719485.49,41575773.6,18923786.76,9738563.22,9958460.81,8672970.08,21323859.4,1537370.81,3881076.68,2152096.52,2599694.18,4268619.01,2085309.21,11308646.95,8364965.38,10815029.02,10470680.17,8689537.73,4923855.13,5366612.55,8010301.19,5809714.53,6930277.52,8917276.11,6996066.61,8252502.97,10288109.33,10447584.14,8781731.84,11498823.14,9112145.7,9368293.85,11826837.54,9443226.13,10219072.94,12194926.7,9791941.89,10828184.73,12425473.44,13446826.55,10178522.76,12747367.87,10234011.82,10222373.6,12710756.75,9920486.71,10016167.35,12375446.34,9397891.18,8320335.13,10233275.24,11399226.84,6855696.1,8234124.73,5943370.31,5510254.46,6470129.9,4654974.37,4362071.59,4615656.9,3269849.21,2796945.52,2882604.89,6865956.09,1686288.73,1568815.86,1259142.42,1259559.76,1465767.7,1259561.76,1396619.1,1447810.72,1266823.66,1180099.64,1415129.11,6019878.79,1294673.01,1458091.03,1259445.84,1259863.18,1470671.12,1259865.18,1401488.23,1421789.11,1267021.05,1180300.57,1349745.81,6691977.07,1295758.64,1353261.35,1259616.23,1260033.57,1326466.51,1260035.57,1406433.39,1290714.6,1267196.55,1180479.72,1258091.95,7621505.68,1296867.57,1300936.77,1259791.73,1260209.07,1313517.01,1260211.07,1411526.91,1411526.91]},"feL":{"19":"\u03a3 FLUJO NETO DE OPERACI\u00d3N","32":"\u03a3 Colocaci\u00f3n bruta","37":"\u03a3 FLUJO NETO DE INVERSI\u00d3N (activo fijo)","40":"Fondeo \u2014 disposiciones de pasivos financieros","41":"Fondeo \u2014 (\u2212) amortizaci\u00f3n / servicio de pasivos","42":"\u03a3 Fondeo neto de pasivos financieros","43":"Dep\u00f3sitos en garant\u00eda recibidos (arrend. financiero)","44":"(\u2212) Devoluci\u00f3n de dep\u00f3sitos en garant\u00eda","45":"\u03a3 FINANCIAMIENTO NETO DE PASIVOS","52":"Socios / Capital Social","55":"\u03a3 Serie III-P (preferente)","56":"Serie III-Q (preferente)","57":"\u03a3 Aportaciones de capital","58":"(\u2212) Otras salidas de capital y reparto de utilidades a fundadores (mayo, 'B2' fila 330)","59":"(\u2212) Dividendos preferentes Serie III-P / III-Q","60":"(\u2212) Recompra de principal Serie III-P / III-Q","61":"\u03a3 BLOQUE SOCIOS (neto de dividendos preferentes)","63":"(=) FLUJO NETO DEL MES","64":"(=) Subtotal CAJA EN BANCOS (incluye IVA por enterar y piso de caja)"},"ln":{"573":[750000.0,750000.0,750000.0,3634995.41,750000.0,750000.0,750000.0,750000.0,769092.21,750000.0,1061750.17,1856931.66,1063530.93,4180560.87,2827393.28,1820702.38,1387732.08,3224148.08,1393702.93,1537370.81,3881076.68,1756575.16,2599694.18,4268619.01,2085309.21,4787956.08,5802559.15,4384025.43,4494838.83,7129561.79,4923855.13,5366612.55,8010301.19,5809714.53,6930277.52,8917276.11,6996066.61,8252502.97,10288109.33,10447584.14,8781731.84,11498823.14,9112145.7,9368293.85,11826837.54,9443226.13,10219072.94,12194926.7,9791941.89,10828184.73,12425473.44,13446826.55,10178522.76,12747367.87,10234011.82,10222373.6,12710756.75,9920486.71,10016167.35,12375446.34,9397891.18,8320335.13,10233275.24,11399226.84,6855696.1,8234124.73,5943370.31,5510254.46,6470129.9,4654974.37,4362071.59,4615656.9,3269849.21,2796945.52,2882604.89,6865956.09,1686288.73,1568815.86,1259142.42,1259559.76,1465767.7,1259561.76,1396619.1,1447810.72,1266823.66,1180099.64,1415129.11,6019878.79,1294673.01,1458091.03,1259445.84,1259863.18,1470671.12,1259865.18,1401488.23,1421789.11,1267021.05,1180300.57,1349745.81,6691977.07,1295758.64,1353261.35,1259616.23,1260033.57,1326466.51,1260035.57,1406433.39,1290714.6,1267196.55,1180479.72,1258091.95,7621505.68,1296867.57,1300936.77,1259791.73,1260209.07,1313517.01,1260211.07,1411526.91,1411526.91],"575":[1604627.46,8614454.83,10345880.76,11255631.62,40827650.41,51902752.61,52675773.37,39725842.06,26709189.33,20964976.92,19456270.53,27567858.61,21719485.49,41575773.6,18923786.76,9738563.22,9958460.81,8672970.08,21323859.4,1537370.81,3881076.68,2152096.52,2599694.18,4268619.01,2085309.21,11308646.95,8364965.38,10815029.02,10470680.17,8689537.73,4923855.13,5366612.55,8010301.19,5809714.53,6930277.52,8917276.11,6996066.61,8252502.97,10288109.33,10447584.14,8781731.84,11498823.14,9112145.7,9368293.85,11826837.54,9443226.13,10219072.94,12194926.7,9791941.89,10828184.73,12425473.44,13446826.55,10178522.76,12747367.87,10234011.82,10222373.6,12710756.75,9920486.71,10016167.35,12375446.34,9397891.18,8320335.13,10233275.24,11399226.84,6855696.1,8234124.73,5943370.31,5510254.46,6470129.9,4654974.37,4362071.59,4615656.9,3269849.21,2796945.52,2882604.89,6865956.09,1686288.73,1568815.86,1259142.42,1259559.76,1465767.7,1259561.76,1396619.1,1447810.72,1266823.66,1180099.64,1415129.11,6019878.79,1294673.01,1458091.03,1259445.84,1259863.18,1470671.12,1259865.18,1401488.23,1421789.11,1267021.05,1180300.57,1349745.81,6691977.07,1295758.64,1353261.35,1259616.23,1260033.57,1326466.51,1260035.57,1406433.39,1290714.6,1267196.55,1180479.72,1258091.95,7621505.68,1296867.57,1300936.77,1259791.73,1260209.07,1313517.01,1260211.07,1411526.91,1411526.91],"577":[1604627.46,8614454.83,10345880.76,11255631.62,40827650.41,51902752.61,52675773.37,39725842.06,26709189.33,20964976.92,19456270.53,27567858.61,21719485.49,41575773.6,18923786.76,9738563.22,9958460.81,8672970.08,21323859.4,1130814.7,2088036.29,4351693.02,-1182439.03,-1545822.28,3466065.42,19524465.24,8364965.38,10815029.02,10470680.17,8689537.73,4586118.85,3638893.72,4889032.16,447453.43,5141670.01,6644881.97,9836375.05,9074350.41,12823240.12,4219010.82,9810465.92,10691875.88,10841118.54,11000379.41,10856988.11,5837934.64,11402867.65,11479999.55,4532834.1,8981852.3,3906326.68,3772213.08,9323754.2,10241467.87,10424696.75,10709333.07,10588073.63,10940428.52,11301120.64,11493383.31,2221502.34,3664740.15,-16256695.95,4143143.73,4093050.69,4604157.27,4798793.0,4788508.51,3580927.16,4579325.91,2386024.94,4267114.5,1790855.46,3329671.54,-19753126.13,3126766.45,3233183.8,2800077.48,4565470.59,3578950.05,4213101.89,4257956.92,4515454.15,4596112.73,1661389.55,3499309.33,-17868821.67,3447971.5,3584658.45,4445584.46,4616559.9,4912537.95,5184884.37,5039775.98,4282976.06,5420437.08,2153495.45,3040483.61,-20091135.22,4021681.21,3099731.46,5014096.45,5181884.97,4437290.32,5748657.25,5594115.49,5897413.35,5985060.75,2398689.52,4619048.74,-23032536.48,4501484.74,4641790.84,5554481.03,5741161.57,6079463.81,6302381.99,6406057.79,6744587.38,6845089.31],"579":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,406556.11,1793040.39,0.0,3782133.21,5814441.29,0.0,0.0,0.0,0.0,0.0,0.0,337736.28,1727718.83,3121269.03,5362261.1,1788607.51,2272394.14,0.0,0.0,0.0,6228573.32,0.0,806947.26,0.0,0.0,969849.43,3605291.48,0.0,714927.15,5259107.8,1846332.43,8519146.76,9674613.47,854768.57,2505900.0,0.0,0.0,2122683.12,0.0,0.0,882063.02,7176388.83,4655594.98,26489971.19,7256083.1,2762645.41,3629967.46,1144577.31,721745.94,2889202.73,75648.46,1976046.65,348542.4,1478993.74,0.0,22635731.01,3739189.64,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,19283950.78,2571907.28,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,21440881.02,2670295.86,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,24290628.42,3120020.94,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"580":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2199596.5,0.0,0.0,1380756.21,8215818.29,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2840308.44,821847.44,2535130.79,0.0,1028734.08,0.0,1728972.84,1632085.56,0.0,0.0,1183794.71,0.0,0.0,0.0,0.0,0.0,0.0,0.0,190684.93,486959.47,0.0,1019941.81,1284953.3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,532726.01,0.0,0.0,1546895.07,1231261.62,3306328.18,2319390.29,2747334.19,2998395.17,3118835.05,3148302.01,394565.89,2319209.68,0.0,0.0,2289985.44,2987493.43,3357114.05,3652674.77,3714213.24,3779910.8,2881487.83,3998647.97,886474.4,1860183.04,0.0,0.0,1803972.82,3660835.11,3922268.75,3177256.75,4422190.74,4334079.93,4490979.95,4694346.14,1131492.98,3438569.02,0.0,0.0,3344923.26,4253544.26,4481369.84,4819254.75,4988864.98,5145846.72,5333060.47,5433562.4],"581":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,406556.11,2199596.5,0.0,3782133.21,9596574.5,8215818.29,0.0,0.0,0.0,0.0,0.0,337736.28,2065455.11,5186724.14,10548985.24,12337592.75,14609986.9,11769678.46,10947831.02,8412700.23,14641273.55,13612539.47,14419486.72,12690513.88,11058428.32,12028277.75,15633569.23,14449774.52,15164701.67,20423809.47,22270141.9,30789288.65,40463902.13,41318670.69,43824570.69,43633885.76,43146926.29,45269609.41,44249667.6,42964714.3,43846777.33,51023166.16,55678761.14,82168732.33,89424815.44,92187460.85,95817428.31,96962005.62,97683751.56,100572954.3,100648602.76,102624649.41,102973191.81,104452185.56,103919459.55,126555190.56,130294380.2,128747485.12,127516223.51,124209895.33,121890505.04,119143170.85,116144775.69,113025940.64,109877638.63,109483072.74,107163863.05,126447813.83,129019721.12,126729735.67,123742242.24,120385128.19,116732453.42,113018240.18,109238329.37,106356841.55,102358193.58,101471719.17,99611536.13,121052417.16,123722713.02,121918740.2,118257905.1,114335636.35,111158379.6,106736188.86,102402108.93,97911128.98,93216782.83,92085289.85,88646720.83,112937349.26,116057370.19,112712446.93,108458902.67,103977532.83,99158278.08,94169413.1,89023566.38,83690505.9,78256943.5],"582":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,4065.56,21995.97,0.0,37821.33,95965.74,82158.18,0.0,0.0,0.0,0.0,0.0,3377.36,20654.55,51867.24,105489.85,123375.93,146099.87,117696.78,109478.31,84127.0,146412.74,136125.39,144194.87,126905.14,110584.28,120282.78,156335.69,144497.75,151647.02,204238.09,222701.42,307892.89,404639.02,413186.71,438245.71,436338.86,431469.26,452696.09,442496.68,429647.14,438467.77,510231.66,556787.61,821687.32,894248.15,921874.61,958174.28,969620.06,976837.52,1005729.54,1006486.03,1026246.49,1029731.92,1044521.86,1039194.6,1265551.91,1302943.8,1287474.85,1275162.24,1242098.95,1218905.05,1191431.71,1161447.76,1130259.41,1098776.39,1094830.73,1071638.63,1264478.14,1290197.21,1267297.36,1237422.42,1203851.28,1167324.53,1130182.4,1092383.29,1063568.42,1023581.94,1014717.19,996115.36,1210524.17,1237227.13,1219187.4,1182579.05,1143356.36,1111583.8,1067361.89,1024021.09,979111.29,932167.83,920852.9,886467.21,1129373.49,1160573.7,1127124.47,1084589.03,1039775.33,991582.78,941694.13,890235.66,836905.06]},"lnp":{"tasa":0.12,"limite":700000000.0,"primer":12},"col":[500000.0,0.0,0.0,0.0,3250410.0,3000000.0,0.0,7000000.0,13574177.35,8250000.0,42876064.58,2250000.0,7750000.0,4750000.0,30872723.75,7750000.0,4750000.0,4750000.0,9250000.0,28858500.22,11367869.0,9250000.0,10250000.0,11250000.0,12000000.0,12000000.0,17000000.0,12000000.0,12000000.0,12000000.0,14500000.0,14500000.0,19623173.0,14500000.0,14500000.0,14500000.0,19500000.0,19500000.0,24500000.0,19500000.0,19500000.0,19500000.0,19500000.0,19500000.0,24628716.0,19500000.0,19500000.0,19500000.0,28500000.0,28500000.0,33500000.0,28500000.0,28500000.0,28500000.0,28500000.0,28500000.0,28634508.0,28500000.0,28500000.0,28500000.0,31465824.47,31465824.47,36986144.55,31465824.47,31465824.47,31465824.47,31465824.47,31465824.47,31465824.47,31465824.47,31465824.47,31465824.47,34740284.55,34740284.55,40835071.31,34740284.55,34740284.55,34740284.55,34740284.55,34740284.55,34740284.55,34740284.55,34740284.55,34740284.55,38355498.09,38355498.09,45084532.84,38355498.09,38355498.09,38355498.09,38355498.09,38355498.09,38355498.09,38355498.09,38355498.09,38355498.09,42346925.27,42346925.27,49776210.41,42346925.27,42346925.27,42346925.27,42346925.27,42346925.27,42346925.27,42346925.27,42346925.27,42346925.27,46753716.4,46753716.4,54956122.79,46753716.4,46753716.4,46753716.4,46753716.4,46753716.4,46753716.4,46753716.4,46753716.4,46753716.4],"em":[{"n":"E1","nom":"Emisi\u00f3n de sep-26 (Antejo)","P":4200000.0,"sal":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,4200000.0,3150000.0,3150000.0,3150000.0,2100000.0,2100000.0,2100000.0,1050000.0,1050000.0,1050000.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"dev":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,52500.0,39375.0,39375.0,39375.0,26250.0,26250.0,26250.0,13125.0,13125.0,13125.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"paid":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,52500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,157500.0,0.0,0.0,131250.0,0.0,0.0,91875.0,0.0,0.0,52500.0,0.0,0.0,13125.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"rec":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1050000.0,0.0,0.0,1050000.0,0.0,0.0,1050000.0,0.0,0.0,1050000.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"cima":false},{"n":"E2","nom":"1.\u00aa emisi\u00f3n CIMA \u00b7 Siemens 1 y 2","P":26401779.81,"emis":10,"sal":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,26401779.81,19801334.86,19801334.86,19801334.86,13200889.9,13200889.9,13200889.9,6600444.95,6600444.95,6600444.95,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"dev":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,330022.25,247516.69,247516.69,247516.69,165011.12,165011.12,165011.12,82505.56,82505.56,82505.56,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"paid":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,660044.5,0.0,0.0,990066.74,0.0,0.0,990066.74,0.0,0.0,990066.74,0.0,0.0,990066.74,0.0,0.0,990066.74,0.0,0.0,990066.74,0.0,0.0,990066.74,0.0,0.0,990066.74,0.0,0.0,990066.74,0.0,0.0,990066.74,0.0,0.0,990066.74,0.0,0.0,990066.74,0.0,0.0,990066.74,0.0,0.0,990066.74,0.0,0.0,990066.74,0.0,0.0,990066.74,0.0,0.0,742550.06,0.0,0.0,495033.37,0.0,0.0,247516.69,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"rec":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,6600444.95,0.0,0.0,6600444.95,0.0,0.0,6600444.95,0.0,0.0,6600444.95,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"cima":true},{"n":"E3","nom":"2.\u00aa emisi\u00f3n CIMA \u00b7 Siemens 3 y 4","P":17906063.5782,"emis":13,"sal":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,17906063.58,13429547.68,13429547.68,13429547.68,8953031.79,8953031.79,8953031.79,4476515.89,4476515.89,4476515.89,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"dev":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,223825.79,167869.35,167869.35,167869.35,111912.9,111912.9,111912.9,55956.45,55956.45,55956.45,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"paid":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,447651.59,0.0,0.0,671477.38,0.0,0.0,671477.38,0.0,0.0,671477.38,0.0,0.0,671477.38,0.0,0.0,671477.38,0.0,0.0,671477.38,0.0,0.0,671477.38,0.0,0.0,671477.38,0.0,0.0,671477.38,0.0,0.0,671477.38,0.0,0.0,671477.38,0.0,0.0,671477.38,0.0,0.0,671477.38,0.0,0.0,671477.38,0.0,0.0,671477.38,0.0,0.0,671477.38,0.0,0.0,503608.04,0.0,0.0,335738.69,0.0,0.0,167869.35,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"rec":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,4476515.89,0.0,0.0,4476515.89,0.0,0.0,4476515.89,0.0,0.0,4476515.89,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"cima":true},{"n":"E4","nom":"3.\u00aa emisi\u00f3n CIMA \u00b7 Siemens 5","P":17765948.466000002,"emis":18,"sal":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,17765948.47,13324461.35,13324461.35,13324461.35,8882974.23,8882974.23,8882974.23,4441487.12,4441487.12,4441487.12,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"dev":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,222074.36,166555.77,166555.77,166555.77,111037.18,111037.18,111037.18,55518.59,55518.59,55518.59,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"paid":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,666223.07,0.0,0.0,666223.07,0.0,0.0,666223.07,0.0,0.0,666223.07,0.0,0.0,666223.07,0.0,0.0,666223.07,0.0,0.0,666223.07,0.0,0.0,666223.07,0.0,0.0,666223.07,0.0,0.0,666223.07,0.0,0.0,666223.07,0.0,0.0,666223.07,0.0,0.0,666223.07,0.0,0.0,666223.07,0.0,0.0,666223.07,0.0,0.0,666223.07,0.0,0.0,610704.48,0.0,0.0,444148.71,0.0,0.0,277592.94,0.0,0.0,111037.18,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"rec":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,4441487.12,0.0,0.0,4441487.12,0.0,0.0,4441487.12,0.0,0.0,4441487.12,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"cima":true}],"rc":{"cap":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3960266.97,-168311.34,-521765.17,-521765.17,4129031.05,60597.41,-135443.42,-158563.61,1172633.6,2996160.95,214386.96,33943.69,4441.12,1338948.22,498017.8,509596.72,594437.26,535265.51,583359.37,561273.54,609113.61,588485.04,602167.33,649608.35,631271.11,678428.14,661721.61,677106.64,785750.47,711118.07,757495.95,745263.34,791308.03,780988.64,799146.62,844665.51,837365.25,882511.2,877352.37,897750.81,989675.51,941633.47,985761.97,986445.43,1030136.64,1033330.95,1057355.9,1100355.16,1107522.68,1150032.41,1160010.84,1186981.08,1256989.59,1243803.41,1284983.3,1302597.7,1343203.87,1364112.59,1395828.2,1435524.63,1989693.31,810040.44,824199.36,843362.0,1226723.4,414354.87,425574.12,433883.21,444911.91,809634.36,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"rec":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,6600444.95,0.0,0.0,11076960.85,0.0,0.0,11076960.85,0.0,4441487.12,11076960.85,0.0,4441487.12,4476515.89,0.0,4441487.12,0.0,0.0,4441487.12,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"pool":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3960266.97,3791955.63,3270190.46,2748425.29,6877456.34,6938053.75,6802610.33,6644046.72,7816680.32,10812841.27,11027228.23,11061171.92,11065613.04,12404561.26,12902579.06,13412175.78,14006613.04,14541878.55,15125237.92,15686511.46,16295625.07,16884110.11,17486277.44,18135885.79,18767156.9,19445585.04,20107306.65,20784413.29,21570163.76,22281281.83,23038777.78,23784041.12,24575349.15,25356337.79,26155484.41,27000149.92,27837515.17,28720026.37,29597378.74,30495129.55,31484805.06,32426438.53,33412200.5,34398645.93,35428782.57,36462113.52,37519469.42,38619824.58,39727347.26,40877379.67,35436945.56,36623926.64,37880916.23,28047758.79,29332742.09,30635339.79,20901582.81,22265695.4,19220036.49,9578600.27,11568293.58,7936846.9,4284530.37,5127892.37,1913128.65,2327483.52,2753057.64,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"inc":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,89106.01,85319.0,73579.29,61839.57,154742.77,156106.21,153058.73,149491.05,175875.31,243288.93,248112.64,248876.37,248976.29,279102.63,290308.03,301773.96,315148.79,327192.27,340317.85,352946.51,366651.56,379892.48,393441.24,408057.43,422261.03,437525.66,452414.4,467649.3,485328.68,501328.84,518372.5,535140.93,552945.36,570517.6,588498.4,607503.37,626344.09,646200.59,665941.02,686140.41,708408.11,729594.87,751774.51,773969.53,797147.61,820397.55,844188.06,868946.05,893865.31,919741.04,797331.28,824038.35,852320.62,631074.57,659986.7,689295.15,470285.61,500978.15,432450.82,215518.51,260286.61,178579.06,96401.93,115377.58,43045.39,52368.38,61943.8,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"C110":77,"tasa":0.27},"bg":{"cap":[96239569.91,127306453.15,133053315.86,145068227.52,160956652.06,135890667.25,148591521.58,178550050.47,212378615.83,255857385.53],"iiip":[30601779.81,66273791.85,66273791.85,66273791.85,66273791.85,17559490.13,4200000,3150000,0,0],"rn":[16164776.59,4390967.67,16105073.42,24250953.4,29285254.18,34002558.53,31924339.17,36400444.7,42596132.07,49868189.5]},"hr":{"disp":[27567858.61,4268619.01,8917276.11,12194926.7,12375446.34,4615656.9,1447810.72,1421789.11,1290714.6,1411526.91],"inv":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"cn":[58166373.14,125651864.17,195046507.14,226857570.72,271515002.44,247579682.66,257982831.78,283212332.94,311235025.42,343600091.58],"cv":[58416552.08,126252085.41,195995445.19,227966363.36,272848204.28,248792606.51,259248032.76,284604315.34,312767825.37,345295530.05],"car":[58744675.37,127469652.17,196576870.97,228073810.08,273115848.82,248874414.26,259322573.03,284727300.67,312906914.14,345464535.89],"P":[7441177.36,31223497.28,95981291.34,115379838.7,142625127.31,135842532.23,130223414.49,125314894.47,119420211.58,108448750.94],"cp":[1592497.16,20335200.3,83115934.41,96740067.59,62055555.56,29255023.14,29375303.11,33252587.63,42370488.69,0.0],"lp":[0.0,0.0,0.0,0.0,52152332.88,82023724.23,80502335.52,69105605.95,50846294.14,78256943.5],"soc":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"K":[96239569.91,127306453.15,133053315.86,145068227.52,160956652.06,135890667.25,148591521.58,178550050.47,212378615.83,255857385.53]},"gs":{"g570":[570085.12,505395.17,592437.84,677210.36,634122.11,609033.09,596271.18,634162.66,663271.59,666897.59,649617.66,1011947.92,989530.12,1013618.44,4130592.28,1133050.25,1110956.71,1289440.89,1307443.61,1296242.87,1440325.37,1299322.37,1279246.01,2128985.53,1312588.25,1289545.53,3045752.08,1280332.04,1254068.08,1458081.21,1323031.46,1282501.21,1427167.87,1311457.72,1282501.21,2135397.93,1328250.69,1286373.95,2209283.4,1277043.69,1251125.26,1455536.37,1319998.58,1279039.63,1423706.3,1313596.57,1279039.63,1973580.04,1330441.22,1306932.16,2366228.13,1297641.27,1271849.48,1332233.1,1340735.24,1299597.84,1300014.18,1339121.13,1300014.18,1428130.25,1288086.98,1264577.92,1177877.13,1255327.58,1229495.25,1290708.2,1298368.44,1257231.1,1257647.44,1301554.39,1257647.44,1390133.11,1288391.59,1264882.53,1203041.5,1255673.96,1229805.85,1291867.03,1298672.97,1257535.71,1257952.05,1306658.99,1257952.05,1395008.4,1288711.01,1265222.95,1178497.94,1256026.4,1230109.28,1293068.31,1298985.33,1257839.13,1258255.47,1311562.42,1258255.47,1399877.52,1288939.4,1265420.34,1178698.87,1256268.1,1230306.66,1294153.94,1299155.64,1258009.52,1258425.86,1311732.8,1258425.86,1404822.69,1289114.9,1265595.84,1178878.01,1256489.24,1230482.16,1295262.87,1299331.06,1258185.02,1258601.36,1311908.3,1258601.36,1409916.2],"nomY":[4560774.16,15173405.07,15325270.34,14246194.56,13783875.68,12132478.68,12163939.11,12145360.68,12145535.68,12145535.68],"totY":[7500072.05,18426854.44,18410524.59,17404674.09,16921038.19,15276754.99,15315542.63,15304511.23,15312459.67,15320466.32],"ing":[26379439.76,26282470.79,42244862.71,52574119.82,61352899.07,65835369.38,62794543.6,69305471.73,78180048.49,88628250.62],"hist":{"2020":6352817.31,"2021":6356320.02,"2022":4312285.3,"2023":4346104.53,"2024":5223992.57,"2025":8184975.79},"histNom":{"2020":3775826.33,"2021":3856898.01,"2022":2977644.14,"2023":3262596.76,"2024":3055530.97,"2025":4761220.45},"reg":{"n":78,"desde":"2020-01","hasta":"2026-07","g":0.042098885127144436,"lo":0.0009605482333407966,"hi":0.08492796074723974,"t":2.0391486184268137,"r2":0.05187405493476216,"p":0.04491214984364911,"excl":["2022-11"]},"inpc":0.045,"mens":{"2020-01":449168.15,"2020-02":567441.55,"2020-03":665645.22,"2020-04":830491.47,"2020-05":478330.34,"2020-06":62197.36,"2020-07":448485.83,"2020-08":486335.59,"2020-09":385838.9,"2020-10":693171.5,"2020-11":489779.04,"2020-12":795932.36,"2021-01":483726.25,"2021-02":566305.93,"2021-03":553723.6,"2021-04":560241.78,"2021-05":505205.52,"2021-06":571637.27,"2021-07":514850.18,"2021-08":633076.93,"2021-09":480338.16,"2021-10":481163.94,"2021-11":503014.93,"2021-12":503035.53,"2022-01":361624.29,"2022-02":421228.02,"2022-03":383078.06,"2022-04":453443.11,"2022-05":413960.41,"2022-06":380032.47,"2022-07":343446.59,"2022-08":370890.44,"2022-09":351818.86,"2022-10":467279.86,"2022-11":-29159.49,"2022-12":394642.68,"2023-01":312734.21,"2023-02":370990.03,"2023-03":410929.94,"2023-04":352599.95,"2023-05":318266.06,"2023-06":388240.82,"2023-07":345246.32,"2023-08":385044.86,"2023-09":330212.13,"2023-10":360730.35,"2023-11":302630.25,"2023-12":468479.61,"2024-01":350546.49,"2024-02":477296.04,"2024-03":507869.47,"2024-04":559387.13,"2024-05":419948.6,"2024-06":374342.57,"2024-07":363601.38,"2024-08":438635.88,"2024-09":337755.62,"2024-10":446658.58,"2024-11":496542.89,"2024-12":451407.92,"2025-01":815946.84,"2025-02":510252.33,"2025-03":512201.4,"2025-04":628510.5,"2025-05":550494.32,"2025-06":673433.53,"2025-07":777078.24,"2025-08":646924.4,"2025-09":772474.21,"2025-10":824307.42,"2025-11":645100.86,"2025-12":828251.74,"2026-01":541153.45,"2026-02":505505.17,"2026-03":569539.96,"2026-04":654673.96,"2026-05":600135.31,"2026-06":573096.51,"2026-07":560869.6}},"cartera":{"cs":[890000.0,17890000.0,57770000.0,65120000.00000001,89630000.0,101560000.0,112130000.0,123800000.0,136690000.0,150920000.0],"fa":[650000.0,3630000.0,3610000.0,7500000.0,11360000.0,12560000.0,13890000.0,15350000.0,16970000.0,18760000.0],"atBG":[54700000.0,104730000.0,134610000.0,155340000.0,171860000.0,134680000.0,133229999.99999999,145450000.0,159100000.0,175610000.0],"pv":[2170000.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"at":[55148666.77270687,107309682.66185099,137244097.33828026,158407594.3796905,175367759.72739223,138371022.242344,137005664.89274466,149500612.58570856,163429917.1723593,180281312.53628582],"af":[38030151.42048465,72370399.17962876,71138790.07605805,65416734.67635718,48948713.39072562,27646819.980440486,19523178.16942261,18189439.85122814,18453976.39528363,20218593.069923908],"cc":[3750000.0,18645833.333333332,45104166.666666664,64270833.33333332,85541666.66666663,102787355.35855353,117482486.72332205,131311172.73448041,144975940.77707565,160062719.4663619],"rc":[3791955.63,12404561.260000004,19445585.04,28720026.37,40877379.669999994,7936846.903349981,0.0,0.0,0.0,0.0],"py":[9576559.722222228,3888888.888888886,1555555.5555555522,-3.725290298461914e-09,-7.450580596923828e-09,0.0,0.0,0.0,0.0,0.0]}};
+// ===== Motor de escenarios (réplica de las fórmulas del modelo V22) =====
+// N = 120 meses: ene-2026 (índice 0) a dic-2035 (índice 119).
+const N = 120, Y0 = 2026, DIV = 0.15;
+function sumA(a){ return a.reduce((x,y)=>x+y,0); }
+function zeros(){ return new Array(N).fill(0); }
+
+// Dividendo preferente: 15%/12 sobre el saldo vivo; se paga lo acumulado en ene, abr, jul y oct ('SAPI III-P' filas 28-30).
+function divPaid(bal){
+  const dev = zeros(), paid = zeros(); let acc = 0, started = false;
+  for (let i=0;i<N;i++){
+    if (!started && bal[i] > 0.005) started = true;
+    if (!started) continue;
+    dev[i] = DIV/12 * bal[i];
+    paid[i] = (i % 3 === 0) ? acc : 0;
+    acc = acc + dev[i] - paid[i];
+  }
+  return {dev, paid};
+}
+
+// Recolocación del capital de CIMA ('Fondeo CIMA III-P' §11, filas 114-121).
+function recoloca(cap, rec, C110, r){
+  const pool = zeros(), inc = zeros(); let cc = 0, rc = 0;
+  for (let i=0;i<N;i++){
+    inc[i] = i <= C110 ? Math.max(0, cc - rc) * r / 12 : 0;
+    cc += cap[i]; rc += rec[i];
+    pool[i] = i < C110 ? Math.max(0, cc - rc) : 0;
+  }
+  return {pool, inc};
+}
+
+// Línea revolvente ('Colocación Real' §4, filas 573-582): dispone si la caja antes de la línea queda debajo del piso
+// y paga con lo que exceda el piso. g = flujo del mes sin la línea ni su interés (se obtiene del propio modelo).
+function linea(D, dC, dPiso, rL){
+  const ca = D.ln['577'], cf = D.ln['575'], I = D.ln['582'], P = D.ln['573'];
+  const L = zeros(), CF = zeros(), INT = zeros(), DISP = zeros(), PAGO = zeros();
+  let Lp = 0, cfp = 0;
+  for (let t=0;t<N;t++){
+    const g = t === 0 ? ca[0] : ca[t] - cf[t-1] + I[t];
+    const it = Lp * rL / 12;
+    const cant = t === 0 ? g + dC[0] : cfp + g + dC[t] - it;
+    const piso = P[t] + dPiso[t];
+    let disp = 0, pago = 0;
+    if (t >= D.lnp.primer){
+      if (cant < piso) disp = Math.min(piso - cant, D.lnp.limite - Lp);
+      else if (Lp > 0) pago = Math.min(Lp, cant - piso);
+    }
+    L[t] = Lp + disp - pago; CF[t] = cant + disp - pago; INT[t] = it; DISP[t] = disp; PAGO[t] = pago;
+    Lp = L[t]; cfp = CF[t];
+  }
+  return {L, CF, INT, DISP, PAGO};
+}
+
+// Escenario: dec = ['pagar'|'reinv'] para E2, E3 y E4; uso = 'colocar' | 'linea'.
+function escenario(D, cfg){
+  const rL = cfg.tasaLinea, r = cfg.tasaRec, isr = cfg.isr ? 0.30 : 0, isrDiv = cfg.isrDiv || 0;
+  // 1) Serie III-P por emisión
+  const E = D.em.map((e, k) => {
+    const reinv = k > 0 && cfg.dec[k-1] === 'reinv';
+    if (!reinv) return Object.assign({}, e, {reinv:false, recAll: e.rec.slice(), recFuera: []});
+    const sal = zeros(), rec = zeros();
+    for (let i=e.emis;i<N;i++) sal[i] = e.P;         // la recompra pasa al año 10 (meses 111-120), fuera del horizonte
+    const d = divPaid(sal);
+    const recFuera = [111,114,117,120].map(m => e.emis + m - 1);   // índices > 119
+    return Object.assign({}, e, {reinv:true, sal, rec, dev:d.dev, paid:d.paid, recFuera});
+  });
+  const tot = key => { const o = zeros(); E.forEach(e => e[key].forEach((v,i)=> o[i]+=v)); return o; };
+  const sal = tot('sal'), dev = tot('dev'), paid = tot('paid'), rec = tot('rec');
+  // 2) Recolocación de CIMA
+  const recC = zeros(); E.slice(1).forEach(e => e.rec.forEach((v,i)=> recC[i]+=v));
+  let C110 = -1; recC.forEach((v,i)=>{ if (v>0.5) C110 = i; });
+  E.slice(1).forEach(e => (e.recFuera||[]).forEach(i => { C110 = Math.max(C110, i); }));
+  const base = recoloca(D.rc.cap, D.rc.rec, D.rc.C110, r);
+  const alt  = cfg.uso === 'colocar' ? recoloca(D.rc.cap, recC, C110, r) : base;
+  // 3) Diferencias contra el modelo (decisión actual del libro: pagar a SOCIO en el año 5)
+  const B = { paid: D.em.reduce((o,e)=>{ e.paid.forEach((v,i)=>o[i]+=v); return o; }, zeros()),
+              dev:  D.em.reduce((o,e)=>{ e.dev.forEach((v,i)=>o[i]+=v); return o; }, zeros()),
+              rec:  D.em.reduce((o,e)=>{ e.rec.forEach((v,i)=>o[i]+=v); return o; }, zeros()),
+              sal:  D.em.reduce((o,e)=>{ e.sal.forEach((v,i)=>o[i]+=v); return o; }, zeros()) };
+  const dRec = rec.map((v,i)=> v - B.rec[i]);               // negativo: recompra que ya no se paga
+  const dPaid = paid.map((v,i)=> v - B.paid[i]);            // dividendo adicional pagado
+  const dDev = dev.map((v,i)=> v - B.dev[i]);
+  const dPool = alt.pool.map((v,i)=> v - base.pool[i]);     // cartera CIMA adicional
+  const dInc = alt.inc.map((v,i)=> v - base.inc[i]);        // intereses adicionales de la recolocación
+  const dPoolFlow = dPool.map((v,i)=> v - (i ? dPool[i-1] : 0)); // colocación neta adicional del mes
+  const dPiso = dPaid.map((v,i)=> i+1 < N ? dPaid[i+1] : 0);      // el piso cubre las salidas del mes siguiente
+  // 4) Primera pasada sin ISR para medir el ahorro de intereses; luego con ISR (aproximación mensual)
+  const run = (taxSave) => {
+    const dC = zeros();
+    for (let i=0;i<N;i++) dC[i] = gC[i] - dRec[i] - dPoolFlow[i] + dInc[i] - dPaid[i] - isrDiv*dPaid[i] - isr*(dInc[i] + taxSave[i]);
+    return linea(D, dC, dPiso.map((v,i)=> v + gP[i]), rL);
+  };
+  // Gastos de operación proyectados (cfg.dG: gasto adicional del mes frente al modelo). Salen de la caja netos de ISR
+  // y suben el piso del mes anterior, porque el piso cubre las salidas del mes siguiente ('Colocación Real' filas 570-573).
+  const dG = cfg.dG || zeros(), isrG = cfg.isr ? 0.30 : 0;
+  const gC = dG.map(v => -v * (1 - isrG)), gP = dG.map((v,i)=> i+1 < N ? dG[i+1] : 0);
+  const Lorig = linea(D, zeros(), zeros(), rL);             // el modelo tal como está
+  const L0 = linea(D, gC, gP, rL);                           // el modelo con los gastos seleccionados (base de comparación)
+  const dResG = dG.map((v,i)=> -(v + (L0.INT[i] - Lorig.INT[i])) * (1 - isrG));
+  let used = zeros(), Lx = run(used);
+  let ahorro = Lx.INT.map((v,i)=> L0.INT[i] - v);
+  if (isr){ for (let k=0;k<4;k++){ used = ahorro; Lx = run(used); ahorro = Lx.INT.map((v,i)=> L0.INT[i] - v); } }
+  const isrM = dInc.map((v,i)=> isr*(v + used[i]));
+  const isrD = dPaid.map(v => isrDiv*v);
+  const dRes = dInc.map((v,i)=> v + ahorro[i] - isrM[i]);   // cambio en el resultado neto (los dividendos no son gasto)
+  return {cfg, E, sal, dev, paid, rec, base, alt, B, dRec, dPaid, dDev, dPool, dInc, dPoolFlow, dPiso,
+          L0, L:Lx, Lorig, dG, gC, gP, dResG, ahorro, isrM, isrD, dRes, C110};
+}
+if (typeof module !== 'undefined') module.exports = {escenario, divPaid, recoloca, linea, N, Y0, sumA};
+
+const MES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const ymOf = i => [Y0 + Math.floor(i/12), (i%12)+1];
+const lbl = i => { if (i < 0) return '–'; const [y,m] = ymOf(i); return MES[m-1]+'-'+String(y).slice(2); };
+const $ = id => document.getElementById(id);
+const fmt = v => { const r = Math.abs(v) < 0.5 ? 0 : v; return r.toLocaleString('es-MX',{maximumFractionDigits:0}); };
+const M1 = v => (v/1e6).toLocaleString('es-MX',{minimumFractionDigits:1, maximumFractionDigits:1});
+const Mm = v => (v/1e6).toLocaleString('es-MX',{minimumFractionDigits:1, maximumFractionDigits:1}) + ' M';
+const sgm = v => (v >= 0 ? '+' : '−') + Mm(Math.abs(v));
+const pct = v => (v*100).toLocaleString('es-MX',{maximumFractionDigits:1}) + '%';
+function cell(v, cls=''){ const neg = v < -0.05e6 ? ' neg' : ''; return `<td class="n${neg}${cls?' '+cls:''}">${Math.abs(v) < 0.05e6 ? '–' : M1(v)}</td>`; }
+const YRS = [2026,2027,2028,2029,2030,2031,2032,2033,2034,2035];
+const anual = a => YRS.map((y,k) => sumA(a.slice(k*12, k*12+12)));
+const dic = a => YRS.map((y,k) => a[k*12+11]);
+const maxi = a => { let m = -Infinity, j = -1; a.forEach((v,i)=>{ if (v > m){ m = v; j = i; } }); return [m, j]; };
+
+const st = { dec: ['pagar','pagar','pagar'], uso: 'colocar', tasaRec: 0.27, tasaLinea: DATA.lnp.tasa, isr: true, isrDiv: 0, banda: 'A', apal: null, tope: true, pi: DATA.gs.inpc };
+
+// Gastos de operación: plan del modelo con inflación hasta 2030; desde 2031, misma proporción de los ingresos de la operación que en 2030.
+function gastosProy(){
+  const G = DATA.gs, Gm = YRS.map((y,k)=> sumA(G.g570.slice(k*12,k*12+12))), pi = st.pi;
+  const inf = Gm.map((v,k)=> k === 0 ? v : v * Math.pow(1+pi, k));
+  const Gp = inf.map((v,k)=> k <= 4 ? v : inf[4] / G.ing[4] * G.ing[k]);
+  const dG = new Array(N).fill(0);
+  YRS.forEach((y,k)=>{ const f = Gm[k] ? (Gp[k]-Gm[k])/Gm[k] : 0; for (let i=k*12;i<k*12+12;i++) dG[i] = G.g570[i]*f; });
+  return {Gm, Gp, dG};
+}
+const cfg = () => ({ dec: st.dec, uso: st.uso, tasaRec: st.tasaRec, tasaLinea: st.tasaLinea, isr: st.isr, isrDiv: st.isrDiv, dG: gastosProy().dG });
+const esPagar = () => st.dec.every(d => d === 'pagar');
+const decTxt = () => esPagar() ? 'pagarle a SOCIO en el año 5' :
+  (st.dec.every(d => d === 'reinv') ? 'SOCIO deja su dinero otros 5 años en las tres emisiones' : st.dec.map((d,k)=> `${['1.ª','2.ª','3.ª'][k]} emisión: ${d==='pagar'?'se le paga':'deja su dinero'}`).join('; ')) +
+  (esPagar() ? '' : (st.uso === 'colocar' ? ', y el dinero se presta en nuevos proyectos CIMA' : ', y el dinero paga la línea'));
+function beneficio(S){ return sumA(S.dRes) - sumA(S.dDev) - sumA(S.isrD); }
+function equilibrio(){
+  if (esPagar() || st.uso !== 'colocar') return null;
+  const f = r => beneficio(escenario(DATA, Object.assign(cfg(), {tasaRec: r})));
+  let lo = 0, hi = 0.6; if (f(hi) < 0) return null; if (f(lo) > 0) return 0;
+  for (let k=0;k<40;k++){ const m = (lo+hi)/2; if (f(m) > 0) hi = m; else lo = m; }
+  return (lo+hi)/2;
+}
+function cambios(S){
+  const dDisp = S.L.DISP.map((v,i)=> v - S.Lorig.DISP[i]), dPago = S.L.PAGO.map((v,i)=> v - S.Lorig.PAGO[i]);
+  return { gas: S.gC, rec: S.dRec.map(v=>-v), div: S.dPaid.map((v,i)=> -v - S.isrD[i]), col: S.dPoolFlow.map(v=>-v), inc: S.dInc,
+    ahorro: S.Lorig.INT.map((v,i)=> v - S.L.INT[i]), isr: S.isrM.map(v=>-v), lin: dDisp.map((v,i)=> v - dPago[i]),
+    caja: S.L.CF.map((v,i)=> v - DATA.ln['575'][i]) };
+}
+function flujo(S){
+  const F = DATA.fe, C = cambios(S), add = (a, ...b) => a.map((v,i)=> v + b.reduce((s,x)=> s + x[i], 0));
+  const r = {
+    op:  add(F['19'], C.gas, C.inc, C.isr),
+    col: add(F['32'], C.col),
+    af:  F['37'].slice(),
+    fin: add(F['45'], C.lin, C.ahorro),
+    ap:  F['57'].slice(),
+    rep: F['58'].slice(),
+    div: add(F['59'], C.div),
+    rec: add(F['60'], C.rec)
+  };
+  r.neto = r.op.map((v,i)=> v + r.col[i] + r.af[i] + r.fin[i] + r.ap[i] + r.rep[i] + r.div[i] + r.rec[i]);
+  r.caja = S.L.CF; r.linea = S.L.L;
+  return r;
+}
+
+function render(){
+  const S = escenario(DATA, cfg()); window.__S = S;
+  document.querySelectorAll('#segAll button').forEach(b => b.classList.toggle('on', st.dec.every(d => d === b.dataset.d)));
+  document.querySelectorAll('#segUso button').forEach(b => b.classList.toggle('on', b.dataset.u === st.uso));
+  document.querySelectorAll('#rowEm .seg').forEach((sg,k) => sg.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.d === st.dec[k])));
+  $('rowUso').style.opacity = esPagar() ? 0.45 : 1;
+  document.querySelectorAll('.decBadge').forEach(e => { e.className = 'decBadge ' + (esPagar()?'bpag':'brec'); e.innerHTML = `Decisión que muestra esta sección: <b>${decTxt()}</b>.`; });
+  renderResumen(S); renderFE(S); renderProd(S); renderCapac(); renderGastos(S); renderEmis();
+  $('fuente').textContent = `modelo de proyecciones de SOFIMAS, ${DATA.fuente.archivo} (guardado el ${DATA.fuente.guardado})`;
+}
+
+function renderResumen(S){
+  const P = escenario(DATA, Object.assign(cfg(), {dec:['pagar','pagar','pagar']}));
+  const [mb, jb] = maxi(P.L.L), [ma, ja] = maxi(S.L.L);
+  const cap = capacidad().out, c31 = cap[5];
+  const recCIMA = sumA(DATA.em.slice(1).map(e=>e.P));
+  if (esPagar()){
+    $('resTxt').innerHTML = `
+      <div class="big">
+        <div><b>Se le regresa a SOCIO</b><span>${Mm(recCIMA)}</span><small>entre enero de 2031 y junio de 2032</small></div>
+        <div><b>Saldo máximo de la línea</b><span>${Mm(mb)}</span><small>${lbl(jb)}</small></div>
+        <div><b>Saldo de la línea a dic-35</b><span>${Mm(P.L.L[119])}</span><small></small></div>
+        <div><b>Capacidad para crecer sin usar, dic-31</b><span>${Mm(c31.x5)}</span><small>con calificación HR A</small></div>
+      </div>
+      <ul>
+        <li>Así está hoy la proyección: en el año 5 de cada emisión se le recompran sus acciones a SOCIO. Se le paga con el capital que va devolviendo CIMA, y lo que falta lo cubre la línea NAFIN/FIFOMI.</li>
+        <li>Aun sin el dinero de SOCIO, el capital de SOFIMAS alcanza para sostener mucha más cartera de la que se proyecta: en 2031 se usa ${pct(c31.car/c31.cap5)} de esa capacidad.</li>
+        <li>Para ver qué pasa si SOCIO deja su dinero otros 5 años, cámbialo arriba, para las tres emisiones o para cada una.</li>
+      </ul>`;
+    return;
+  }
+  const ben = beneficio(S), eq = equilibrio(), recEv = -sumA(S.dRec);
+  $('resTxt').innerHTML = `
+    <div class="big">
+      <div><b>Dinero de SOCIO que se queda</b><span>${Mm(recEv)}</span><small>se le paga en 2036-2037</small></div>
+      <div><b>Dividendos adicionales a SOCIO</b><span>${Mm(sumA(S.dPaid))}</span><small>de 2031 a 2035, al 15%</small></div>
+      <div><b>Saldo máximo de la línea</b><span>${Mm(ma)}</span><small>si se le paga: ${Mm(mb)}</small></div>
+      <div><b>Saldo de la línea a dic-35</b><span>${Mm(S.L.L[119])}</span><small>si se le paga: ${Mm(P.L.L[119])}</small></div>
+      <div><b>Cartera adicional en nuevos proyectos CIMA</b><span>${Mm(S.dPool[119])}</span><small>a dic-35</small></div>
+      <div><b>Efecto para los socios de SOFIMAS</b><span class="${ben<0?'neg':'pos'}">${sgm(ben)}</span><small>de 2026 a 2035, después de ISR</small></div>
+    </div>
+    <ul>
+      ${st.uso === 'colocar'
+        ? `<li><b>Colocación:</b> el capital que devuelve CIMA se vuelve a prestar en lugar de usarse para pagarle a SOCIO. La cartera es ${Mm(S.dPool[119])} mayor y genera ${Mm(sumA(S.dInc))} de intereses adicionales.</li>
+           <li><b>Fondeo:</b> como el dinero queda prestado, la línea casi no cambia en 2031 y 2032. Después baja más rápido, porque esa cartera rinde 27% y a SOCIO se le paga 15%.</li>`
+        : `<li><b>Fondeo:</b> el dinero que no se le paga a SOCIO se usa para pagar la línea. Su saldo máximo baja de ${Mm(mb)} a ${Mm(ma)}.</li>
+           <li><b>Colocación:</b> no cambia; el dinero de SOCIO solo sustituye deuda.</li>`}
+      <li><b>¿Conviene?</b> ${st.uso === 'linea'
+        ? 'No: el dividendo de 15% a SOCIO cuesta más que la línea, que cuesta 12% y además es deducible.'
+        : (eq !== null ? `Sí, siempre que los nuevos proyectos CIMA rindan más de ${pct(eq)} al año después de cartera vencida y gastos. Con 27%, el efecto para los socios es ${sgm(ben)}.` : '')}</li>
+      <li><b>Capacidad para crecer:</b> el capital de SOCIO permitiría sostener más cartera: en dic-31, la capacidad total sube de ${Mm(c31.cap5)} a ${Mm(c31.cap10)}.</li>
+      <li><b>Por confirmar:</b> que NAFIN, FIFOMI y HR cuenten la Serie III-P como capital, porque SOFIMAS puede recomprarla.</li>
+    </ul>`;
+}
+
+function renderFE(S){
+  const r = flujo(S);
+  const filas = [
+    ['Flujo de la operación', r.op], ['Colocación de cartera', r.col], ['Inversión en activo fijo', r.af],
+    ['Financiamiento con deuda (incluye la línea NAFIN/FIFOMI)', r.fin], ['Aportación de capital de SOCIO (Serie III-P)', r.ap],
+    ['Reparto de utilidades a socios fundadores', r.rep], ['Dividendos a SOCIO (Serie III-P)', r.div], ['Pago a SOCIO por sus acciones (recompra)', r.rec]
+  ];
+  let h = '<table><thead><tr><th>Concepto</th>' + YRS.map(y=>`<th>${y}</th>`).join('') + '</tr></thead><tbody>';
+  filas.forEach(([n,a]) => h += `<tr><td>${n}</td>${anual(a).map(v=>cell(v)).join('')}</tr>`);
+  h += `<tr class="sum"><td>Flujo neto del año</td>${anual(r.neto).map(v=>cell(v)).join('')}</tr>`;
+  h += `<tr class="hl"><td>Caja al cierre del año</td>${dic(r.caja).map(v=>cell(v)).join('')}</tr>`;
+  h += `<tr class="hl"><td>Saldo de la línea NAFIN/FIFOMI al cierre</td>${dic(r.linea).map(v=>cell(v)).join('')}</tr>`;
+  $('tblFE').innerHTML = h + '</tbody></table>';
+}
+
+function renderLinea(S){
+  const P = escenario(DATA, Object.assign(cfg(), {dec:['pagar','pagar','pagar']}));
+  const [mb, jb] = maxi(P.L.L), [ma, ja] = maxi(S.L.L);
+  $('kpiLin').innerHTML = esPagar()
+    ? `<div class="card cardsel"><b>Saldo máximo</b><span class="v">${Mm(mb)}</span><small>${lbl(jb)}</small></div>
+       <div class="card"><b>Saldo a dic-35</b><span class="v">${Mm(P.L.L[119])}</span></div>
+       <div class="card"><b>Intereses 2027-2035</b><span class="v">${Mm(sumA(P.L.INT))}</span><small>al 12% anual</small></div>`
+    : `<div class="card"><b>Saldo máximo · si se le paga</b><span class="v">${Mm(mb)}</span><small>${lbl(jb)}</small></div>
+       <div class="card cardsel"><b>Saldo máximo · decisión elegida</b><span class="v">${Mm(ma)}</span><small>${lbl(ja)} · ${sgm(ma-mb)}</small></div>
+       <div class="card"><b>Saldo a dic-35 · si se le paga</b><span class="v">${Mm(P.L.L[119])}</span></div>
+       <div class="card cardsel"><b>Saldo a dic-35 · decisión elegida</b><span class="v">${Mm(S.L.L[119])}</span><small>${sgm(S.L.L[119]-P.L.L[119])}</small></div>`;
+  let h = '<table><thead><tr><th>Concepto</th>' + YRS.map(y=>`<th>${y}</th>`).join('') + '</tr></thead><tbody>';
+  h += `<tr><td>Saldo al cierre · si se le paga a SOCIO</td>${dic(P.L.L).map(v=>cell(v)).join('')}</tr>`;
+  h += `<tr><td>Intereses del año · si se le paga a SOCIO</td>${anual(P.L.INT).map(v=>cell(v)).join('')}</tr>`;
+  if (!esPagar()){
+    h += `<tr class="hl"><td>Saldo al cierre · decisión elegida</td>${dic(S.L.L).map(v=>cell(v)).join('')}</tr>`;
+    h += `<tr><td>Intereses del año · decisión elegida</td>${anual(S.L.INT).map(v=>cell(v)).join('')}</tr>`;
+  }
+  $('tblLin').innerHTML = h + '</tbody></table>';
+  const series = [{name:'Si se le paga a SOCIO', color:'#2980B9', w: esPagar()?3:2, vals:P.L.L}];
+  if (!esPagar()) series.push({name:'Decisión elegida', color:'#8E44AD', w:3, vals:S.L.L});
+  curva('curvaL', series, 12);
+}
+
+const PROD = [['cs','Crédito simple','#2980B9'],['fa','Factoraje','#1ABC9C'],['cc','Arrendadora SOFIMAS','#E67E22'],['af','Arrendamiento financiero (CIMA y otros)','#566573'],['rc','Nuevos proyectos CIMA','#8E44AD'],['py','Crédito PYME','#C0392B']];
+function cartera(S){
+  const C = DATA.cartera, out = {};
+  YRS.forEach((y,k) => {
+    const gross = C.at[k], f = gross > 0 ? C.atBG[k] / gross : 1;   // las partes se ajustan para sumar la cartera vigente del balance
+    const v = { cs: C.cs[k], fa: C.fa[k], cc: C.cc[k]*f, af: C.af[k]*f, rc: C.rc[k]*f + S.dPool[k*12+11], py: C.py[k]*f + C.pv[k] };
+    PROD.forEach(([key]) => (out[key] = out[key] || []).push(v[key]));
+  });
+  return out;
+}
+function renderProd(S){
+  const C = cartera(S);
+  const tot = YRS.map((y,k)=> sumA(PROD.map(([key])=> C[key][k])));
+  let h = '<table><thead><tr><th>Producto</th>' + YRS.map(y=>`<th>${y}</th>`).join('') + '</tr></thead><tbody>';
+  PROD.forEach(([key,n]) => { if (C[key].some(v => Math.abs(v) > 0.05e6)) h += `<tr><td>${n}</td>${C[key].map(v=>cell(v)).join('')}</tr>`; });
+  h += `<tr class="sum"><td>Cartera vigente total</td>${tot.map(v=>cell(v)).join('')}</tr>`;
+  $('tblProd').innerHTML = h + '</tbody></table>';
+  const host = $('barProd'); host.innerHTML = ''; const W = host.clientWidth || 900; if (!W) return;
+  const H = 360, m = {l:56, r:16, t:40, b:30}, max = Math.max(...tot) * 1.12;
+  const NS = 'http://www.w3.org/2000/svg', svg = document.createElementNS(NS,'svg');
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`); svg.setAttribute('width','100%'); svg.setAttribute('role','img'); svg.setAttribute('aria-label','Cartera vigente por producto al cierre de cada año, 2026 a 2035');
+  const el = (n, a) => { const e = document.createElementNS(NS,n); for (const k in a) e.setAttribute(k,a[k]); svg.appendChild(e); return e; };
+  const y = v => m.t + (H-m.t-m.b) * (1 - v/max), step = max > 300e6 ? 50e6 : 25e6;
+  for (let v = 0; v <= max; v += step){ el('line',{x1:m.l,x2:W-m.r,y1:y(v),y2:y(v),stroke:'var(--line)'}); const t = el('text',{x:m.l-6,y:y(v)+4,'text-anchor':'end','font-size':11,fill:'var(--muted)'}); t.textContent = (v/1e6).toFixed(0)+' M'; }
+  let lx = m.l; PROD.forEach(([key,n,c]) => { if (!C[key].some(v => v > 0.05e6)) return; el('rect',{x:lx,y:10,width:12,height:12,fill:c,rx:2}); const t = el('text',{x:lx+17,y:20,'font-size':12,fill:'var(--ink)'}); t.textContent = n; lx += 26 + n.length*6.3; });
+  const bw = (W-m.l-m.r)/10, w = bw*0.62, tip = document.createElement('div'); tip.className = 'tip'; tip.hidden = true;
+  YRS.forEach((yy,k) => {
+    const x0 = m.l + k*bw + (bw-w)/2; let acc = 0;
+    PROD.forEach(([key,n,c]) => { const v = Math.max(0, C[key][k]); if (v < 1) return; el('rect',{x:x0, y:y(acc+v), width:w, height:y(acc)-y(acc+v), fill:c}); acc += v; });
+    const t1 = el('text',{x:x0+w/2,y:y(tot[k])-5,'text-anchor':'middle','font-size':11,'font-weight':'bold',fill:'var(--ink)'}); t1.textContent = (tot[k]/1e6).toFixed(0)+' M';
+    const t = el('text',{x:x0+w/2,y:H-m.b+16,'text-anchor':'middle','font-size':11,fill:'var(--muted)'}); t.textContent = yy;
+    const hit = el('rect',{x:m.l+k*bw, y:m.t, width:bw, height:H-m.t-m.b, fill:'transparent'});
+    hit.addEventListener('pointermove', ev => { const r = svg.getBoundingClientRect();
+      tip.innerHTML = `<div class="tiph">dic-${String(yy).slice(2)}</div>` + PROD.filter(([key]) => C[key][k] > 0.05e6).map(([key,n,c]) => `<div class="tipr"><span class="tipk" style="background:${c}"></span><b>${Mm(C[key][k])}</b>&nbsp;${n} (${pct(C[key][k]/tot[k])})</div>`).join('') + `<div class="tipr"><b>${Mm(tot[k])}</b>&nbsp;total</div>`;
+      tip.hidden = false; tip.style.left = Math.min((ev.clientX - r.left) + 12, r.width - 300) + 'px'; tip.style.top = '30px'; });
+    hit.addEventListener('pointerleave', () => tip.hidden = true);
+  });
+  host.style.position = 'relative'; host.appendChild(svg); host.appendChild(tip);
+}
+
+function capacidad(){
+  const H = DATA.hr, cMin = 0.275, aMax = 2.9, rMin = 1.3;
+  const dec10 = st.dec.some(d => d === 'reinv') ? st.dec : ['reinv','reinv','reinv'];
+  const T = escenario(DATA, Object.assign(cfg(), {dec: dec10}));
+  const lim = (K, A, P, CV, DN, L) => Math.max(0, Math.min(K/cMin - A, aMax*K - P, (CV - rMin*DN)/(rMin - 1), DATA.lnp.limite - L));
+  const out = YRS.map((y,k) => {
+    const i = k*12 + 11, A = H.disp[k] + H.inv[k] + H.cn[k], DN = H.cp[k] + H.lp[k] + H.soc[k] - H.disp[k] - H.inv[k];
+    let gK = 0; for (let j=0;j<=i;j++) gK += T.dResG[j];
+    const gL = T.L0.L[i] - DATA.ln['581'][i], gCj = T.L0.CF[i] - DATA.ln['575'][i];
+    const x5 = lim(H.K[k] + gK, A + gCj, H.P[k] + gL, H.cv[k], DN + gL - gCj, T.L0.L[i]);
+    let cDev = 0, cRes = 0, cIsrD = 0; for (let j=0;j<=i;j++){ cDev += T.dDev[j]; cRes += T.dRes[j]; cIsrD += T.isrD[j]; }
+    const dK = (T.sal[i] - T.B.sal[i]) - cDev - cIsrD + cRes, dPool = T.dPool[i], dL = T.L.L[i] - T.L0.L[i], dC = T.L.CF[i] - T.L0.CF[i];
+    const x10 = lim(H.K[k] + gK + dK, A + gCj + dPool + dC, H.P[k] + gL + dL, H.cv[k] + dPool, DN + gL - gCj + dL - dC, T.L.L[i]);
+    const car = H.car[k];
+    return {y, car, x5, x10, dPool, cap5: car + x5, cap10: car + dPool + x10, extra: dPool + x10 - x5};
+  });
+  return {out};
+}
+function renderCapac(){
+  const {out} = capacidad(), o31 = out[5], o35 = out[9], d = !esPagar();
+  const sinU = o => d ? o.x10 : o.x5, capS = o => d ? o.cap10 : o.cap5;
+  $('kpiCap').innerHTML = `
+    <div class="card"><b>Cartera proyectada, dic-31</b><span class="v">${Mm(o31.car)}</span><small>dic-35: ${Mm(o35.car)}</small></div>
+    <div class="card cardsel"><b>Capacidad sin usar, dic-31</b><span class="v">${Mm(sinU(o31))}</span><small>capacidad total: ${Mm(capS(o31))}</small></div>
+    <div class="card cardsel"><b>Capacidad sin usar, dic-35</b><span class="v">${Mm(sinU(o35))}</span><small>capacidad total: ${Mm(capS(o35))}</small></div>
+    <div class="card"><b>${d ? 'Capacidad que se pierde si se le paga a SOCIO' : 'Capacidad adicional si SOCIO se quedara'}, dic-31</b><span class="v">${Mm(o31.cap10 - o31.cap5)}</span><small>dic-35: ${Mm(o35.cap10 - o35.cap5)}</small></div>`;
+  let h = '<table><thead><tr><th>Concepto</th>' + YRS.map(y=>`<th>${y}</th>`).join('') + '</tr></thead><tbody>';
+  h += `<tr><td>Cartera proyectada</td>${out.map(o=>cell(o.car)).join('')}</tr>`;
+  h += `<tr><td>Capacidad total · si se le paga a SOCIO</td>${out.map(o=>cell(o.cap5)).join('')}</tr>`;
+  h += `<tr><td>Capacidad total · si SOCIO deja su dinero</td>${out.map(o=>cell(o.cap10)).join('')}</tr>`;
+  h += `<tr class="hl"><td>Capacidad sin usar · decisión elegida</td>${out.map(o=>cell(sinU(o))).join('')}</tr>`;
+  h += `<tr><td>Parte de la capacidad que se usa · decisión elegida</td>${out.map(o=>`<td class="n">${pct((d ? o.car + o.dPool : o.car)/capS(o))}</td>`).join('')}</tr>`;
+  $('tblCap').innerHTML = h + '</tbody></table>';
+  barras(out);
+}
+
+function renderGastos(S){
+  const P = gastosProy(), G = DATA.gs;
+  let h = '<table><thead><tr><th>Concepto</th>' + YRS.map(y=>`<th>${y}</th>`).join('') + '</tr></thead><tbody>';
+  h += `<tr class="hl"><td>Gastos de operación</td>${P.Gp.map(v=>cell(v)).join('')}</tr>`;
+  h += `<tr><td>Ingresos de la operación</td>${G.ing.map(v=>cell(v)).join('')}</tr>`;
+  h += `<tr><td>Gastos ÷ ingresos de la operación</td>${P.Gp.map((v,k)=>`<td class="n">${pct(v/G.ing[k])}</td>`).join('')}</tr>`;
+  $('tblG').innerHTML = h + '</tbody></table><p class="note">Gastos sin depreciación. En 2026 y 2027 la proporción es alta porque los ingresos todavía son bajos y en 2027 se completa la contratación del equipo.</p>';
+}
+
+function renderEmis(){
+  let h = '<table><thead><tr><th>Emisión</th><th>Monto</th><th>Mes de emisión</th><th>Se decide en</th><th>Si se le paga</th><th>Si deja su dinero</th></tr></thead><tbody>';
+  const mm = i => MES[i%12]+'-'+String(Y0+Math.floor(i/12)).slice(2);
+  DATA.em.slice(1).forEach((e,k) => {
+    h += `<tr><td>${['1.ª emisión · Siemens 1 y 2','2.ª emisión · Siemens 3 y 4','3.ª emisión · Siemens 5'][k]}</td>${cell(e.P)}<td>${lbl(e.emis)}</td><td>${lbl(e.emis+47)}</td><td>${mm(e.emis+50)} a ${mm(e.emis+59)}</td><td>${mm(e.emis+110)} a ${mm(e.emis+119)}</td></tr>`;
+  });
+  h += `<tr class="sum"><td>Total</td>${cell(sumA(DATA.em.slice(1).map(e=>e.P)))}<td colspan="4"></td></tr></tbody></table>`;
+  $('tblEmis').innerHTML = h;
+}
+
+function curva(id, series, i0){
+  const host = $(id); host.innerHTML = ''; if (!host.offsetParent && host.clientWidth === 0) return;
+  const idx = []; for (let i=i0;i<N;i++) idx.push(i);
+  const W = host.clientWidth || 900, H = 300, m = {l:56, r:170, t:12, b:30};
+  const max = Math.max(1, ...series.map(s=>Math.max(...idx.map(i=>s.vals[i])))) * 1.08;
+  const x = j => m.l + (W-m.l-m.r) * j / (idx.length-1), y = v => m.t + (H-m.t-m.b) * (1 - v/max);
+  const NS = 'http://www.w3.org/2000/svg', svg = document.createElementNS(NS,'svg');
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`); svg.setAttribute('width','100%'); svg.setAttribute('role','img'); svg.setAttribute('aria-label', series.map(s=>s.name).join(' contra '));
+  const el = (n, a) => { const e = document.createElementNS(NS,n); for (const k in a) e.setAttribute(k,a[k]); svg.appendChild(e); return e; };
+  const step = max > 100e6 ? 20e6 : max > 50e6 ? 10e6 : 5e6;
+  for (let v = 0; v <= max; v += step){ el('line',{x1:m.l,x2:W-m.r,y1:y(v),y2:y(v),stroke:'var(--line)','stroke-width':1}); const t = el('text',{x:m.l-6,y:y(v)+4,'text-anchor':'end','font-size':11,fill:'var(--muted)'}); t.textContent = (v/1e6).toFixed(0)+' M'; }
+  idx.forEach((i,j) => { const [yy,mm] = ymOf(i); if (mm===1){ el('line',{x1:x(j),x2:x(j),y1:H-m.b,y2:H-m.b+4,stroke:'var(--muted)'}); const t = el('text',{x:x(j),y:H-m.b+16,'text-anchor':'middle','font-size':11,fill:'var(--muted)'}); t.textContent = yy; } });
+  const ends = [];
+  series.forEach(s => { el('path',{d: idx.map((i,j)=>`${j?'L':'M'}${x(j).toFixed(1)},${y(s.vals[i]).toFixed(1)}`).join(''), fill:'none', stroke:s.color, 'stroke-width':s.w, 'stroke-linejoin':'round'}); ends.push({s, yv:y(s.vals[N-1])}); });
+  ends.sort((a,b)=>a.yv-b.yv); for (let k=1;k<ends.length;k++) if (ends[k].yv - ends[k-1].yv < 14) ends[k].yv = ends[k-1].yv + 14;
+  ends.forEach(e => { const t = el('text',{x:W-m.r+8,y:e.yv+4,'font-size':11.5,fill:'var(--ink)'}); t.textContent = e.s.name + ' · ' + (e.s.vals[N-1]/1e6).toFixed(1) + ' M'; el('line',{x1:W-m.r+1,x2:W-m.r+6,y1:e.yv,y2:e.yv,stroke:e.s.color,'stroke-width':3}); });
+  const hair = el('line',{x1:0,x2:0,y1:m.t,y2:H-m.b,stroke:'var(--muted)','stroke-width':1,visibility:'hidden'});
+  const hit = el('rect',{x:m.l,y:m.t,width:W-m.l-m.r,height:H-m.t-m.b,fill:'transparent'});
+  host.appendChild(svg);
+  const tip = document.createElement('div'); tip.className = 'tip'; tip.hidden = true; host.appendChild(tip);
+  hit.addEventListener('pointermove', ev => {
+    const rect = svg.getBoundingClientRect(); const px = (ev.clientX - rect.left) * W / rect.width;
+    let j = Math.round((px - m.l) / (W-m.l-m.r) * (idx.length-1)); j = Math.max(0, Math.min(idx.length-1, j));
+    hair.setAttribute('x1', x(j)); hair.setAttribute('x2', x(j)); hair.setAttribute('visibility','visible');
+    tip.replaceChildren(); const hd = document.createElement('div'); hd.className = 'tiph'; hd.textContent = lbl(idx[j]); tip.appendChild(hd);
+    series.forEach(s => { const row = document.createElement('div'); row.className = 'tipr'; const k = document.createElement('span'); k.className = 'tipk'; k.style.background = s.color; const v = document.createElement('b'); v.textContent = fmt(s.vals[idx[j]]); const n = document.createElement('span'); n.textContent = ' ' + s.name; row.append(k, v, n); tip.appendChild(row); });
+    tip.hidden = false; const tx = (x(j) / W) * rect.width; tip.style.left = Math.min(tx + 12, rect.width - 260) + 'px'; tip.style.top = '8px';
+  });
+  hit.addEventListener('pointerleave', () => { tip.hidden = true; hair.setAttribute('visibility','hidden'); });
+}
+
+function barras(out){
+  const host = $('barCap'); host.innerHTML = ''; const W = host.clientWidth || 900; if (!W) return;
+  const diez = !esPagar();   // la gráfica sigue la decisión seleccionada arriba
+  const H = 400, m = {l:60, r:16, t:58, b:30};
+  const max = Math.max(...out.map(o=>Math.max(o.cap5, o.cap10))) * 1.10;
+  const step = max > 1500e6 ? 250e6 : max > 600e6 ? 100e6 : 50e6;
+  const NS = 'http://www.w3.org/2000/svg', svg = document.createElementNS(NS,'svg');
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`); svg.setAttribute('width','100%'); svg.setAttribute('role','img');
+  svg.setAttribute('aria-label', diez ? 'Cartera proyectada y potencial inutilizado si SOCIO deja su dinero 10 años' : 'Cartera proyectada y potencial inutilizado si se le paga a SOCIO en el año 5');
+  const el = (n, a, par) => { const e = document.createElementNS(NS,n); for (const k in a) e.setAttribute(k,a[k]); (par||svg).appendChild(e); return e; };
+  const C = diez ? '#8E44AD' : '#2980B9', Cref = diez ? '#2980B9' : '#8E44AD';
+  const defs = el('defs',{}); const pt = el('pattern',{id:'raya', width:8, height:8, patternUnits:'userSpaceOnUse', patternTransform:'rotate(45)'}, defs);
+  el('rect',{width:8,height:8,fill:C,'fill-opacity':0.18}, pt); el('line',{x1:0,y1:0,x2:0,y2:8,stroke:C,'stroke-width':3}, pt);
+  const y = v => m.t + (H-m.t-m.b) * (1 - v/max);
+  for (let v = 0; v <= max; v += step){ el('line',{x1:m.l,x2:W-m.r,y1:y(v),y2:y(v),stroke:'var(--line)'}); const t = el('text',{x:m.l-6,y:y(v)+4,'text-anchor':'end','font-size':11,fill:'var(--muted)'}); t.textContent = (v/1e6).toFixed(0)+' M'; }
+  const ley = [['#566573', null, 'Cartera proyectada por el modelo (se usa)']];
+  if (diez) ley.push(['#A569BD', null, 'Cartera que coloca el dinero de SOCIO (se usa)']);
+  ley.push([C, 'url(#raya)', 'Potencial inutilizado']);
+  ley.push([Cref, 'none', diez ? 'Referencia: capacidad si se le paga a SOCIO en el año 5' : 'Referencia: capacidad si SOCIO se quedara 10 años']);
+  let lx = m.l; ley.forEach(([c,f,t]) => { if (f === 'none') el('line',{x1:lx,x2:lx+16,y1:16,y2:16,stroke:c,'stroke-width':2.5,'stroke-dasharray':'4 3'}); else el('rect',{x:lx,y:10,width:16,height:12,fill:f||c,stroke:c,'stroke-width':1.5,rx:2}); const tt = el('text',{x:lx+22,y:20,'font-size':12.5,fill:'var(--ink)'}); tt.textContent = t; lx += 32 + t.length*6.4; });
+  const bw = (W-m.l-m.r)/out.length, w = bw*0.62;
+  const tip = document.createElement('div'); tip.className = 'tip'; tip.hidden = true;
+  out.forEach((o,k) => {
+    const x0 = m.l + k*bw + (bw-w)/2;
+    const usado = diez ? o.car + o.dPool : o.car, cap = diez ? o.cap10 : o.cap5, sin = diez ? o.x10 : o.x5, ref = diez ? o.cap5 : o.cap10;
+    el('rect',{x:x0, y:y(o.car), width:w, height:y(0)-y(o.car), fill:'#566573', rx:2});
+    if (diez && o.dPool > 1) el('rect',{x:x0, y:y(usado), width:w, height:y(o.car)-y(usado), fill:'#A569BD'});
+    if (cap - usado > 1) el('rect',{x:x0, y:y(cap), width:w, height:y(usado)-y(cap), fill:'url(#raya)', stroke:C, 'stroke-width':1.5});
+    if (Math.abs(ref - cap) > 1) el('line',{x1:x0-4, x2:x0+w+4, y1:y(ref), y2:y(ref), stroke:Cref, 'stroke-width':2.5, 'stroke-dasharray':'4 3'});
+    const top = Math.max(cap, ref);
+    const t1 = el('text',{x:x0+w/2,y:y(top)-18,'text-anchor':'middle','font-size':11,'font-weight':'bold',fill:C}); t1.textContent = 'sin usar ' + (sin/1e6).toFixed(0) + ' M';
+    const t2 = el('text',{x:x0+w/2,y:y(top)-5,'text-anchor':'middle','font-size':10.5,fill:'var(--muted)'}); t2.textContent = 'se usa ' + Math.round(usado/cap*100) + '%';
+    const t = el('text',{x:x0+w/2,y:H-m.b+16,'text-anchor':'middle','font-size':11,fill:'var(--muted)'}); t.textContent = o.y;
+    const hit = el('rect',{x:m.l+k*bw, y:m.t, width:bw, height:H-m.t-m.b, fill:'transparent'});
+    hit.addEventListener('pointermove', ev => {
+      const r = svg.getBoundingClientRect();
+      tip.innerHTML = `<div class="tiph">dic-${String(o.y).slice(2)} · ${diez ? 'SOCIO deja su dinero 10 años' : 'se le paga a SOCIO en el año 5'}</div>`
+        + `<div class="tipr"><span class="tipk" style="background:#566573"></span><b>${fmt(o.car)}</b>&nbsp;cartera proyectada por el modelo</div>`
+        + (diez && o.dPool > 1 ? `<div class="tipr"><span class="tipk" style="background:#A569BD"></span><b>${fmt(o.dPool)}</b>&nbsp;cartera que coloca el dinero de SOCIO</div>` : '')
+        + `<div class="tipr"><span class="tipk" style="background:${C}"></span><b>${fmt(sin)}</b>&nbsp;potencial inutilizado</div>`
+        + `<div class="tipr"><b>${fmt(cap)}</b>&nbsp;capacidad total</div>`
+        + `<div class="tipr"><span class="tipk" style="background:${Cref}"></span><b>${fmt(ref)}</b>&nbsp;${diez ? 'capacidad si se le paga a SOCIO' : 'capacidad si SOCIO se quedara 10 años'}</div>`;
+      tip.hidden = false; tip.style.left = Math.min((ev.clientX - r.left) + 12, r.width - 300) + 'px'; tip.style.top = '40px';
+    });
+    hit.addEventListener('pointerleave', () => tip.hidden = true);
+  });
+  host.style.position = 'relative'; host.appendChild(svg); host.appendChild(tip);
+}
+
+
+$('rowEm').innerHTML = '<span class="lbl">Por emisión</span>' + ['1.ª emisión · Siemens 1 y 2','2.ª emisión · Siemens 3 y 4','3.ª emisión · Siemens 5'].map((n,k)=> `<div class="emrow"><span>${n} (${M1(DATA.em[k+1].P)} M)</span><div class="seg" data-k="${k}"><button data-d="pagar">Se le paga</button><button data-d="reinv">Deja su dinero</button></div></div>`).join('');
+document.querySelectorAll('#rowEm .seg').forEach(sg => sg.querySelectorAll('button').forEach(b => b.onclick = () => { st.dec[+sg.dataset.k] = b.dataset.d; render(); }));
+document.querySelectorAll('#segAll button').forEach(b => b.onclick = () => { st.dec = [b.dataset.d, b.dataset.d, b.dataset.d]; render(); });
+document.querySelectorAll('#segUso button').forEach(b => b.onclick = () => { st.uso = b.dataset.u; render(); });
+$('btnPrint').onclick = () => window.print();
+$('btnCSV').onclick = () => {
+  const S = window.__S, r = flujo(S), C = cartera(S);
+  const rows = [['Año','Flujo de la operación','Colocación','Financiamiento con deuda','Dividendos a SOCIO','Recompra a SOCIO','Flujo neto','Caja al cierre','Línea al cierre', ...PROD.map(p=>'Cartera '+p[1])]];
+  YRS.forEach((y,k) => rows.push([y, ...[anual(r.op), anual(r.col), anual(r.fin), anual(r.div), anual(r.rec), anual(r.neto), dic(r.caja), dic(r.linea)].map(a=>a[k].toFixed(0)), ...PROD.map(p=>C[p[0]][k].toFixed(0))]));
+  const csv = '﻿"Decisión: ' + decTxt() + '"\r\n' + rows.map(x=>x.map(v=>`"${v}"`).join(',')).join('\r\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download = 'Decision_SOCIO_resumen.csv'; a.click();
+};
+document.querySelectorAll('.menu a[data-open]').forEach(a => a.addEventListener('click', () => { const d = document.getElementById(a.dataset.open); if (d){ d.open = true; render(); } }));
+$('btnAll').onclick = () => { document.querySelectorAll('details.sec').forEach(d => d.open = true); render(); };
+$('btnNone').onclick = () => document.querySelectorAll('details.sec').forEach(d => d.open = false);
+document.querySelectorAll('details.sec').forEach(d => d.addEventListener('toggle', () => { if (d.open) render(); }));
+window.addEventListener('beforeprint', () => document.querySelectorAll('details.sec').forEach(d => d.open = true));
+window.addEventListener('resize', () => { clearTimeout(window.__rz); window.__rz = setTimeout(render, 150); });
+render();
+</script>
+</body>
+</html>
