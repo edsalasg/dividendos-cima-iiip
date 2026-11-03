@@ -281,24 +281,7 @@ table.comp td.n{min-width:92px}
     <h2>Resumen ejecutivo</h2>
     <div id="resTxt"></div>
   </section>
-  <nav class="menu noprint"><span class="lbl">Ver detalle</span><a href="#s0" data-open="s0">Qué gana cada socio</a><a href="#s1" data-open="s1">Flujo ejecutivo</a><a href="#s3" data-open="s3">Cartera por producto</a><a href="#s4" data-open="s4">Capacidad para crecer</a><a href="#s5" data-open="s5">Gastos de operación</a><a href="#s6" data-open="s6">Qué se decide y cuándo</a><a href="#s8" data-open="s8">Resumen por socio y año</a><a href="#s7" data-open="s7">Supuestos</a><button id="btnAll" type="button">Abrir todo</button><button id="btnNone" type="button">Cerrar todo</button></nav>
-
-  <details class="sec" id="s0" open>
-    <summary><h2>¿Qué gana cada socio por meter su dinero?</h2></summary>
-    <div class="secbody">
-  <div class="lead prosa" id="txtComp"></div>
-  <div class="bloque">
-  <h3>Lo mismo, en una tabla</h3>
-  <div class="wrap" id="tblComp"></div>
-  <p class="note">«Se queda 10 años» quiere decir que las acciones de 15% de las tres compras del Hospital CIMA se quedan otros 5 años en SOFIMAS; mientras tanto, SOFIMAS presta ese dinero en nuevos proyectos CIMA. El valor en libros es la parte de cada socio de lo que vale SOFIMAS en su contabilidad, sin contar las acciones de 15%. «Cuánto subió el valor en libros de su parte» compara su parte de SOFIMAS al cierre de 2025 (antes de la Opción A) con la de 2035; para PITIC incluye lo que pone de capital, que por eso también se resta como «lo que pone». La parte de septiembre de 2026 de las acciones de 15% se regresa en 2033 y 2034.</p>
-  </div>
-  <div class="bloque">
-  <h3>PITIC, año por año</h3>
-  <div class="wrap" id="tblPitic"></div>
-  <p class="note">Negativo: lo que pone PITIC. Positivo: lo que recibe. «Lleva acumulado» muestra en qué año PITIC ya recuperó en efectivo todo lo que puso.</p>
-  </div>
-    </div>
-  </details>
+  <nav class="menu noprint"><span class="lbl">Ver detalle</span><a href="#s1" data-open="s1">Flujo ejecutivo</a><a href="#s3" data-open="s3">Cartera por producto</a><a href="#s4" data-open="s4">Capacidad para crecer</a><a href="#s5" data-open="s5">Gastos de operación</a><a href="#s6" data-open="s6">Qué se decide y cuándo</a><a href="#s8" data-open="s8">Resumen por socio y año</a><a href="#s0" data-open="s0">Qué gana cada socio</a><a href="#s7" data-open="s7">Supuestos</a><button id="btnAll" type="button">Abrir todo</button><button id="btnNone" type="button">Cerrar todo</button></nav>
 
   <details class="sec" id="s1" open>
     <summary><h2>1 · Flujo ejecutivo anual</h2></summary>
@@ -376,8 +359,25 @@ table.comp td.n{min-width:92px}
     </div>
   </details>
 
+  <details class="sec" id="s0" open>
+    <summary><h2>7 · ¿Qué gana cada socio por meter su dinero?</h2></summary>
+    <div class="secbody">
+  <div class="lead prosa" id="txtComp"></div>
+  <div class="bloque">
+  <h3>Lo mismo, en una tabla</h3>
+  <div class="wrap" id="tblComp"></div>
+  <p class="note">«Se queda 10 años» quiere decir que las acciones de 15% de las tres compras del Hospital CIMA se quedan otros 5 años en SOFIMAS; mientras tanto, SOFIMAS presta ese dinero en nuevos proyectos CIMA. El valor en libros es la parte de cada socio de lo que vale SOFIMAS en su contabilidad, sin contar las acciones de 15%. «Cuánto subió el valor en libros de su parte» compara su parte de SOFIMAS al cierre de 2025 (antes de la Opción A) con la de 2035; para PITIC incluye lo que pone de capital, que por eso también se resta como «lo que pone». La parte de septiembre de 2026 de las acciones de 15% se regresa en 2033 y 2034.</p>
+  </div>
+  <div class="bloque">
+  <h3>PITIC, año por año</h3>
+  <div class="wrap" id="tblPitic"></div>
+  <p class="note">Negativo: lo que pone PITIC. Positivo: lo que recibe. «Lleva acumulado» muestra en qué año PITIC ya recuperó en efectivo todo lo que puso.</p>
+  </div>
+    </div>
+  </details>
+
   <details class="sec" id="s7">
-    <summary><h2>7 · Supuestos</h2></summary>
+    <summary><h2>8 · Supuestos</h2></summary>
     <div class="secbody">
   <ul class="trz">
     <li><b>Opción A:</b> el 4 de noviembre de 2026 PITIC pone $19,668,602.55 de capital social, $2,261,538.46 de su parte de la Serie III-P de septiembre y $9,240,622.93 de la compra de noviembre; después pone $6,267,122.26 en febrero y $6,218,081.96 en julio de 2027. ANTEJO pone completa la compra de noviembre ($26,401,779.81), $2,398,318.39 en febrero y $11,547,866.51 en julio. Al final, 65% ANTEJO y 35% PITIC.</li>
