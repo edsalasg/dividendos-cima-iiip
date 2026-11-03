@@ -180,7 +180,7 @@ th,td{font-size:calc(12.5px * var(--escala))}
   details.sec>summary h2{font-size:13pt}
   .secbody{padding:0}
   /* Cada sección empieza en página nueva */
-  #s1,#s3,#s4,#s8,#s7{break-before:page}
+  #s0,#s1,#s3,#s4,#s8,#s7{break-before:page}
   #s1 .note{margin:3px 0} #s1 h3{margin:6px 0 3px}
   h2#trazabilidad{break-before:auto}
   .box[aria-labelledby="trazabilidad"]{break-before:page}
@@ -197,7 +197,7 @@ th,td{font-size:calc(12.5px * var(--escala))}
   thead th{white-space:normal}
   tr.grp td{font-size:8pt!important}
   /* Bloques que no se parten */
-  .chartbox,.cards,.card,.big,.big div,.decBadge,.aviso-imp,ul.trz li,.resumen li,.resumen,.box,#tblFE table,#tblProd table,#tblCap table,#tblSocAnual table,#tblValor table,#tblSoc table,#tblEmis table,#tblG table{break-inside:avoid}
+  .chartbox,.cards,.card,.big,.big div,.decBadge,.aviso-imp,ul.trz li,.resumen li,.resumen,.box,#tblFE table,#tblProd table,#tblCap table,#tblSocAnual table,#tblValor table,#tblComp table,#tblPitic table,#tblSoc table,#tblEmis table,#tblG table{break-inside:avoid}
   .chartbox{border:1px solid #D5D8DC;padding:6px}
   .chartbox svg{max-height:120mm}
   .cards{grid-template-columns:repeat(4,1fr)}
@@ -216,6 +216,10 @@ th,td{font-size:calc(12.5px * var(--escala))}
   #tblFE tr.grp td{padding:1px 4px!important}
   #s1 .decBadge{margin:2px 0 4px;padding:3px 8px}
 }
+
+td.pit{background:#E8DAEF22}
+table.comp td.n{min-width:92px}
+@media print{#tblComp th,#tblComp td,#tblPitic th,#tblPitic td{font-size:8pt!important;padding:1px 4px!important;line-height:1.2}}
 </style>
 </head>
 <body>
@@ -274,7 +278,22 @@ th,td{font-size:calc(12.5px * var(--escala))}
     <h2>Resumen ejecutivo</h2>
     <div id="resTxt"></div>
   </section>
-  <nav class="menu noprint"><span class="lbl">Ver detalle</span><a href="#s1" data-open="s1">Flujo ejecutivo</a><a href="#s3" data-open="s3">Cartera por producto</a><a href="#s4" data-open="s4">Capacidad para crecer</a><a href="#s5" data-open="s5">Gastos de operación</a><a href="#s6" data-open="s6">Qué se decide y cuándo</a><a href="#s8" data-open="s8">Resumen por socio y año</a><a href="#s7" data-open="s7">Supuestos</a><button id="btnAll" type="button">Abrir todo</button><button id="btnNone" type="button">Cerrar todo</button></nav>
+  <nav class="menu noprint"><span class="lbl">Ver detalle</span><a href="#s0" data-open="s0">Qué gana cada socio</a><a href="#s1" data-open="s1">Flujo ejecutivo</a><a href="#s3" data-open="s3">Cartera por producto</a><a href="#s4" data-open="s4">Capacidad para crecer</a><a href="#s5" data-open="s5">Gastos de operación</a><a href="#s6" data-open="s6">Qué se decide y cuándo</a><a href="#s8" data-open="s8">Resumen por socio y año</a><a href="#s7" data-open="s7">Supuestos</a><button id="btnAll" type="button">Abrir todo</button><button id="btnNone" type="button">Cerrar todo</button></nav>
+
+  <details class="sec" id="s0" open>
+    <summary><h2>Qué gana cada socio por meter dinero: pagar en el año 5 o quedarse 10 años</h2></summary>
+    <div class="secbody">
+  <p class="lead">Comparativo de lo que pone cada socio con la Opción A, cuándo y cómo se le regresa, y lo que gana con cada uno de los dos tipos de acciones: la <b>Serie III-P</b> (rinde 15% al año y se le regresa) y el <b>capital social</b> (acciones de dueño: reparto de utilidades cada año y el valor que va ganando la empresa). Esta sección muestra siempre las dos decisiones, una junto a la otra.</p>
+  <div class="cards" id="kpiComp"></div>
+  <div class="wrap" id="tblComp"></div>
+  <p class="note">«Se queda 10 años»: las tres emisiones de CIMA siguen otros 5 años, se les sigue pagando 15% y se regresan en 2036-2037; mientras tanto, SOFIMAS presta ese dinero en nuevos proyectos CIMA. La emisión de septiembre de 2026 se regresa en 2033-2034 en los dos casos. El valor contable es la parte de cada socio del capital contable de SOFIMAS sin la Serie III-P. El rendimiento anual toma lo que pone cada socio, lo que recibe en efectivo hasta 2037 y el valor contable de sus acciones de dueño, al inicio (2025) y al cierre de 2035.</p>
+  <div class="bloque">
+  <h3>PITIC: su flujo año por año</h3>
+  <div class="wrap" id="tblPitic"></div>
+  <p class="note">Negativo: lo que pone PITIC. Positivo: lo que recibe. «Acumulado» muestra en qué año PITIC ya recuperó en efectivo todo lo que puso. Además del efectivo, PITIC conserva sus acciones de dueño (35% de SOFIMAS).</p>
+  </div>
+    </div>
+  </details>
 
   <details class="sec" id="s1" open>
     <summary><h2>1 · Flujo ejecutivo anual</h2></summary>
@@ -712,6 +731,99 @@ function renderSocAnual(S){
   h += '<tr class="sum"><td>Total 2026-2035</td>' + SS.map(s => C[s].map(a=>cell(sumA(a))).join('') + cell(sumA(recibe(s)))).join('') + '</tr>';
   $('tblSocAnual').innerHTML = h + '</tbody></table>';
 }
+// ===== Comparativo por socio: pagar en el año 5 contra quedarse 10 años =====
+const M2 = 144;   // ene-2026 a dic-2037: alcanza la recompra de 2036-2037
+function valorCont(S){
+  return YRS.map((y,k) => { const i = k*12+11; let gK = 0, cDev = 0, cRes = 0, cIsrD = 0, cCap = 0, cRep = 0;
+    for (let j=0;j<=i;j++){ gK += S.dResG[j]; cDev += S.dDev[j]; cRes += S.dRes[j]; cIsrD += S.isrD[j]; cCap += S.capS[j]; cRep += S.dRepC[j]; }
+    return DATA.bg.cap[k] - DATA.bg.iiip[k] + gK + cCap - cDev - cIsrD + cRes - cRep; });
+}
+function divPaidN(bal, n){
+  const dev = new Array(n).fill(0), paid = new Array(n).fill(0); let acc = 0, ini = false;
+  for (let i=0;i<n;i++){ if (!ini && bal[i] > 0.005) ini = true; if (!ini) continue; dev[i] = DIV/12*bal[i]; paid[i] = (i % 3 === 0) ? acc : 0; acc += dev[i] - paid[i]; }
+  return paid;
+}
+// Flujos mensuales de un socio, vistos por el socio (+ recibe, − pone)
+function flujoSocio(S, s){
+  const z = () => new Array(M2).fill(0), pone = z(), div = z(), rec = z(), rep = z();
+  S.E.forEach(e => {
+    const p = e.part[s]; pone[p.emis] -= p.P;
+    if (!e.reinv){ for (let i=0;i<N;i++){ div[i] += p.paid[i]; rec[i] += p.rec[i]; } return; }
+    const sal = z(); let saldo = p.P; const paso = p.P / 4;
+    for (let i=p.emis;i<M2;i++){ if (p.recFuera.includes(i)){ rec[i] += paso; saldo -= paso; } sal[i] = Math.max(0, saldo); }
+    const pd = divPaidN(sal, M2); for (let i=0;i<M2;i++) div[i] += pd[i];
+  });
+  if (s === 'PITIC') pone[DATA.oa.capMes] -= DATA.oa.capPITIC;
+  for (let i=0;i<N;i++) rep[i] = -(DATA.fe['58'][i] - S.dRepC[i]) * DATA.oa.pct[s];
+  const vc = valorCont(S)[9] * DATA.oa.pct[s];
+  const ini = DATA.k25 * (s === 'PITIC' ? 6/33 : 27/33);
+  return {pone, div, rec, rep, vc, ini};
+}
+function tir(fl){
+  const npv = r => fl.reduce((a,v,i)=> a + v/Math.pow(1+r, i), 0);
+  let lo = -0.05, hi = 0.2; if (npv(lo) * npv(hi) > 0) return null;
+  for (let k=0;k<80;k++){ const m = (lo+hi)/2; if (npv(lo)*npv(m) <= 0) hi = m; else lo = m; }
+  return Math.pow(1 + (lo+hi)/2, 12) - 1;
+}
+function resumenSocio(S, s){
+  const f = flujoSocio(S, s), t = a => sumA(a);
+  const pone = -t(f.pone), div = t(f.div), rec = t(f.rec), rep = t(f.rep), efectivo = div + rec + rep;
+  const cash = f.pone.map((v,i)=> v + f.div[i] + f.rec[i] + f.rep[i]);
+  let acc = 0, pago = null; for (let i=0;i<M2;i++){ acc += cash[i]; if (pago === null && i > 12 && acc >= 0) pago = i; }
+  const flT = cash.slice(); flT[0] -= f.ini; flT[119] += f.vc;           // con las acciones de dueño a valor contable
+  const flP = f.pone.map((v,i)=> 0); S.E.forEach(e => { const p = e.part[s]; flP[p.emis] -= p.P; });
+  for (let i=0;i<M2;i++) flP[i] += f.div[i] + f.rec[i];                     // solo Serie III-P
+  const ultRec = (() => { let u = -1; f.rec.forEach((v,i)=>{ if (v > 1) u = i; }); return u; })();
+  return {s, pone, cap: s === 'PITIC' ? DATA.oa.capPITIC : 0, iiip: pone - (s === 'PITIC' ? DATA.oa.capPITIC : 0), div, rec, rep, efectivo,
+    ini: f.ini, vc: f.vc, gan: efectivo + f.vc - pone - f.ini, veces: (efectivo + f.vc) / (pone + f.ini),
+    tirT: tir(flT), tirP: tir(flP), pago, ultRec, cash};
+}
+function renderComp(){
+  const base = cfg(), S5 = escenario(DATA, Object.assign({}, base, {dec:['pagar','pagar','pagar']})), S10 = escenario(DATA, Object.assign({}, base, {dec:['reinv','reinv','reinv']}));
+  const C = [['PITIC',S5,'5'],['PITIC',S10,'10'],['ANTEJO',S5,'5'],['ANTEJO',S10,'10']].map(([s,S,a]) => Object.assign(resumenSocio(S, s), {a}));
+  const both = a => { const x = C.filter(c=>c.a===a); const o = {}; ['pone','cap','iiip','div','rec','rep','efectivo','ini','vc','gan'].forEach(k=> o[k] = x[0][k] + x[1][k]); o.veces = (o.efectivo + o.vc)/(o.pone + o.ini); return o; };
+  const T = [...C, Object.assign(both('5'),{a:'5'}), Object.assign(both('10'),{a:'10'})];
+  const y = i => i == null || i < 0 ? '–' : String(Y0 + Math.floor(i/12));
+  const M = v => v == null || Math.abs(v) < 0.05e6 ? '–' : M1(v), P = v => v == null ? '–' : pct(v);
+  const fila = (n, f, cls='', fmtf=M) => `<tr${cls?` class="${cls}"`:''}><td>${n}</td>${T.map((c,j)=>`<td class="n${j<2?' pit':''}">${fmtf(f(c), c)}</td>`).join('')}</tr>`;
+  const g = n => `<tr class="grp"><td colspan="7">${n}</td></tr>`;
+  let h = '<table class="grp2 comp"><thead><tr class="grp"><th rowspan="2">Millones de pesos</th><th colspan="2" class="grec">PITIC</th><th colspan="2" class="gpag">ANTEJO (MAES)</th><th colspan="2">Los dos socios</th></tr><tr>'
+    + ['Se paga en el año 5','Se queda 10 años','Se paga en el año 5','Se queda 10 años','Se paga en el año 5','Se queda 10 años'].map(x=>`<th>${x}</th>`).join('') + '</tr></thead><tbody>';
+  h += g('Lo que pone en 2026 y 2027');
+  h += fila('Capital social (acciones de dueño)', c=>c.cap) + fila('Serie III-P (acciones que rinden 15%)', c=>c.iiip) + fila('Total que pone', c=>c.pone, 'sub');
+  h += g('Lo que recibe en efectivo');
+  h += fila('Dividendos de la Serie III-P (15% al año)', c=>c.div) + fila('Le regresan la Serie III-P (recompra)', c=>c.rec);
+  h += fila('Cuándo se le regresa la Serie III-P', c=>c, '', (v,c)=> c.s ? (c.a==='5' ? '2031 a ' + y(c.ultRec) : '2036 a ' + y(c.ultRec)) : (c.a==='5' ? '2031 a 2034' : '2036 a 2037'));
+  h += fila('Reparto de utilidades como dueño, 2027-2035', c=>c.rep) + fila('Total que recibe en efectivo', c=>c.efectivo, 'sub');
+  h += fila('Recupera en efectivo todo lo que puso en', c=>c, '', (v,c)=> c.s ? y(c.pago) : '–');
+  h += g('Además, sus acciones de dueño');
+  h += fila('Valor contable al cierre de 2025 (antes de la Opción A)', c=>c.ini) + fila('Valor contable al cierre de 2035', c=>c.vc);
+  h += g('Resultado');
+  h += fila('Ganancia total (efectivo + valor contable − lo que pone − valor inicial)', c=>c.gan, 'sum');
+  h += fila('Veces que recupera su dinero', c=>c.veces, '', v=> v.toLocaleString('es-MX',{maximumFractionDigits:2}) + ' veces');
+  h += fila('Rendimiento anual de la Serie III-P (15% pagado cada trimestre)', c=>c.tirP, '', (v,c)=> c.s ? P(v) : '–');
+  h += fila('Rendimiento anual de todo lo que tiene en SOFIMAS', c=>c.tirT, 'hl', (v,c)=> c.s ? P(v) : '–');
+  $('tblComp').innerHTML = h + '</tbody></table>';
+  // Tarjetas para PITIC
+  const p5 = C[0], p10 = C[1];
+  $('kpiComp').innerHTML = `
+    <div class="card cardsel"><b>PITIC pone</b><span class="v">${Mm(p5.pone)}</span><small>${Mm(p5.cap)} de capital y ${Mm(p5.iiip)} en Serie III-P</small></div>
+    <div class="card cardsel"><b>Recibe en efectivo · se paga en el año 5</b><span class="v">${Mm(p5.efectivo)}</span><small>y conserva acciones de dueño por ${Mm(p5.vc)}</small></div>
+    <div class="card cardsel"><b>Recibe en efectivo · se queda 10 años</b><span class="v">${Mm(p10.efectivo)}</span><small>y conserva acciones de dueño por ${Mm(p10.vc)}</small></div>
+    <div class="card"><b>Rendimiento anual de todo lo que tiene</b><span class="v">${P(p5.tirT)} · ${P(p10.tirT)}</span><small>año 5 · 10 años</small></div>`;
+  // Flujo año por año de PITIC
+  const yrs = []; for (let a=2026;a<=2037;a++) yrs.push(a);
+  const an = arr => yrs.map((a,k)=> sumA(arr.slice(k*12, k*12+12)));
+  const blk = c => { const f = flujoSocio(c === p5 ? S5 : S10, 'PITIC'); const pone = an(f.pone), div = an(f.div), rec = an(f.rec), rep = an(f.rep);
+    const neto = yrs.map((a,k)=> pone[k] + div[k] + rec[k] + rep[k]); let acc = 0; const ac = neto.map(v => acc += v); return {pone, div, rec, rep, neto, ac}; };
+  const A = blk(p5), B = blk(p10);
+  let t = '<table class="grp2"><thead><tr class="grp"><th rowspan="2">Año</th><th colspan="6" class="gpag">Se paga en el año 5</th><th colspan="6" class="grec">Se queda 10 años</th></tr><tr>'
+    + [0,1].map(()=> ['Pone','Dividendos III-P','Recompra III-P','Reparto de utilidades','Neto del año','Acumulado'].map(x=>`<th>${x}</th>`).join('')).join('') + '</tr></thead><tbody>';
+  yrs.forEach((a,k) => { t += `<tr><td>${a}</td>` + [A,B].map(X => cell(X.pone[k]) + cell(X.div[k]) + cell(X.rec[k]) + cell(X.rep[k]) + cell(X.neto[k],'sel') + cell(X.ac[k])).join('') + '</tr>'; });
+  t += '<tr class="sum"><td>Total</td>' + [A,B].map(X => cell(sumA(X.pone)) + cell(sumA(X.div)) + cell(sumA(X.rec)) + cell(sumA(X.rep)) + cell(sumA(X.neto)) + '<td></td>').join('') + '</tr>';
+  $('tblPitic').innerHTML = t + '</tbody></table>';
+}
+
 function renderValor(S){
   const H = DATA.hr, O = DATA.oa, k25 = DATA.k25, w0 = {ANTEJO: 27/33, PITIC: 6/33};
   const E = YRS.map((y,k) => { const i = k*12+11; let gK = 0, cDev = 0, cRes = 0, cIsrD = 0, cCap = 0, cRep = 0;
@@ -747,7 +859,7 @@ function render(){
   document.querySelectorAll('#rowEm .seg').forEach((sg,k) => sg.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.d === st.dec[k])));
   $('rowUso').style.opacity = esPagar() ? 0.45 : 1;
   document.querySelectorAll('.decBadge').forEach(e => { e.className = 'decBadge ' + (esPagar()?'bpag':'brec'); e.innerHTML = `Decisión que muestra esta sección: <b>${decTxt()}</b>.`; });
-  renderResumen(S); renderFE(S); renderProd(S); renderCapac(); renderGastos(S); renderEmis(); renderSocAnual(S); renderValor(S);
+  renderResumen(S); renderFE(S); renderProd(S); renderCapac(); renderGastos(S); renderEmis(); renderSocAnual(S); renderValor(S); renderComp();
   $('impDec').innerHTML = 'Decisión que se muestra en todas las secciones: <b>' + decTxt() + '</b>.';
   void `modelo de proyecciones de SOFIMAS, ${DATA.fuente.archivo} (guardado el ${DATA.fuente.guardado})`;
 }
